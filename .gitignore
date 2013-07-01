@@ -11,3 +11,13 @@
 *.lai
 *.la
 *.a
+
+# Visual studio project files
+*.vcxproj*
+*.sln
+*.suo
+*sdf
+
+# Visual studio compiled files
+/AdaptiveFieldDStar/Debug/*.*
+/AdaptiveFieldDStar/Release/*.*
