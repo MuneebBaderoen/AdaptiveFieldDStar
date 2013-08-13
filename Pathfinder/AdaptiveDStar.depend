@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1374492534 source:c:\users\dicky\adaptivedstar\driver.cpp
+	<iostream>
+	"Pathfinder.h"
+
+1374475072 c:\users\dicky\adaptivedstar\pathfinder.h
+	"boost/graph/adjacency_list.hpp"
+	"boost/heap/d_ary_heap.hpp"
+	<iostream>
+
+1374475524 source:c:\users\dicky\adaptivedstar\pathfinder.cpp
+	"Pathfinder.h"
+
