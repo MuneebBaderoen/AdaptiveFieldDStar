@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="Driver.cpp" />
+		<Unit filename="GraphGen.h" />
 		<Unit filename="Pathfinder.cpp" />
 		<Unit filename="Pathfinder.h" />
 		<Extensions>

@@ -1,7 +1,7 @@
 //Performs the D* Lite algorithm on a given mesh
 //Daanyaal du Toit
 //Created: 7 July 2013
-//Last Modified: 7 July 2013
+//Last Modified: 22 August 2013
 
 #ifndef PATHFINDER_H_INCLUDED
 #define PATHFINDER_H_INCLUDED
@@ -16,7 +16,28 @@ class Pathfinder{
 
     public:
 
-        typedef std::pair<float, float> node_key;
+        struct node_key : public std::pair<float,float>{
+
+            node_key(): std::pair<float,float>(INFINITY,INFINITY){}
+            node_key(float g, float rhs): std::pair<float,float>(g, rhs){}
+            bool operator <(const node_key & nk) const{
+
+                if(std::fabs(first - nk.first) < 1e-5)
+                    return second < nk.second;
+                else
+                    return first < nk.second;
+
+
+            }
+
+            friend std::ostream & operator <<(std::ostream& out, const node_key & key){
+
+                out << "(" << key.first << ", " << key.second << ")";
+                return out;
+
+            }
+
+        };
 
         struct Node{
 
@@ -26,19 +47,21 @@ class Pathfinder{
             Node(int i, node_key k): index(i), key(k){}
             Node(int i, float g, float rhs): index(i), key(g, rhs){}  //initial node constructor
 
-        };
+            bool operator < (const Node & n) const{
 
-        struct NodeComp{
+                return key < n.key;
 
-            bool operator()(const Node & a, const Node & b) const{
+            }
 
-            return a.key.first < b.key.first;
+            bool operator > (const Node & n) const{
+
+                return n.key < key;
 
             }
 
         };
 
-        struct vertex_props{node_key key; vertex_props(): key(INFINITY, INFINITY){}};
+        struct vertex_props{node_key key; float x, y, z; };
 
         typedef boost::property<boost::edge_weight_t, float> WeightProp;
         typedef boost::adjacency_list<boost::listS, boost::vecS, boost::undirectedS
@@ -47,12 +70,10 @@ class Pathfinder{
         typedef typename boost::graph_traits<WeightedGraph>::in_edge_iterator ie_iterator;
         typedef typename boost::heap::d_ary_heap<Node, boost::heap::mutable_<true>
                                 , boost::heap::arity<4>
-                                //, boost::heap::stable<false>
-                                , boost::heap::compare<NodeComp>
+                                , boost::heap::compare<std::greater<Node> >
                                 > Dary_queue;
         typedef typename std::pair<int, Dary_queue::handle_type> handle_pair;
 
-        //Pathfinder(WeightedGraph & g): graph(g){};
         void findPath(int start, int end, WeightedGraph & g);
 
     private:
@@ -68,10 +89,10 @@ class Pathfinder{
         std::vector<int> path;
         WeightedGraph graph;
         int start, end;
-        float km = 0;
+        float km;
         std::map<int, Dary_queue::handle_type> on_queue;
         Dary_queue p_queue;
-
+        bool changed;
 
 };
 
