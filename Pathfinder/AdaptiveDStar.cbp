@@ -33,8 +33,10 @@
 		</Compiler>
 		<Unit filename="Driver.cpp" />
 		<Unit filename="GraphGen.h" />
-		<Unit filename="Pathfinder.cpp" />
+		<Unit filename="NodeManager.h" />
+		<Unit filename="NodeUpdator.h" />
 		<Unit filename="Pathfinder.h" />
+		<Unit filename="UpdateHelpers.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

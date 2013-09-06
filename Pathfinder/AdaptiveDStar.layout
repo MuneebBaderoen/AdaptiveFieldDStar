@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Driver.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="532" topLine="11" />
+	<File name="Driver.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="843" topLine="56" />
 	</File>
-	<File name="GraphGen.h" open="1" top="0" tabpos="2">
-		<Cursor position="3090" topLine="85" />
+	<File name="GraphGen.h" open="0" top="0" tabpos="6">
+		<Cursor position="2263" topLine="66" />
 	</File>
-	<File name="Pathfinder.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="7803" topLine="195" />
+	<File name="NodeManager.h" open="1" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="Pathfinder.h" open="1" top="0" tabpos="4">
-		<Cursor position="410" topLine="78" />
+	<File name="NodeUpdator.h" open="1" top="0" tabpos="3">
+		<Cursor position="531" topLine="3" />
+	</File>
+	<File name="Pathfinder.h" open="1" top="1" tabpos="2">
+		<Cursor position="3710" topLine="52" />
+	</File>
+	<File name="UpdateHelpers.h" open="0" top="0" tabpos="5">
+		<Cursor position="247" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

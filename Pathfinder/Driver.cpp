@@ -6,8 +6,8 @@
 #include <iostream>
 #include "Pathfinder.h"
 #include "GraphGen.h"
+#include "NodeUpdator.h"
 #include <fstream>
-#include "boost/graph/graphviz.hpp"
 #include "boost/graph/dijkstra_shortest_paths.hpp"
 
 using namespace boost;
@@ -21,9 +21,29 @@ int main(){
     g.read("bun_zipper.adg");
 
     int start = 34000, end = 1400;
+    //int start = 34280, end = 34420;
 
-    Pathfinder pf;
-    pf.findPath(start, end, g.g);
+    NodeUpdator nu;
+
+    Pathfinder pf(g.g);
+    pf.findPath(start, end);
+
+    /*nu.changeEdge(34001, 34138, 8);
+
+    nu.changeEdge(34003, 34004, 20000);
+    nu.changeEdge(34138, 34139, 100);
+    nu.changeEdge(34139, 34140, 100);
+    nu.changeEdge(33222, 33223, 500);*/
+
+    while(!pf.atEnd()){
+
+        pf.move();
+        pf.handleChanges(nu.getChanges());
+        nu.clear();
+
+    }
+
+    pf.printPath();
 
     vector<Pathfinder::WeightedGraph::vertex_descriptor> p(num_vertices(g.g));
     vector<int> d(num_vertices(g.g));
@@ -34,69 +54,26 @@ int main(){
 
     std::cout << "Djikstra distance(" << start << ", " << end << ") = " << d[end] << std::endl;
 
-/*
-    //Trivial case
-    Pathfinder::WeightedGraph graph;
-    add_edge(0, 1, 20, graph);
-    add_edge(0, 2, 2, graph);
-    add_edge(1, 3, 20, graph);
-    add_edge(2, 3, 1, graph);
-    pf.findPath(0, 3, graph);
+    //pf.findPath(start, end);
+    /*int dStart = 34000, dEnd = 1283;
+    pf.findPath(dStart, dEnd);
 
-    //Failure test
-    Pathfinder::WeightedGraph graph4;
-    add_edge(0, 1, 20, graph4);
-    remove_edge(0,1, graph4);
-    pf.findPath(0, 1, graph4);
+    while(!pf.atEnd()){
 
-    //Second-most trivial case
-    Pathfinder::WeightedGraph graph2;
-    add_edge(0, 1, 20, graph2);
-    add_edge(0, 2, 2, graph2);
-    add_edge(1, 3, 2, graph2);
-    add_edge(2, 3, 30, graph2);
-    pf.findPath(0, 3, graph2);
+        pf.move();
+        pf.handleChanges(nu.getChanges());
+        nu.clear();
 
-    int start = 0, end = 7;
+    }
 
-    //Non-trivial
-    Pathfinder::WeightedGraph graph3;
-    add_edge(0,1,20, graph3);
-    add_edge(0,2,4, graph3);
-    add_edge(0,3,19, graph3);
-    add_edge(1,4,15, graph3);
-    add_edge(1,5,7, graph3);
-    add_edge(2,4,70, graph3);
-    add_edge(2,6,1, graph3);
-    add_edge(3,5,4, graph3);
-    add_edge(3,6,10, graph3);
-    add_edge(4,7,30, graph3);
-    add_edge(5,7,80, graph3);
-    add_edge(6,7,15, graph3);
-    add_vertex(Pathfinder::vertex_props(), graph3);
-    pf.findPath(start,end, graph3);
+    pf.printPath();
 
-    vector<Pathfinder::WeightedGraph::vertex_descriptor> p(num_vertices(graph3));
-    vector<int> d(num_vertices(graph3));
+    dijkstra_shortest_paths(g.g, vertex(dStart, g.g),
+                          predecessor_map(boost::make_iterator_property_map(p.begin(), get(vertex_index, g.g))).
+                          distance_map(boost::make_iterator_property_map(d.begin(), get(vertex_index, g.g))));
 
-    dijkstra_shortest_paths(graph3, vertex(start, graph3),
-                          predecessor_map(boost::make_iterator_property_map(p.begin(), get(vertex_index, graph3))).
-                          distance_map(boost::make_iterator_property_map(d.begin(), get(vertex_index, graph3))));*/
+    std::cout << "Djikstra distance(" << dStart << ", " << dEnd << ") = " << d[dEnd] << std::endl;*/
 
 
-   // Pathfinder::WeightedGraph::vertex_iterator vi, vend;
-  //for (boost::tie(vi, vend) = vertices(graph3); vi != vend; ++vi) {
-    //std::cout << "distance(" << end << ") = " << d[end] << std::endl;
-    //std::cout << "parent(" << name[*vi] << ") = " << name[p[*vi]] << std::endl;
-  //}
-
-    /*ofstream og("graph.dot");
-    dynamic_properties dp;
-    dp.property("id", get(vertex_index,graph3));
-    dp.property("weight", get(edge_weight,graph3));
-    write_graphviz_dp(og, graph3, dp, "id");
-
-    Pathfinder::WeightedGraph ing;
-    read_graphviz("graph.dot", ing, dp, "id");*/
 
 }

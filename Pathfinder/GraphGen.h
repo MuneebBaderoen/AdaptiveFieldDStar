@@ -21,8 +21,8 @@ namespace ADStar{
 
                 ifstream fileIn(inFile.c_str());
 
-                int num_verts, num_edges;
-                fileIn >> num_verts >> num_edges;
+                int num_verts;
+                fileIn >> num_verts;
 
                 for(int i = 0; i < num_verts; ++i){
 
@@ -38,7 +38,8 @@ namespace ADStar{
 
                 while(!fileIn.eof()){
 
-                    int ind_One, ind_Two, weight;
+                    int ind_One, ind_Two;
+                    float weight;
                     fileIn >> ind_One >> ind_Two >> weight;
                     add_edge(ind_One, ind_Two, weight, g);
 
@@ -77,16 +78,18 @@ namespace ADStar{
 
                     int ind_One, ind_Two, ind_Three;
                     fileIn >> ind_One >> ind_One >> ind_Two >> ind_Three;
-                    add_edge(ind_One, ind_Two, rand() % 51, g);
-                    add_edge(ind_One, ind_Three, rand() % 51, g);
-                    add_edge(ind_Three, ind_Two, rand() % 51, g);
+                    if(!edge(ind_Two, ind_One, g).second)
+                    add_edge(ind_One, ind_Two, rand() % 51 + 20, g);
+                    if(!edge(ind_Three, ind_One, g).second)
+                    add_edge(ind_One, ind_Three, rand() % 51 + 20, g);
+                    if(!edge(ind_Two, ind_Three, g).second)
+                    add_edge(ind_Three, ind_Two, rand() % 51 + 20, g);
 
                 }
 
                 std::ofstream fileOut(outFile.c_str());
 
                 fileOut << num_verts << endl;
-                fileOut << num_edges << endl;
 
                 for(int i = 0; i < num_verts; ++i)
                 fileOut << g[i].x << " " << g[i].y << " " << g[i].z << endl;
