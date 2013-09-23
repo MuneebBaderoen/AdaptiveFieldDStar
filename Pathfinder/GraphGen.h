@@ -7,6 +7,7 @@
 #define GRAPHGEN_H_INCLUDED
 
 #include "Pathfinder.h"
+#include "NodeManager.h"
 #include <fstream>
 #include "time.h"
 
@@ -28,7 +29,7 @@ namespace ADStar{
 
                     float x, y ,z;
                     fileIn >> x >> y >> z;
-                    Pathfinder::vertex_props vp;
+                    vertex_props vp;
                     vp.x = x;
                     vp.y = y;
                     vp.z = z;
@@ -46,6 +47,14 @@ namespace ADStar{
                 }
 
             }
+
+            void readPLY(std::string inFile){
+
+
+
+            }
+
+
             void convert(std::string inFile, std::string outFile){
 
                 using namespace boost;
@@ -63,7 +72,7 @@ namespace ADStar{
 
                     float x, y ,z;
                     fileIn >> x >> y >> z;
-                    Pathfinder::vertex_props vp;
+                    vertex_props vp;
                     vp.x = x;
                     vp.y = y;
                     vp.z = z;
@@ -94,14 +103,15 @@ namespace ADStar{
                 for(int i = 0; i < num_verts; ++i)
                 fileOut << g[i].x << " " << g[i].y << " " << g[i].z << endl;
 
-                std::pair<graph_traits<Pathfinder::WeightedGraph>::edge_iterator
-                                        , graph_traits<Pathfinder::WeightedGraph>::edge_iterator> er = edges(g);
+                std::pair<graph_traits<WeightedGraph>::edge_iterator
+                                        , graph_traits<WeightedGraph>::edge_iterator> er = edges(g);
 
-                for(graph_traits<Pathfinder::WeightedGraph>::edge_iterator it = er.first; it != er.second; ++it)
+                for(graph_traits<WeightedGraph>::edge_iterator it = er.first; it != er.second; ++it)
                     fileOut << source(*it, g) << " " << target(*it, g) << " " << get(edge_weight, g, *it) << endl;
 
             }
-            Pathfinder::WeightedGraph g;
+            WeightedGraph g;
+            PathPoly_3 p;
 
 
     };

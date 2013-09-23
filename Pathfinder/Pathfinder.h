@@ -1,88 +1,57 @@
 //Performs the D* Lite algorithm on a given mesh
 //Daanyaal du Toit
 //Created: 7 July 2013
-//Last Modified: 04 September 2013
+//Last Modified: 23 September 2013
 
 #ifndef PATHFINDER_H_INCLUDED
 #define PATHFINDER_H_INCLUDED
 
-#include "boost/graph/adjacency_list.hpp"
 #include "boost/heap/d_ary_heap.hpp"
 #include "UpdateHelpers.h"
+#include "NodeManager.h"
+#include "WeightedGraph.h"
 #include <iostream>
 #include <iomanip>
 
 namespace ADStar{
 
+template<class N, class E>
 class Pathfinder{
 
-    struct node_key : public std::pair<float,float>{
-
-            node_key(): std::pair<float,float>(INFINITY,INFINITY){}
-            node_key(float g, float rhs): std::pair<float,float>(g, rhs){}
-            bool operator <(const node_key & nk) const{
-
-                if(std::fabs(first - nk.first) < 1e-5)
-                    return second < nk.second;
-                else
-                    return first < nk.second;
-
-
-            }
-
-            friend std::ostream & operator <<(std::ostream& out, const node_key & key){
-
-                out << "(" << key.first << ", " << key.second << ")";
-                return out;
-
-            }
-
-        };
-
-    struct Node{
-
-            int index;                      //graph handle for the current vertex
-            node_key key;                   //the g and rhs value of the vertex
-
-            Node(int i, node_key k): index(i), key(k){}
-            Node(int i, float g, float rhs): index(i), key(g, rhs){}  //initial node constructor
-
-            bool operator < (const Node & n) const{
-
-                return key < n.key;
-
-            }
-
-            bool operator > (const Node & n) const{
-
-                return n.key < key;
-
-            }
-
-        };
-
     public:
+    //typedefs
 
-        struct vertex_props{node_key key; float x, y, z; };
-
-        typedef boost::property<boost::edge_weight_t, float> WeightProp;
-        typedef boost::adjacency_list<boost::listS, boost::vecS, boost::undirectedS
-                    , vertex_props, WeightProp> WeightedGraph;
         typedef typename boost::graph_traits<WeightedGraph>::out_edge_iterator oe_iterator;
         typedef typename boost::graph_traits<WeightedGraph>::in_edge_iterator ie_iterator;
-        typedef typename boost::heap::d_ary_heap<Node, boost::heap::mutable_<true>
-                                , boost::heap::arity<4>
-                                , boost::heap::compare<std::greater<Node > >
-                                > Dary_queue;
-        typedef typename std::pair<int, Dary_queue::handle_type> handle_pair;
 
-        Pathfinder(WeightedGraph & g): graph(g){}
+        //Constructor
+        Pathfinder(E & g): manager(g){}
+
+    private:
+        //typedefs
+        typedef typename boost::heap::d_ary_heap<N, boost::heap::mutable_<true>
+                                , boost::heap::arity<4>
+                                , boost::heap::compare<std::greater<N> >
+                                > Dary_queue;
+        typedef typename Dary_queue::handle_type q_handle_type;
+        typedef typename NodeManager<N, E>::node_handle node_handle;
+
+        //Pathfinder members
+        NodeManager<N, E> manager;
+        std::vector<node_handle> path;
+        //E & graph;
+        node_handle last, start, end;
+        float km, cost;
+        std::map<node_handle, q_handle_type> on_queue;          //maps from node indices to nodes on the heap
+        Dary_queue p_queue;
+
+    public:
 
 //---------------------------------------------------------------------------------
 //Main pathfinding method
 //---------------------------------------------------------------------------------
 
-    void findPath(int s, int e){
+    void findPath(node_handle s, node_handle e){
 
         cost = 0;
 
@@ -94,12 +63,10 @@ class Pathfinder{
         path.clear();
         on_queue.clear();
         p_queue.clear();
-        km = 0;
-        graph[end].key.second = 0;
-        graph[end].key.first = heuristic(start, end);
+        manager.setRHS(end, 0);
+        manager.setG(end, manager.heuristic(start, end));
 
-        Dary_queue::handle_type h = p_queue.push(Node(end, heuristic(start, end), 0));
-        on_queue[end] = h;
+        on_queue[end] = p_queue.push(N(end, manager.heuristic(start, end), 0));
 
         //perform initial path computation
         computePath();
@@ -115,7 +82,7 @@ class Pathfinder{
         if(start != end){
 
         //exit if no path
-        if(graph[start].key.second == INFINITY){
+        if(manager.getRHS(start) == INFINITY){
 
             std::cout << "No path found." << std::endl;
             return;
@@ -126,35 +93,15 @@ class Pathfinder{
             std::cout << "Key of 34002 : " << graph[34002].key << std::endl;*/
 
         //calc min traversal to one of cur's successors and assign to start
-        std::pair<oe_iterator, oe_iterator> suc_range = boost::out_edges(start, graph);
+        node_handle min_succ = manager.getMinSucc(start);
 
-        float min_cost = INFINITY;
-        int min_succ;
-
-        for(oe_iterator it = suc_range.first; it != suc_range.second; ++it){
-
-            int cur_index = boost::target(*it, graph);
-
-            /*if(start == 34002)
-                std::cout << "Succ: " << cur_index << " g = " << graph[cur_index].key.first << " edge cost = "
-                    << boost::get(boost::edge_weight, graph, *it) << " Sum: "
-                    << graph[cur_index].key.first + boost::get(boost::edge_weight, graph, *it) << std::endl;*/
-
-            if(graph[cur_index].key.first + boost::get(boost::edge_weight, graph, *it) < min_cost){
-
-                min_cost = graph[cur_index].key.first + boost::get(boost::edge_weight, graph, *it);
-                min_succ = cur_index;
-
-            }
-
-        }
-
-        //std::cout << "Min Succ = " << min_succ << " g = " << graph[min_succ].key.first;
-        //std::cin >> a;
+        /*std::cout << "Min Succ = " << min_succ << " g = " << manager.getG(min_succ);
+        char a;
+        std::cin >> a;*/
 
         //move to succesor
         path.push_back(start);
-        cost += boost::get(boost::edge_weight, graph, edge(start, min_succ, graph).first);
+        cost += manager.getCost(start, min_succ);
         //std::cout << "Cost from " << start << " to " << min_succ << " = " << min_cost - graph[min_succ].key.first << std::endl;
         //std::cout << "Accum Cost = " << cost << std::endl;
         start = min_succ;
@@ -181,7 +128,7 @@ class Pathfinder{
 
             //std::cout << "Change detected" << std::endl;
 
-            km += heuristic(last,start);
+            manager.km += manager.heuristic(last,start);
             last = start;
             //for all changed (directed) edges
             for(std::vector<EdgeChange>::const_iterator it = c.begin(); it != c.end(); ++it){
@@ -189,13 +136,12 @@ class Pathfinder{
                 //std::cout << "Processing start = " << it->start << ", end = " << it->end << std::endl;
                 //std::cout << "Edge exists " << edge(it->start, it->end, graph).second << std::endl;
 
-                WeightedGraph::edge_descriptor e = edge(it->start, it->end, graph).first;
-                float old_weight = get(edge_weight, graph, e);
+                float old_weight = manager.getCost(it->start, it->end);
 
                 //std::cout << "Old weight: " << get(edge_weight, graph, e) << std::endl;
 
                 //update edge cost
-                put(edge_weight, graph, e, it->weight);
+                manager.setCost(it->start, it->end, it->weight);
 
                 //std::cout << "Change edge weight from " << old_weight << " to " << get(edge_weight, graph, e) << std::endl;
 
@@ -208,9 +154,11 @@ class Pathfinder{
                 if(it->start != end){
 
                     if(old_weight > it->weight){//std::cout << "Weight lowered." << std::endl;
-                        graph[it->start].key.second = std::min(graph[it->start].key.second, it->weight + graph[it->end].key.first);}
-                    else if(std::fabs(graph[it->start].key.second - (old_weight + graph[it->end].key.first)) == 0){//std::cout << "Accurate lookahead" << std::endl;
-                        graph[it->start].key.second = minSucCost(it->start);}
+                        //graph[it->start].key.second = std::min(graph[it->start].key.second, it->weight + graph[it->end].key.first);
+                        manager.setRHS(it->start, std::min(manager.getRHS(it->start), it->weight + manager.getG(it->end)));}
+                    else if(manager.getRHS(it->start) == (old_weight + manager.getG(it->end))){//std::cout << "Accurate lookahead" << std::endl;
+                        //graph[it->start].key.second = minSucCost(it->start);
+                        manager.setRHS(it->start, manager.getCost(it->start, manager.getMinSucc(it->start)) + manager.getG(manager.getMinSucc(it->start)));}
 
                 }
                 /*if(it->end != end){
@@ -243,58 +191,159 @@ class Pathfinder{
 
     void printPath(){
 
+        std::cout << "Starting Path:" << std::endl << "================================================" << std::endl;
+
+        node_handle cur = start;
+        node_handle tempCur;
+        float cost = start->key.second;
+        std::vector<CGAL::Point_3<K> > path;
+        path.push_back(cur->point());
+        bool interpol = false;
+        PathPoly_3::Halfedge_handle intEdge;
+
+        while(cur != end){
+
+            if(interpol){
+
+                std::cout << "Processing interpolated point " << tempCur->point() << std::endl;
+                PathPoly_3::Halfedge_around_vertex_circulator it = tempCur->vertex_begin();
+                costPair lowCost(INFINITY, intPair());
+                PathPoly_3::Facet_handle lowTri;
+
+                do{
+
+                    if(it->facet() != PathPoly_3::Facet_handle() && lowCost.first > manager.getCost(tempCur, it->facet())){
+                        std::cout << "Processing triangle with weight " << it->facet()->weight << std::endl;
+                        lowCost = manager.getCostPair(tempCur, it->facet());
+                        lowTri = it->facet();
+                        }
+                    ++it;
+
+                }
+                while(it != tempCur->vertex_begin());
+
+                std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point() << std::endl;
+
+                nextPair next = manager.getNextVert(lowTri, lowCost);
+                interpol = next.first;
+                path.push_back(lowCost.second.first.point());
+                if(!interpol){
+
+                    //Find point on original mesh
+                    PathPoly_3::Facet_handle f = intEdge->facet();
+                    PathPoly_3::Halfedge_around_facet_circulator fit1 = f->facet_begin();
+
+                    do{
+
+                        if(isEqual(*(fit1->vertex()), *(next.second.first))){
+
+                            cur = fit1->vertex();
+                            break;
+
+                        }
+                        ++fit1;
+
+                    }
+                    while(fit1 != f->facet_begin());
+
+                    if(intEdge->opposite()->facet() != PathPoly_3::Facet_handle()){
+
+                    f = intEdge->opposite()->facet();
+                    PathPoly_3::Halfedge_around_facet_circulator fit2 = f->facet_begin();
+
+                    do{
+
+                        if(isEqual(*(fit2->vertex()), *(next.second.first))){
+
+                            cur = fit2->vertex();
+                            break;
+
+                        }
+                        ++fit2;
+
+                    }
+                    while(fit2 != f->facet_begin());
+
+                }
+
+                }
+                else{
+                    tempCur = next.second.first;
+                    intEdge = next.second.second;
+                    }
+
+
+            }
+            else{
+
+                std::cout << "Processing mesh point " << cur->point() << std::endl;
+
+                PathPoly_3::Halfedge_around_vertex_circulator it = cur->vertex_begin();
+                costPair lowCost(INFINITY, intPair());
+                PathPoly_3::Facet_handle lowTri;
+
+                //get triangle with lowest cost func
+                do{
+
+                    if(it->facet() != PathPoly_3::Facet_handle() && lowCost.first > manager.getCost(cur, it->facet())){
+                        std::cout << "Processing triangle with weight " << it->facet()->weight << std::endl;
+                        lowCost = manager.getCostPair(cur, it->facet());
+                        lowTri = it->facet();
+                        }
+                    ++it;
+
+                }
+                while(it != cur->vertex_begin());
+
+                std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point() << std::endl;
+
+                nextPair next = manager.getNextVert(lowTri, lowCost);
+                interpol = next.first;
+                path.push_back(lowCost.second.first.point());
+                if(!interpol)
+                    cur = next.second.first;
+                else{
+                    tempCur = next.second.first;
+                    intEdge = next.second.second;
+                    }
+
+            }
+
+        }
+
         std::cout << "Shortest Path:" << std::endl;
-        for(std::vector<int>::iterator it = path.begin(); it != path.end(); ++it)
-            std::cout << *it << " ";
+        for(typename std::vector<CGAL::Point_3<K> >::iterator it = path.begin(); it != path.end(); ++it)
+            std::cout << "(" << *it << ") ";
         std::cout << std::endl;
 
         std::cout << "Path cost: " << cost << std::endl;
 
     }
-        inline bool atEnd(){return start == end;}
+
+    inline bool atEnd(){return start == end;}
 
     private:
-
-        //Pathfinder members
-        std::vector<int> path;
-        WeightedGraph & graph;
-        int last, start, end;
-        float km, cost;
-        std::map<int, Dary_queue::handle_type> on_queue;
-        Dary_queue p_queue;
-
-//---------------------------------------------------------------------------------
-//Compute priority key of node
-//---------------------------------------------------------------------------------
-
-    node_key computeKey(int index){
-
-    return node_key(std::min(graph[index].key.first, graph[index].key.second) + heuristic(start, index) + km
-                    , std::min(graph[index].key.first, graph[index].key.second));
-
-    }
 
 //---------------------------------------------------------------------------------
 //Change the key of graph node
 //---------------------------------------------------------------------------------
 
-    void updateNode(int index){
+    void updateNode(node_handle index){
 
-        if(graph[index].key.first != graph[index].key.second){  //if key is inconsistent
+        if(manager.getG(index) != manager.getRHS(index)){  //if key is inconsistent
             if(on_queue.find(index) != on_queue.end()){         //if already on queue
             //update node priority
 
-            //graph[index].key = computeKey(index);
-            p_queue.update(on_queue[index], Node(index, computeKey(index)));
+            p_queue.update(on_queue[index], N(index, manager.computeKey(start, index)));
+            index->key = manager.computeKey(start, index);
             //std::cout << "Updating key for node " << index << " to " << graph[index].key << std::endl;
 
             }
             else{
             //insert node onto queue
-            //graph[index].key = computeKey(index);
-            Dary_queue::handle_type h = p_queue.push(Node(index, computeKey(index)));
-            on_queue[index] = h;
-            //std::cout << "Inserting node " << index << " with key " << graph[index].key << std::endl;
+            on_queue[index] = p_queue.push(N(index, manager.computeKey(start, index)));
+            index->key = manager.computeKey(start, index);
+            std::cout << "Inserting node " << index->point() << " with key " << manager.computeKey(start, index) << std::endl;
             }
 
         }
@@ -314,121 +363,116 @@ class Pathfinder{
 
     void computePath(){
 
-    while(!p_queue.empty() && (p_queue.top().key < computeKey(start) || graph[start].key.second > graph[start].key.first)){
-    //while(!p_queue.empty() && (p_queue.top().key < computeKey(start) || graph[start].key.second - graph[start].key.first > 1e-5)){
+    while(!p_queue.empty() && (node_key(p_queue.top().getG(), p_queue.top().getRHS()) < manager.computeKey(start, start) || manager.getRHS(start) > manager.getG(start))){
 
-        //std::cout << "Processing Node " << p_queue.top().index << std::endl;
-
+        std::cout << "Processing Node " << p_queue.top().index->point() << std::endl;
         //compare old and new keys for changes
-        int top_index = p_queue.top().index;
-        node_key key_old = p_queue.top().key;
-        node_key key_new = computeKey(top_index);
+        node_handle top_index = p_queue.top().index;
+        node_key key_old(p_queue.top().getG(), p_queue.top().getRHS());
+        node_key key_new = manager.computeKey(start, top_index);
 
-        //std::cout << "Old key of " << top.index << " : " << key_old << std::endl;
-        //std::cout << "New key of " << top.index << " : " << key_new << std::endl;
+        std::cout << "Old key of " << top_index->point() << " : " << key_old << std::endl;
+        std::cout << "New key of " << top_index->point() << " : " << key_new << std::endl;
+
+        //char a;
+        //std::cin >> a;
 
         //if key has changed
         if(key_old < key_new){
 
             //update the current node on the queue
-            //std::cout << "Updating node " << top.index << " with key " << key_new.first << ", " << key_new.second << std::endl;
-            p_queue.update(on_queue[top_index], Node(top_index, key_new));
+            std::cout << "Updating node " << top_index->point() << " with key " << key_new << std::endl;
+            p_queue.update(on_queue[top_index], N(top_index, key_new));
 
             }
         //if the graph's key has different values
-        else if(graph[top_index].key.first > graph[top_index].key.second){
+        else if(manager.getG(top_index) > manager.getRHS(top_index)){
 
-            //std::cout << "Adjusting inconsistent key of " << top.index << std::endl;
+            std::cout << "Adjusting inconsistent key " << key_old << " of " << top_index->point() << std::endl;
             //update node and remove from queue
-            graph[top_index].key.first = graph[top_index].key.second;
+            manager.setG(top_index, manager.getRHS(top_index));
             p_queue.pop();
             on_queue.erase(top_index);
 
-            std::pair<ie_iterator, ie_iterator> pred_range = boost::in_edges(top_index, graph);
+            //std::cin >> a;
 
-            //for all predecesors
-            for(ie_iterator it = pred_range.first; it != pred_range.second; ++it){
+            std::vector<node_handle> toProcess = manager.getPreds(top_index, false);
+            //std::cout << toProcess.size() << std::endl;
+            //std::cin >> a;
+            for(typename std::vector<node_handle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it){
 
-                int cur_index = boost::source(*it, graph);
-                if(cur_index != end){           //if that node is not goal
+                //std::cout << top_index->point() << " != " << (*it)->point() << " : ";
+                //std::cout << (*it != end) << std::endl;
 
-                    graph[cur_index].key.second = std::min(graph[cur_index].key.second, boost::get(boost::edge_weight, graph, *it)  + graph[top_index].key.first); //rhs = min g and cost of any successor
-                    //std::cout << "Set key of " << cur_index << " to " << graph[cur_index].key << std::endl;
+                /*std::cout << "Setting RHS of " << (*it)->point();
+                std::cout << " to min(" << manager.getRHS(*it) << ", ";
+                std::cout << manager.getG(top_index) << " + " << manager.getCost(*it, top_index) << ")" << std::endl;*/
+
+                if(*it != end){
+
+                    PathPoly_3::Halfedge_around_vertex_circulator vit = (*it)->vertex_begin();
+
+                    do{
+
+                        if(vit->facet() != PathPoly_3::Facet_handle()){
+
+                            std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
+                            manager.setRHS(*it, std::min(manager.getRHS(*it), manager.getCost(*it, vit->facet())));
+
+                            }
+
+                        ++vit;
+
+                    }
+                    while(vit != (*it)->vertex_begin());
+
+                    std::cout << "RHS of " << (*it)->point() << " set to " << manager.getRHS(*it) << std::endl;
 
                 }
 
-            //update node
-            //std::cout << "Update Node " << cur_index << std::endl;
-            updateNode(cur_index);
-            }
+
+                //std::cin >> a;
+
+                updateNode(*it);
+
+                }
 
         }
         else{
 
-        float old_g = graph[top_index].key.first;
-        graph[top_index].key.first = INFINITY;
+        //float old_g = manager.getG(top_index);
+        manager.setG(top_index, INFINITY);
 
         //std::cout << "Key of " << top.index << " : " << graph[top.index].key << std::endl;
 
-        std::pair<ie_iterator, ie_iterator> pred_range = boost::in_edges(top_index, graph);
+        std::vector<node_handle> toProcess = manager.getPreds(top_index, true);
+        for(typename std::vector<node_handle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it){
 
-        //for all predecesors and cur node
-        for(ie_iterator it = pred_range.first; it != pred_range.second; ++it){
+            if(*it != end){
 
-            int cur_index = boost::source(*it, graph);
-            //if that node rhs = cost to that node from cur + g_cur
-            if(graph[cur_index].key.second == boost::get(boost::edge_weight, graph, *it) + old_g)
-                if(cur_index != end){           //if that node is not goal
+            PathPoly_3::Halfedge_around_vertex_circulator vit = (*it)->vertex_begin();
 
-                    graph[cur_index].key.second = minSucCost(cur_index); //rhs = min g and cost of any successor
+            do{
+
+                if(vit->facet() != PathPoly_3::Facet_handle()){
+
+                    std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
+                    manager.setRHS(*it, std::min(manager.getRHS(*it), manager.getCost(*it, vit->facet())));
 
                 }
 
-            //update node
-            updateNode(cur_index);
+            }
+            while(vit != (*it)->vertex_begin());
+
             }
 
-        if(graph[top_index].key.second == old_g)
-            if(top_index != end)           //if that node is not goal
-                graph[top_index].key.second = minSucCost(top_index); //rhs = min g and cost of any successor
+            updateNode(*it);
 
-        updateNode(top_index);
+        }
 
         }
 
     }
-
-    }
-
-//---------------------------------------------------------------------------------
-//Estimates the distance between two vertices
-//---------------------------------------------------------------------------------
-
-    float heuristic(int s_index, int e_index){
-
-        return sqrtf(pow(graph[e_index].x - graph[s_index].x, 2) + pow(graph[e_index].y - graph[s_index].y, 2)
-                     + pow(graph[e_index].z - graph[s_index].z, 2));
-
-    }
-
-//---------------------------------------------------------------------------------
-//Calculate the min cost to a successor node
-//---------------------------------------------------------------------------------
-
-    float minSucCost(int index){
-
-        std::pair<oe_iterator, oe_iterator> suc_range = boost::out_edges(index, graph);
-        float min_cost = INFINITY;
-
-        for(oe_iterator it = suc_range.first; it != suc_range.second; ++it){
-
-            int suc_index = boost::target(*it, graph);
-            if(min_cost > boost::get(boost::edge_weight, graph, *it) + graph[suc_index].key.first)
-                min_cost = boost::get(boost::edge_weight, graph, *it) + graph[suc_index].key.first;
-
-        }
-
-        return min_cost;
 
     }
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1378453944 source:c:\users\dicky\adaptivedstar\driver.cpp
+1379975814 source:c:\users\dicky\adaptivedstar\driver.cpp
 	<iostream>
 	"Pathfinder.h"
 	"GraphGen.h"
@@ -7,18 +7,20 @@
 	<fstream>
 	"boost/graph/dijkstra_shortest_paths.hpp"
 
-1378454001 c:\users\dicky\adaptivedstar\pathfinder.h
-	"boost/graph/adjacency_list.hpp"
+1379952698 c:\users\dicky\adaptivedstar\pathfinder.h
 	"boost/heap/d_ary_heap.hpp"
 	"UpdateHelpers.h"
+	"NodeManager.h"
+	"WeightedGraph.h"
 	<iostream>
 	<iomanip>
 
 1378299876 source:c:\users\dicky\adaptivedstar\pathfinder.cpp
 	"Pathfinder.h"
 
-1378133824 c:\users\dicky\adaptivedstar\graphgen.h
+1379320512 c:\users\dicky\adaptivedstar\graphgen.h
 	"Pathfinder.h"
+	"NodeManager.h"
 	<fstream>
 	"time.h"
 
@@ -27,5 +29,2097 @@
 1377710461 c:\users\dicky\adaptivedstar\nodeupdator.h
 	"UpdateHelpers.h"
 
-1378300665 c:\users\dicky\adaptivedstar\nodemanager.h
+1379976153 c:\users\dicky\adaptivedstar\nodemanager.h
+	"WeightedGraph.h"
+	"Helpers.h"
+	<cmath>
+	<vector>
+
+1378645705 c:\users\dicky\adaptivedstar\weightedgraph.h
+	"boost/graph/adjacency_list.hpp"
+
+1352812436 c:\program files\cgal-4.2\include\cgal\exact_predicates_inexact_constructions_kernel.h
+	<CGAL/Simple_cartesian.h>
+	<CGAL/Filtered_kernel.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\simple_cartesian.h
+	<CGAL/Cartesian/Cartesian_base.h>
+	<CGAL/Handle_for.h>
+	<CGAL/Kernel/Type_equality_wrapper.h>
+	<CGAL/Kernel/interface_macros.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\cartesian_base.h
+	<CGAL/basic.h>
+	<CGAL/basic_classes.h>
+	<CGAL/Kernel/global_functions.h>
+	<CGAL/Cartesian/Point_2.h>
+	<CGAL/Cartesian/Vector_2.h>
+	<CGAL/Cartesian/Direction_2.h>
+	<CGAL/Cartesian/Line_2.h>
+	<CGAL/Cartesian/Ray_2.h>
+	<CGAL/Cartesian/Segment_2.h>
+	<CGAL/Cartesian/Triangle_2.h>
+	<CGAL/Cartesian/Circle_2.h>
+	<CGAL/Cartesian/Iso_rectangle_2.h>
+	<CGAL/Cartesian/Aff_transformation_2.h>
+	<CGAL/Cartesian/Data_accessor_2.h>
+	<CGAL/ConicCPA2.h>
+	<CGAL/Cartesian/predicates_on_points_2.h>
+	<CGAL/Cartesian/predicates_on_directions_2.h>
+	<CGAL/Cartesian/basic_constructions_2.h>
+	<CGAL/Cartesian/Point_3.h>
+	<CGAL/Cartesian/Vector_3.h>
+	<CGAL/Cartesian/Direction_3.h>
+	<CGAL/Cartesian/Line_3.h>
+	<CGAL/Cartesian/Plane_3.h>
+	<CGAL/Cartesian/Ray_3.h>
+	<CGAL/Cartesian/Segment_3.h>
+	<CGAL/Cartesian/Triangle_3.h>
+	<CGAL/Cartesian/Tetrahedron_3.h>
+	<CGAL/Cartesian/Iso_cuboid_3.h>
+	<CGAL/Cartesian/Sphere_3.h>
+	<CGAL/Cartesian/Circle_3.h>
+	<CGAL/Cartesian/Aff_transformation_3.h>
+	<CGAL/Cartesian/predicates_on_points_3.h>
+	<CGAL/Cartesian/predicates_on_planes_3.h>
+	<CGAL/Cartesian/basic_constructions_3.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Cartesian/function_objects.h>
+	<CGAL/Uncertain.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\basic.h
+	<CGAL/config.h>
+	<iostream>
+	<cstdlib>
+	<CGAL/result_of.h>
+	<CGAL/assertions.h>
+	<CGAL/tags.h>
+	<CGAL/number_type_basic.h>
+	<CGAL/IO/io.h>
+	<CGAL/kernel_basic.h>
+
+1365274826 c:\program files\cgal-4.2\include\cgal\config.h
+	<windows.h>
+	<boost/config.hpp>
+	<boost/version.hpp>
+	<CGAL/version.h>
+	<CGAL/compiler_config.h>
+	<CGAL/export/CGAL.h>
+	<CGAL/auto_link/CGAL.h>
+	<endian.h>
+	<iterator>
+	<algorithm>
+
+1365534110 c:\program files\cgal-4.2\include\cgal\version.h
+
+1378807421 c:\program files\cgal-4.2\include\cgal\compiler_config.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\export\cgal.h
+	<CGAL/config.h>
+	<CGAL/export/helpers.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\export\helpers.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\auto_link\cgal.h
+	<CGAL/config.h>
+	<CGAL/auto_link/auto_link.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\auto_link\auto_link.h
+	<boost/config.hpp>
+	<CGAL/version.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\result_of.h
+	<boost/utility/result_of.hpp>
+	<boost/version.hpp>
+
+1361649618 c:\program files\cgal-4.2\include\cgal\assertions.h
+	<CGAL/config.h>
+	<CGAL/export/CGAL.h>
+	<boost/static_assert.hpp>
+	<CGAL/Uncertain.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\uncertain.h
+	<CGAL/config.h>
+	<CGAL/assertions.h>
+	<CGAL/enum.h>
+	<CGAL/Profile_counter.h>
+	<stdexcept>
+	<typeinfo>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\enum.h
+	<CGAL/config.h>
+	<CGAL/Kernel/Same_uncertainty.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\same_uncertainty.h
+	<CGAL/config.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\profile_counter.h
+	<CGAL/config.h>
+	<iostream>
+	<iomanip>
+	<string>
+	<map>
+
+1353787252 c:\program files\cgal-4.2\include\cgal\tags.h
+	<CGAL/IO/io_tags.h>
+	<boost/config.hpp>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\io_tags.h
+	<cstddef>
+	<CGAL/config.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\number_type_basic.h
+	<CGAL/number_type_config.h>
+	<CGAL/basic.h>
+	<boost/type_traits/is_same.hpp>
+	<functional>
+	<CGAL/Quotient_fwd.h>
+	<CGAL/Kernel/mpl.h>
+	<CGAL/enum.h>
+	<CGAL/tags.h>
+	<CGAL/Coercion_traits.h>
+	<CGAL/Algebraic_structure_traits.h>
+	<CGAL/Real_embeddable_traits.h>
+	<CGAL/Fraction_traits.h>
+	<CGAL/Rational_traits.h>
+	<CGAL/Scalar_factor_traits.h>
+	<CGAL/Algebraic_extension_traits.h>
+	<CGAL/Needs_parens_as_product.h>
+	<CGAL/utils_classes.h>
+	<CGAL/utils.h>
+	<CGAL/FPU.h>
+	<CGAL/float.h>
+	<CGAL/double.h>
+	<CGAL/long_double.h>
+	<CGAL/Interval_nt.h>
+	<CGAL/int.h>
+	<CGAL/long_long.h>
+	<CGAL/gmpxx.h>
+	<CGAL/number_utils.h>
+	<CGAL/number_utils_classes.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\number_type_config.h
+	<CGAL/config.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\quotient_fwd.h
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\mpl.h
+	<CGAL/basic.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\coercion_traits.h
+	<iterator>
+	<boost/iterator/transform_iterator.hpp>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/tags.h>
+
+1361649616 c:\program files\cgal-4.2\include\cgal\algebraic_structure_traits.h
+	<functional>
+	<CGAL/tags.h>
+	<CGAL/type_traits.h>
+	<CGAL/Coercion_traits.h>
+	<CGAL/assertions.h>
+	<CGAL/use.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\type_traits.h
+	<boost/type_traits/is_same.hpp>
+	<boost/type_traits/is_base_and_derived.hpp>
+	<boost/mpl/or.hpp>
+
+1361649616 c:\program files\cgal-4.2\include\cgal\use.h
+
+1352812432 c:\program files\cgal-4.2\include\cgal\real_embeddable_traits.h
+	<CGAL/Algebraic_structure_traits.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\fraction_traits.h
+	<CGAL/tags.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\rational_traits.h
+	<CGAL/number_type_basic.h>
+	<CGAL/Fraction_traits.h>
+	<CGAL/is_convertible.h>
+	<boost/utility/enable_if.hpp>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\is_convertible.h
+	<boost/type_traits/integral_constant.hpp>
+	<boost/type_traits/is_convertible.hpp>
+	<gmpxx.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\scalar_factor_traits.h
+	<CGAL/Algebraic_structure_traits.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\algebraic_extension_traits.h
+	<numeric>
+	<functional>
+	<CGAL/tags.h>
+	<CGAL/Algebraic_structure_traits.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\needs_parens_as_product.h
+	<CGAL/IO/io.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\io.h
+	<iostream>
+	<CGAL/tags.h>
+	<CGAL/IO/io_tags.h>
+	<CGAL/IO/Color.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\color.h
+	<CGAL/config.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\utils_classes.h
+	<CGAL/config.h>
+	<functional>
+	<CGAL/sse2.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sse2.h
+	<emmintrin.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\utils.h
+	<CGAL/utils_classes.h>
+
+1358625624 c:\program files\cgal-4.2\include\cgal\fpu.h
+	<CGAL/assertions.h>
+	<cmath>
+	<fenv.h>
+	<fpu_control.h>
+	<ieeefp.h>
+	"/usr/include/float.h"
+	<cfloat>
+	<fenv.h>
+	<limits>
+	<xmmintrin.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\float.h
+	<CGAL/utils.h>
+	<CGAL/Algebraic_structure_traits.h>
+	<CGAL/Real_embeddable_traits.h>
+	<cmath>
+	<CGAL/IEEE_754_unions.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\ieee_754_unions.h
+	<iomanip>
+	<iostream>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\double.h
+	<CGAL/utils.h>
+	<CGAL/utils_classes.h>
+	<CGAL/number_utils.h>
+	<utility>
+	<cmath>
+	<math.h>
+	<limits>
+	<CGAL/sse2.h>
+	<cfloat>
+	<CGAL/IEEE_754_unions.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\number_utils.h
+	<CGAL/number_type_config.h>
+	<CGAL/Algebraic_structure_traits.h>
+	<CGAL/Real_embeddable_traits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\long_double.h
+	<CGAL/number_type_basic.h>
+	<utility>
+	<cmath>
+	<CGAL/IEEE_754_unions.h>
+	<CGAL/Interval_nt.h>
+
+1362686426 c:\program files\cgal-4.2\include\cgal\interval_nt.h
+	<utility>
+	<CGAL/number_type_config.h>
+	<CGAL/number_utils.h>
+	<CGAL/utils_classes.h>
+	<CGAL/number_utils.h>
+	<CGAL/Uncertain.h>
+	<CGAL/Interval_traits.h>
+	<CGAL/double.h>
+	<CGAL/FPU.h>
+	<CGAL/IO/io.h>
+	<iostream>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\interval_traits.h
+	<CGAL/config.h>
+	<CGAL/tags.h>
+	<boost/type_traits/is_same.hpp>
+	<boost/utility/enable_if.hpp>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\int.h
+	<CGAL/number_type_basic.h>
+	<CGAL/Modular_traits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\modular_traits.h
+	<CGAL/basic.h>
+	<CGAL/Residue.h>
+	<CGAL/Modular_arithmetic/Residue_type.h>
+	<vector>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\residue.h
+	<CGAL/basic.h>
+	<CGAL/Modular_arithmetic/Residue_type.h>
+	<CGAL/Coercion_traits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\modular_arithmetic\residue_type.h
+	<CGAL/basic.h>
+	<cfloat>
+	<boost/operators.hpp>
+	<boost/thread/tss.hpp>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\long_long.h
+	<CGAL/number_type_basic.h>
+	<CGAL/Interval_nt.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmpxx.h
+	<CGAL/number_type_basic.h>
+	<cstring>
+	<gmpxx.h>
+	<utility>
+	<CGAL/mpz_class.h>
+	<CGAL/mpq_class.h>
+	<CGAL/gmpxx_coercion_traits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\mpz_class.h
+	<CGAL/number_type_basic.h>
+	<CGAL/gmpxx_coercion_traits.h>
+	<CGAL/Modular_traits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmpxx_coercion_traits.h
+	<CGAL/number_type_basic.h>
+	<CGAL/Coercion_traits.h>
+	<cstring>
+	<gmpxx.h>
+	<mpfr.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\mpq_class.h
+	<CGAL/number_type_basic.h>
+	<CGAL/gmpxx_coercion_traits.h>
+	<CGAL/mpz_class.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\number_utils_classes.h
+	<CGAL/Real_embeddable_traits.h>
+	<CGAL/Algebraic_structure_traits.h>
+	<algorithm>
+	<utility>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel_basic.h
+	<CGAL/kernel_config.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/enum.h>
+	<CGAL/aff_transformation_tags.h>
+	<CGAL/Object.h>
+	<CGAL/Kernel_traits.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel_config.h
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel_assertions.h
+	<CGAL/assertions.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\aff_transformation_tags.h
+	<CGAL/basic.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\object.h
+	<CGAL/basic.h>
+	<CGAL/Handle_for_virtual.h>
+	<typeinfo>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\handle_for_virtual.h
+	<CGAL/config.h>
+	<typeinfo>
+	<cstddef>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel_traits.h
+
+1352812436 c:\program files\cgal-4.2\include\cgal\basic_classes.h
+	<CGAL/Origin.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/representation_tags.h>
+	<CGAL/aff_transformation_tags.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\origin.h
+	<CGAL/basic.h>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\bbox_2.h
+	<CGAL/basic.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/IO/io.h>
+	<CGAL/Dimension.h>
+	<CGAL/array.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\dimension.h
+	<CGAL/basic.h>
+	<CGAL/Kernel_traits.h>
+	<climits>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\array.h
+	<CGAL/config.h>
+	<array>
+	<boost/array.hpp>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\bbox_3.h
+	<CGAL/basic.h>
+	<CGAL/IO/io.h>
+	<CGAL/Dimension.h>
+	<CGAL/array.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\representation_tags.h
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\global_functions.h
+	<CGAL/Kernel/global_functions_2.h>
+	<CGAL/Kernel/global_functions_3.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\global_functions_2.h
+	<CGAL/user_classes.h>
+	<CGAL/Kernel/global_functions_internal_2.h>
+	<CGAL/Kernel/mpl.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\user_classes.h
+	<CGAL/Point_2.h>
+	<CGAL/Vector_2.h>
+	<CGAL/Direction_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/Ray_2.h>
+	<CGAL/Segment_2.h>
+	<CGAL/Triangle_2.h>
+	<CGAL/Iso_rectangle_2.h>
+	<CGAL/Circle_2.h>
+	<CGAL/Conic_2.h>
+	<CGAL/Aff_transformation_2.h>
+	<CGAL/Point_3.h>
+	<CGAL/Plane_3.h>
+	<CGAL/Vector_3.h>
+	<CGAL/Direction_3.h>
+	<CGAL/Line_3.h>
+	<CGAL/Ray_3.h>
+	<CGAL/Segment_3.h>
+	<CGAL/Triangle_3.h>
+	<CGAL/Tetrahedron_3.h>
+	<CGAL/Iso_cuboid_3.h>
+	<CGAL/Sphere_3.h>
+	<CGAL/Circle_3.h>
+	<CGAL/Aff_transformation_3.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\point_2.h
+	<CGAL/Origin.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Dimension.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\return_base_tag.h
+	<CGAL/basic.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\vector_2.h
+	<CGAL/Origin.h>
+	<CGAL/Kernel/mpl.h>
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\direction_2.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Dimension.h>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\line_2.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\ray_2.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\segment_2.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\triangle_2.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\iso_rectangle_2.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\circle_2.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/Dimension.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\conic_2.h
+	<CGAL/Conic_misc.h>
+	<CGAL/Dimension.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\conic_misc.h
+	<cmath>
+	<CGAL/kernel_assertions.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\aff_transformation_2.h
+	<CGAL/basic.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\point_3.h
+	<CGAL/Origin.h>
+	<CGAL/representation_tags.h>
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\plane_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\vector_3.h
+	<CGAL/Origin.h>
+	<CGAL/Kernel/mpl.h>
+	<CGAL/representation_tags.h>
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\direction_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Dimension.h>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\line_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\ray_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\segment_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\triangle_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\tetrahedron_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\iso_cuboid_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\sphere_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Dimension.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\circle_3.h
+	<CGAL/assertions.h>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/representation_tags.h>
+	<CGAL/Dimension.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\aff_transformation_3.h
+	<CGAL/Dimension.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\global_functions_internal_2.h
+	<CGAL/basic.h>
+	<CGAL/Dimension.h>
+	<boost/utility/enable_if.hpp>
+	"boost/mpl/equal_to.hpp"
+	<boost/mpl/int.hpp>
+	<boost/mpl/integral_c.hpp>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\global_functions_3.h
+	<CGAL/user_classes.h>
+	<CGAL/Kernel/global_functions_internal_3.h>
+	<CGAL/Kernel/mpl.h>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\kernel\global_functions_internal_3.h
+	<CGAL/basic.h>
+	<CGAL/Dimension.h>
+	<boost/utility/enable_if.hpp>
+	<boost/mpl/equal_to.hpp>
+	<boost/mpl/integral_c.hpp>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\point_2.h
+	<CGAL/Origin.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\vector_2.h
+	<CGAL/Origin.h>
+	<CGAL/array.h>
+	<CGAL/constant.h>
+	<CGAL/Handle_for.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\constant.h
+	<CGAL/config.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\handle_for.h
+	<CGAL/config.h>
+	<boost/config.hpp>
+	<CGAL/memory.h>
+	<algorithm>
+	<cstddef>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\memory.h
+	<memory>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\direction_2.h
+	<CGAL/array.h>
+	<CGAL/Handle_for.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\line_2.h
+	<CGAL/array.h>
+	<CGAL/Handle_for.h>
+	<CGAL/predicates/kernel_ftC2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\predicates\kernel_ftc2.h
+	<CGAL/algorithm.h>
+	<CGAL/number_utils.h>
+	<CGAL/predicates/sign_of_determinant.h>
+	<CGAL/constructions/kernel_ftC2.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\algorithm.h
+	<CGAL/basic.h>
+	<CGAL/config.h>
+	<algorithm>
+	<iosfwd>
+	<boost/next_prior.hpp>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\predicates\sign_of_determinant.h
+	<CGAL/determinant.h>
+	<CGAL/number_utils_classes.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\determinant.h
+	<CGAL/kernel_config.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\constructions\kernel_ftc2.h
+	<CGAL/determinant.h>
+	<CGAL/number_utils.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\ray_2.h
+	<CGAL/array.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\segment_2.h
+	<CGAL/array.h>
+	<CGAL/Cartesian/predicates_on_points_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\predicates_on_points_2.h
+	<CGAL/Cartesian/Point_2.h>
+	<CGAL/predicates/kernel_ftC2.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\triangle_2.h
+	<CGAL/Cartesian/predicates_on_points_2.h>
+	<CGAL/array.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\circle_2.h
+	<CGAL/Cartesian/predicates_on_points_2.h>
+	<boost/tuple/tuple.hpp>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\iso_rectangle_2.h
+	<CGAL/array.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\aff_transformation_2.h
+	<cmath>
+	<CGAL/Handle_for_virtual.h>
+	<CGAL/Cartesian/Aff_transformation_rep_2.h>
+	<CGAL/Cartesian/Translation_rep_2.h>
+	<CGAL/Cartesian/Rotation_rep_2.h>
+	<CGAL/Cartesian/Scaling_rep_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\aff_transformation_rep_2.h
+	<CGAL/determinant.h>
+	<CGAL/Handle_for_virtual.h>
+	<CGAL/Cartesian/Aff_transformation_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\translation_rep_2.h
+	<CGAL/Cartesian/Aff_transformation_rep_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\rotation_rep_2.h
+	<CGAL/rational_rotation.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\rational_rotation.h
+	<algorithm>
+	<CGAL/number_type_basic.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\scaling_rep_2.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\data_accessor_2.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\coniccpa2.h
+	<CGAL/Conic_misc.h>
+	<CGAL/kernel_assertions.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\predicates_on_directions_2.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\basic_constructions_2.h
+	<CGAL/Cartesian/point_constructions_2.h>
+	<CGAL/Cartesian/line_constructions_2.h>
+	<CGAL/Cartesian/ft_constructions_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\point_constructions_2.h
+	<CGAL/Cartesian/Point_2.h>
+	<CGAL/Cartesian/Line_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\line_constructions_2.h
+	<CGAL/Cartesian/Point_2.h>
+	<CGAL/Cartesian/Line_2.h>
+	<CGAL/Cartesian/Direction_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\ft_constructions_2.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\point_3.h
+	<CGAL/Origin.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\vector_3.h
+	<CGAL/Origin.h>
+	<CGAL/array.h>
+	<CGAL/constant.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\direction_3.h
+	<CGAL/array.h>
+	<CGAL/Handle_for.h>
+	<CGAL/predicates/kernel_ftC3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\predicates\kernel_ftc3.h
+	<CGAL/predicates/sign_of_determinant.h>
+	<CGAL/predicates/kernel_ftC2.h>
+	<CGAL/constructions/kernel_ftC3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\constructions\kernel_ftc3.h
+	<CGAL/determinant.h>
+	<CGAL/number_utils.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\line_3.h
+	<utility>
+	<CGAL/Handle_for.h>
+
+1361044828 c:\program files\cgal-4.2\include\cgal\cartesian\plane_3.h
+	<CGAL/array.h>
+	<CGAL/Handle_for.h>
+	<CGAL/Cartesian/solve_3.h>
+	<CGAL/Cartesian/plane_constructions_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\solve_3.h
+	<CGAL/Kernel/solve.h>
+	<CGAL/Cartesian/Vector_3.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\solve.h
+
+1361044828 c:\program files\cgal-4.2\include\cgal\cartesian\plane_constructions_3.h
+	<CGAL/Cartesian/Point_3.h>
+	<CGAL/Cartesian/Direction_3.h>
+	<CGAL/constructions/kernel_ftC3.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\ray_3.h
+	<CGAL/array.h>
+	<CGAL/Handle_for.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\segment_3.h
+	<CGAL/array.h>
+	<CGAL/Handle_for.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\triangle_3.h
+	<CGAL/Handle_for.h>
+	<CGAL/array.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\tetrahedron_3.h
+	<CGAL/array.h>
+	<CGAL/Handle_for.h>
+	<CGAL/enum.h>
+	<vector>
+	<functional>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\cartesian\iso_cuboid_3.h
+	<CGAL/array.h>
+	<CGAL/Handle_for.h>
+	<CGAL/Cartesian/predicates_on_points_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\predicates_on_points_3.h
+	<CGAL/predicates/kernel_ftC3.h>
+	<CGAL/Cartesian/Point_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\sphere_3.h
+	<CGAL/Handle_for.h>
+	<CGAL/Interval_nt.h>
+	<boost/tuple/tuple.hpp>
+	<CGAL/Kernel/global_functions_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\circle_3.h
+	<CGAL/Interval_nt.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\aff_transformation_3.h
+	<cmath>
+	<CGAL/Handle_for_virtual.h>
+	<CGAL/Cartesian/Aff_transformation_rep_3.h>
+	<CGAL/Cartesian/Translation_rep_3.h>
+	<CGAL/Cartesian/Scaling_rep_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\aff_transformation_rep_3.h
+	<ostream>
+	<CGAL/determinant.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\translation_rep_3.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\scaling_rep_3.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\predicates_on_planes_3.h
+	<CGAL/predicates/kernel_ftC3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\basic_constructions_3.h
+	<CGAL/Cartesian/point_constructions_3.h>
+	<CGAL/Cartesian/plane_constructions_3.h>
+	<CGAL/Cartesian/ft_constructions_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\point_constructions_3.h
+	<CGAL/Cartesian/Point_3.h>
+	<CGAL/constructions/kernel_ftC3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\ft_constructions_3.h
+	<CGAL/Cartesian/Point_3.h>
+	<CGAL/Cartesian/Vector_3.h>
+	<CGAL/Cartesian/Plane_3.h>
+	<CGAL/constructions/kernel_ftC3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian\function_objects.h
+	<CGAL/Kernel/function_objects.h>
+	<CGAL/predicates/kernel_ftC2.h>
+	<CGAL/predicates/kernel_ftC3.h>
+	<CGAL/constructions/kernel_ftC2.h>
+	<CGAL/constructions/kernel_ftC3.h>
+	<CGAL/Cartesian/solve_3.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\function_objects.h
+	<CGAL/Origin.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/squared_distance_2.h>
+	<CGAL/squared_distance_3.h>
+	<CGAL/intersection_2.h>
+	<CGAL/intersection_3.h>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/Kernel/global_functions_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\squared_distance_2.h
+	<CGAL/squared_distance_2_1.h>
+	<CGAL/squared_distance_2_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\squared_distance_2_1.h
+	<CGAL/user_classes.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/enum.h>
+	<CGAL/wmult.h>
+	<CGAL/squared_distance_utils.h>
+	<CGAL/Kernel/global_functions_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\wmult.h
+	<CGAL/Kernel/Wutils.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\wutils.h
+	<CGAL/representation_tags.h>
+	<CGAL/determinant.h>
+	<CGAL/Point_2.h>
+	<CGAL/Point_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\squared_distance_utils.h
+	<CGAL/determinant.h>
+	<CGAL/wmult.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\squared_distance_2_2.h
+	<CGAL/user_classes.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/Point_2.h>
+	<CGAL/Segment_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/Ray_2.h>
+	<CGAL/Triangle_2.h>
+	<CGAL/enum.h>
+	<CGAL/wmult.h>
+	<CGAL/squared_distance_utils.h>
+	<CGAL/squared_distance_2_1.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\squared_distance_3.h
+	<CGAL/squared_distance_3_0.h>
+	<CGAL/squared_distance_3_1.h>
+	<CGAL/squared_distance_3_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\squared_distance_3_0.h
+	<CGAL/kernel_assertions.h>
+	<CGAL/enum.h>
+	<CGAL/wmult.h>
+	<CGAL/Point_3.h>
+	<CGAL/Vector_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\squared_distance_3_1.h
+	<CGAL/squared_distance_3_0.h>
+	<CGAL/Segment_3.h>
+	<CGAL/Line_3.h>
+	<CGAL/Ray_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\squared_distance_3_2.h
+	<CGAL/squared_distance_3_0.h>
+	<CGAL/Segment_3.h>
+	<CGAL/Line_3.h>
+	<CGAL/Ray_3.h>
+	<CGAL/Plane_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\intersection_2.h
+	<CGAL/intersection_2_1.h>
+	<CGAL/intersection_2_2.h>
+	<CGAL/intersection_2_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\intersection_2_1.h
+	<CGAL/Line_2_Line_2_intersection.h>
+	<CGAL/Segment_2_Line_2_intersection.h>
+	<CGAL/Segment_2_Segment_2_intersection.h>
+	<CGAL/Ray_2_Line_2_intersection.h>
+	<CGAL/Ray_2_Segment_2_intersection.h>
+	<CGAL/Ray_2_Ray_2_intersection.h>
+	<CGAL/Point_2_Line_2_intersection.h>
+	<CGAL/Point_2_Ray_2_intersection.h>
+	<CGAL/Point_2_Segment_2_intersection.h>
+	<CGAL/Point_2_Point_2_intersection.h>
+	<CGAL/Point_2_Triangle_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\line_2_line_2_intersection.h
+	<CGAL/config.h>
+	<CGAL/Line_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\segment_2_line_2_intersection.h
+	<CGAL/Line_2.h>
+	<CGAL/Segment_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Object.h>
+	<CGAL/Line_2_Line_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\segment_2_segment_2_intersection.h
+	<CGAL/Segment_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/predicates_on_points_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/Line_2_Line_2_intersection.h>
+	<CGAL/Object.h>
+	<CGAL/Uncertain.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\predicates_on_points_2.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ray_2_line_2_intersection.h
+	<CGAL/Line_2.h>
+	<CGAL/Ray_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Object.h>
+	<CGAL/Line_2_Line_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ray_2_segment_2_intersection.h
+	<CGAL/Ray_2.h>
+	<CGAL/Segment_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Line_2.h>
+	<CGAL/Line_2_Line_2_intersection.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ray_2_ray_2_intersection.h
+	<CGAL/Ray_2.h>
+	<CGAL/Segment_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Line_2.h>
+	<CGAL/Line_2_Line_2_intersection.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\point_2_line_2_intersection.h
+	<CGAL/Line_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\point_2_ray_2_intersection.h
+	<CGAL/Ray_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\point_2_segment_2_intersection.h
+	<CGAL/Segment_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\point_2_point_2_intersection.h
+	<CGAL/Point_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\point_2_triangle_2_intersection.h
+	<CGAL/Point_2.h>
+	<CGAL/Triangle_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Straight_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\straight_2.h
+	<CGAL/Line_2_Line_2_intersection.h>
+	<CGAL/squared_distance_utils.h>
+	<CGAL/Kernel/global_functions_internal_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\intersection_2_2.h
+	<CGAL/Triangle_2_Triangle_2_intersection.h>
+	<CGAL/Triangle_2_Line_2_intersection.h>
+	<CGAL/Triangle_2_Ray_2_intersection.h>
+	<CGAL/Triangle_2_Segment_2_intersection.h>
+	<CGAL/Line_2_Iso_rectangle_2_intersection.h>
+	<CGAL/Ray_2_Iso_rectangle_2_intersection.h>
+	<CGAL/Segment_2_Iso_rectangle_2_intersection.h>
+	<CGAL/Point_2_Iso_rectangle_2_intersection.h>
+	<CGAL/Iso_rectangle_2_Iso_rectangle_2_intersection.h>
+	<CGAL/Triangle_2_Iso_rectangle_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_2_triangle_2_intersection.h
+	<CGAL/Object.h>
+	<CGAL/Triangle_2_Triangle_2_do_intersect.h>
+	<CGAL/Intersections_2/Triangle_2_Triangle_2_intersection_impl.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_2_triangle_2_do_intersect.h
+	<CGAL/Triangle_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\intersections_2\triangle_2_triangle_2_intersection_impl.h
+	<CGAL/Segment_2.h>
+	<CGAL/Triangle_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<vector>
+	<CGAL/Line_2_Line_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_2_line_2_intersection.h
+	<CGAL/Line_2_Triangle_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\line_2_triangle_2_intersection.h
+	<CGAL/Line_2.h>
+	<CGAL/Segment_2.h>
+	<CGAL/Triangle_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/Object.h>
+	<CGAL/Straight_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_2_ray_2_intersection.h
+	<CGAL/Ray_2_Triangle_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ray_2_triangle_2_intersection.h
+	<CGAL/Segment_2.h>
+	<CGAL/Ray_2.h>
+	<CGAL/Triangle_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Straight_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_2_segment_2_intersection.h
+	<CGAL/Segment_2_Triangle_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\segment_2_triangle_2_intersection.h
+	<CGAL/Segment_2.h>
+	<CGAL/Triangle_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Straight_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\line_2_iso_rectangle_2_intersection.h
+	<CGAL/Line_2.h>
+	<CGAL/Iso_rectangle_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ray_2_iso_rectangle_2_intersection.h
+	<CGAL/Iso_rectangle_2.h>
+	<CGAL/Ray_2.h>
+	<CGAL/Segment_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\segment_2_iso_rectangle_2_intersection.h
+	<CGAL/Iso_rectangle_2.h>
+	<CGAL/Segment_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/kernel_assertions.h>
+	<CGAL/number_utils.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\point_2_iso_rectangle_2_intersection.h
+	<CGAL/Iso_rectangle_2.h>
+	<CGAL/Point_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\iso_rectangle_2_iso_rectangle_2_intersection.h
+	<CGAL/Iso_rectangle_2.h>
+	<CGAL/Object.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_2_iso_rectangle_2_intersection.h
+	"CGAL/Point_2.h"
+	"CGAL/Segment_2.h"
+	"CGAL/Triangle_2.h"
+	"CGAL/Iso_rectangle_2.h"
+	"CGAL/Segment_2_Segment_2_intersection.h"
+	<vector>
+	<list>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\intersection_2_3.h
+	<CGAL/Circle_2_Circle_2_intersection.h>
+	<CGAL/Circle_2_Line_2_intersection.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\circle_2_circle_2_intersection.h
+	<CGAL/Circle_2.h>
+	<CGAL/Object.h>
+	<CGAL/squared_distance_2_1.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\circle_2_line_2_intersection.h
+	<CGAL/Circle_2.h>
+	<CGAL/Line_2.h>
+	<CGAL/Object.h>
+	<CGAL/squared_distance_2_1.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\intersection_3.h
+	<CGAL/intersection_3_1.h>
+	<CGAL/Triangle_3_Line_3_do_intersect.h>
+	<CGAL/Triangle_3_Plane_3_do_intersect.h>
+	<CGAL/Triangle_3_Point_3_do_intersect.h>
+	<CGAL/Triangle_3_Ray_3_do_intersect.h>
+	<CGAL/Triangle_3_Segment_3_do_intersect.h>
+	<CGAL/Triangle_3_Tetrahedron_3_do_intersect.h>
+	<CGAL/Triangle_3_Triangle_3_do_intersect.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Bbox_3_do_intersect.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Line_3_do_intersect.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Ray_3_do_intersect.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Segment_3_do_intersect.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Plane_3_do_intersect.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Sphere_3_do_intersect.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Triangle_3_do_intersect.h>
+	<CGAL/internal/Intersections_3/Triangle_3_Line_3_intersection.h>
+	<CGAL/internal/Intersections_3/Triangle_3_Ray_3_intersection.h>
+	<CGAL/internal/Intersections_3/Triangle_3_Segment_3_intersection.h>
+	<CGAL/Triangle_3_Triangle_3_intersection.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\intersection_3_1.h
+	<CGAL/Object.h>
+	<CGAL/bbox_intersection_3.h>
+	<CGAL/Intersections_3/intersection_3_1_impl.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\bbox_intersection_3.h
+	<CGAL/Bbox_3.h>
+	<CGAL/Object.h>
+
+1361044828 c:\program files\cgal-4.2\include\cgal\intersections_3\intersection_3_1_impl.h
+	<CGAL/wmult.h>
+	<boost/next_prior.hpp>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_3_line_3_do_intersect.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_3_plane_3_do_intersect.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_3_point_3_do_intersect.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_3_ray_3_do_intersect.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_3_segment_3_do_intersect.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_3_tetrahedron_3_do_intersect.h
+	<CGAL/Triangle_3_Triangle_3_do_intersect.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_3_triangle_3_do_intersect.h
+	<CGAL/Uncertain.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\bbox_3_bbox_3_do_intersect.h
+	<CGAL/Bbox_3.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\bbox_3_line_3_do_intersect.h
+	<CGAL/Line_3.h>
+	<CGAL/Bbox_3.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\bbox_3_ray_3_do_intersect.h
+	<CGAL/Ray_3.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Segment_3_do_intersect.h>
+
+1361649616 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\bbox_3_segment_3_do_intersect.h
+	<CGAL/Segment_3.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/Kernel/Same_uncertainty.h>
+	<CGAL/assertions.h>
+	<CGAL/Coercion_traits.h>
+	<boost/type_traits/is_same.hpp>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\bbox_3_plane_3_do_intersect.h
+	<CGAL/Plane_3.h>
+	<CGAL/Bbox_3.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\bbox_3_sphere_3_do_intersect.h
+	<CGAL/Sphere_3.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/number_utils.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\bbox_3_triangle_3_do_intersect.h
+	<CGAL/Triangle_3.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/number_utils.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Plane_3_do_intersect.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\triangle_3_line_3_intersection.h
+	<CGAL/kernel_basic.h>
+	<CGAL/intersections.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\intersections.h
+	<CGAL/intersection_2.h>
+	<CGAL/intersection_3.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\triangle_3_ray_3_intersection.h
+	<CGAL/kernel_basic.h>
+	<CGAL/intersections.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\internal\intersections_3\triangle_3_segment_3_intersection.h
+	<CGAL/kernel_basic.h>
+	<CGAL/intersections.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\triangle_3_triangle_3_intersection.h
+	<boost/next_prior.hpp>
+	<list>
+	<vector>
+	<map>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\type_equality_wrapper.h
+	<CGAL/user_classes.h>
+	<CGAL/Kernel/interface_macros.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\interface_macros.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\filtered_kernel.h
+	<CGAL/Filtered_kernel_fwd.h>
+	<CGAL/basic.h>
+	<CGAL/Filtered_predicate.h>
+	<CGAL/Cartesian_converter.h>
+	<CGAL/Simple_cartesian.h>
+	<CGAL/Kernel/Type_equality_wrapper.h>
+	<CGAL/MP_Float.h>
+	<CGAL/Quotient.h>
+	<CGAL/internal/Exact_type_selector.h>
+	<CGAL/internal/Static_filters/Static_filters.h>
+	<CGAL/Kernel/interface_macros.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\filtered_kernel_fwd.h
+	<CGAL/config.h>
+
+1357416018 c:\program files\cgal-4.2\include\cgal\filtered_predicate.h
+	<string>
+	<CGAL/config.h>
+	<CGAL/Interval_nt.h>
+	<CGAL/Uncertain.h>
+	<CGAL/Profile_counter.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\cartesian_converter.h
+	<CGAL/basic.h>
+	<CGAL/NT_converter.h>
+	<CGAL/Enum_converter.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/Bbox_3.h>
+	<CGAL/Origin.h>
+	<vector>
+	<CGAL/Kernel/interface_macros.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\nt_converter.h
+	<functional>
+	<CGAL/number_type_config.h>
+	<CGAL/number_utils.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\enum_converter.h
+	<CGAL/basic.h>
+	<CGAL/enum.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\mp_float.h
+	<CGAL/number_type_basic.h>
+	<CGAL/Algebraic_structure_traits.h>
+	<CGAL/Real_embeddable_traits.h>
+	<CGAL/Coercion_traits.h>
+	<CGAL/Quotient.h>
+	<CGAL/Sqrt_extension.h>
+	<CGAL/utils.h>
+	<CGAL/Interval_nt.h>
+	<iostream>
+	<vector>
+	<algorithm>
+	<CGAL/MP_Float_impl.h>
+	<CGAL/MP_Float_arithmetic_kernel.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\quotient.h
+	<CGAL/number_type_basic.h>
+	<utility>
+	<istream>
+	<CGAL/Interval_nt.h>
+	<CGAL/Kernel/mpl.h>
+	<boost/operators.hpp>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension.h
+	<CGAL/number_type_basic.h>
+	<CGAL/Sqrt_extension/Sqrt_extension_type.h>
+	<CGAL/Sqrt_extension/Algebraic_structure_traits.h>
+	<CGAL/Sqrt_extension/Real_embeddable_traits.h>
+	<CGAL/Sqrt_extension/Fraction_traits.h>
+	<CGAL/Sqrt_extension/Coercion_traits.h>
+	<CGAL/Sqrt_extension/Modular_traits.h>
+	<CGAL/Sqrt_extension/Scalar_factor_traits.h>
+	<CGAL/Sqrt_extension/Algebraic_extension_traits.h>
+	<CGAL/Sqrt_extension/Chinese_remainder_traits.h>
+	<CGAL/Sqrt_extension/io.h>
+	<CGAL/Sqrt_extension/Get_arithmetic_kernel.h>
+	<CGAL/Sqrt_extension/convert_to_bfi.h>
+	<CGAL/Sqrt_extension/Wang_traits.h>
+	<CGAL/Sqrt_extension/Eigen_NumTraits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\sqrt_extension_type.h
+	<CGAL/number_type_basic.h>
+	<boost/operators.hpp>
+	<CGAL/Interval_arithmetic.h>
+	<CGAL/Sqrt_extension_fwd.h>
+	<boost/optional.hpp>
+	<boost/type_traits/is_same.hpp>
+	<CGAL/NT_converter.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\interval_arithmetic.h
+	<CGAL/Interval_nt.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension_fwd.h
+	<CGAL/tags.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\algebraic_structure_traits.h
+	<CGAL/basic.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\real_embeddable_traits.h
+	<CGAL/basic.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\fraction_traits.h
+	<CGAL/basic.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\coercion_traits.h
+	<CGAL/basic.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\modular_traits.h
+	<CGAL/basic.h>
+	<CGAL/Residue.h>
+	<CGAL/Modular_traits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\scalar_factor_traits.h
+	<CGAL/basic.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\algebraic_extension_traits.h
+	<CGAL/basic.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\chinese_remainder_traits.h
+	<CGAL/basic.h>
+	<CGAL/Chinese_remainder_traits.h>
+	<CGAL/Sqrt_extension/Sqrt_extension_type.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\chinese_remainder_traits.h
+	<CGAL/basic.h>
+	<vector>
+	<CGAL/extended_euclidean_algorithm.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\extended_euclidean_algorithm.h
+	<CGAL/basic.h>
+	<vector>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\io.h
+	<sstream>
+	<CGAL/basic.h>
+	<CGAL/Sqrt_extension/Sqrt_extension_type.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\get_arithmetic_kernel.h
+	<CGAL/basic.h>
+	<CGAL/Get_arithmetic_kernel.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\get_arithmetic_kernel.h
+	<CGAL/basic.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\convert_to_bfi.h
+	<CGAL/basic.h>
+	<CGAL/convert_to_bfi.h>
+	<CGAL/Coercion_traits.h>
+	<CGAL/Sqrt_extension/Sqrt_extension_type.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\convert_to_bfi.h
+	<CGAL/basic.h>
+	<CGAL/Get_arithmetic_kernel.h>
+	<CGAL/Cache.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\cache.h
+	<CGAL/basic.h>
+	<CGAL/function_objects.h>
+	<map>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\function_objects.h
+	<functional>
+	<CGAL/enum.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\wang_traits.h
+	<CGAL/basic.h>
+	<CGAL/Sqrt_extension/Sqrt_extension_type.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\sqrt_extension\eigen_numtraits.h
+
+1352812438 c:\program files\cgal-4.2\include\cgal\mp_float_impl.h
+	<CGAL/basic.h>
+	<CGAL/Quotient.h>
+	<functional>
+	<cmath>
+	<CGAL/MP_Float.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\mp_float_arithmetic_kernel.h
+	<CGAL/basic.h>
+	<CGAL/Arithmetic_kernel/Arithmetic_kernel_base.h>
+	<CGAL/Get_arithmetic_kernel.h>
+	<CGAL/MP_Float.h>
+	<CGAL/Quotient.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\arithmetic_kernel\arithmetic_kernel_base.h
+
+1352812438 c:\program files\cgal-4.2\include\cgal\internal\exact_type_selector.h
+	<CGAL/number_type_basic.h>
+	<CGAL/MP_Float.h>
+	<CGAL/Quotient.h>
+	<CGAL/Lazy_exact_nt.h>
+	<CGAL/Gmpz.h>
+	<CGAL/Gmpq.h>
+	<CGAL/gmpxx.h>
+	<CGAL/leda_integer.h>
+	<CGAL/leda_rational.h>
+	<CGAL/leda_real.h>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\lazy_exact_nt.h
+	<CGAL/number_type_basic.h>
+	<CGAL/assertions.h>
+	<boost/iterator/transform_iterator.hpp>
+	<boost/operators.hpp>
+	<boost/type_traits/is_same.hpp>
+	<boost/type_traits/is_arithmetic.hpp>
+	<boost/utility/enable_if.hpp>
+	<boost/mpl/if.hpp>
+	<boost/mpl/logical.hpp>
+	<CGAL/Interval_nt.h>
+	<CGAL/Handle.h>
+	<CGAL/NT_converter.h>
+	<CGAL/Profile_counter.h>
+	<CGAL/Lazy.h>
+	<CGAL/Sqrt_extension_fwd.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\handle.h
+	<cstddef>
+	<CGAL/Handle_for.h>
+	<CGAL/assertions.h>
+
+1360337898 c:\program files\cgal-4.2\include\cgal\lazy.h
+	<CGAL/basic.h>
+	<CGAL/Handle.h>
+	<CGAL/Object.h>
+	<CGAL/Kernel/Type_mapper.h>
+	<CGAL/Profile_counter.h>
+	<CGAL/Kernel/Return_base_tag.h>
+	<CGAL/min_max_n.h>
+	<CGAL/Origin.h>
+	<CGAL/Bbox_2.h>
+	<CGAL/Bbox_3.h>
+	<vector>
+	<CGAL/Default.h>
+	<boost/thread/tss.hpp>
+	<boost/mpl/has_xxx.hpp>
+	<boost/preprocessor/facilities/expand.hpp>
+	<boost/preprocessor/repetition/repeat_from_to.hpp>
+	<boost/preprocessor/repetition/repeat.hpp>
+	<boost/preprocessor/repetition/enum_params.hpp>
+	<boost/preprocessor/repetition/enum_binary_params.hpp>
+	<boost/preprocessor/repetition/enum.hpp>
+	<CGAL/Kernel/interface_macros.h>
+	<CGAL/Kernel/interface_macros.h>
+	<CGAL/Kernel/interface_macros.h>
+	<CGAL/Kernel/interface_macros.h>
+	<CGAL/Kernel/interface_macros.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\kernel\type_mapper.h
+	<CGAL/basic.h>
+	<boost/type_traits/remove_cv.hpp>
+	<boost/type_traits/remove_reference.hpp>
+	<CGAL/Kernel/interface_macros.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\min_max_n.h
+	<CGAL/basic.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\default.h
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmpz.h
+	<CGAL/config.h>
+	<CGAL/number_type_basic.h>
+	<CGAL/Gmp_coercion_traits.h>
+	<CGAL/Quotient.h>
+	<string>
+	<locale>
+	<CGAL/Modular_traits.h>
+	<CGAL/Gmpz.h>
+	<CGAL/Gmpq.h>
+	<CGAL/Gmpzf.h>
+	<CGAL/GMP_arithmetic_kernel.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp_coercion_traits.h
+	<CGAL/number_type_basic.h>
+	<CGAL/GMP/Gmpz_type.h>
+	<CGAL/GMP/Gmpzf_type.h>
+	<CGAL/GMP/Gmpfr_type.h>
+	<CGAL/GMP/Gmpq_type.h>
+	<CGAL/Coercion_traits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp\gmpz_type.h
+	<CGAL/basic.h>
+	<CGAL/gmp.h>
+	<mpfr.h>
+	<boost/operators.hpp>
+	<CGAL/Handle_for.h>
+	<string>
+	<locale>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp.h
+	<CGAL/config.h>
+	<gmp.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp\gmpzf_type.h
+	<CGAL/basic.h>
+	<CGAL/Handle_for.h>
+	<CGAL/gmp.h>
+	<mpfr.h>
+	<CGAL/Quotient.h>
+	<CGAL/GMP/Gmpz_type.h>
+	<boost/operators.hpp>
+	<iostream>
+	<cmath>
+	<limits>
+	<string>
+	<utility>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp\gmpfr_type.h
+	<CGAL/gmp.h>
+	<mpfr.h>
+	<boost/operators.hpp>
+	<CGAL/Handle_for.h>
+	<CGAL/GMP/Gmpz_type.h>
+	<CGAL/GMP/Gmpzf_type.h>
+	<limits>
+	<CGAL/Uncertain.h>
+	<CGAL/ipower.h>
+	<CGAL/GMP/Gmpfr_type_static.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\ipower.h
+	<CGAL/assertions.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp\gmpfr_type_static.h
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp\gmpq_type.h
+	<CGAL/basic.h>
+	<CGAL/GMP/Gmpz_type.h>
+	<CGAL/GMP/Gmpfr_type.h>
+	<CGAL/gmp.h>
+	<mpfr.h>
+	<utility>
+	<string>
+	<boost/operators.hpp>
+	<CGAL/Handle_for.h>
+	<CGAL/Profile_counter.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmpq.h
+	<CGAL/number_type_basic.h>
+	<CGAL/Gmpz.h>
+	<CGAL/Gmp_coercion_traits.h>
+	<CGAL/Gmpz.h>
+	<CGAL/Gmpq.h>
+	<CGAL/Gmpzf.h>
+	<CGAL/GMP_arithmetic_kernel.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmpzf.h
+	<CGAL/number_type_basic.h>
+	<CGAL/Gmp_coercion_traits.h>
+	<CGAL/Gmpz.h>
+	<CGAL/Interval_nt.h>
+	<CGAL/Gmpz.h>
+	<CGAL/Gmpq.h>
+	<CGAL/Gmpzf.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\gmp_arithmetic_kernel.h
+	<CGAL/basic.h>
+	<CGAL/Arithmetic_kernel/Arithmetic_kernel_base.h>
+	<CGAL/Get_arithmetic_kernel.h>
+	<CGAL/Gmpz.h>
+	<CGAL/Gmpq.h>
+	<CGAL/Gmpfr.h>
+	<CGAL/Gmpfi.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmpfr.h
+	<CGAL/number_type_basic.h>
+	<CGAL/mpfr_coercion_traits.h>
+	<CGAL/GMP/Gmpfr_type.h>
+	<CGAL/GMP_arithmetic_kernel.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\mpfr_coercion_traits.h
+	<CGAL/config.h>
+	<CGAL/number_type_basic.h>
+	<CGAL/GMP/Gmpfr_type.h>
+	<CGAL/Coercion_traits.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmpfi.h
+	<CGAL/GMP/Gmpfi_type.h>
+	<CGAL/number_type_basic.h>
+	<CGAL/mpfi_coercion_traits.h>
+	<CGAL/Interval_traits.h>
+	<CGAL/Bigfloat_interval_traits.h>
+	<CGAL/GMP/Gmpfi_type.h>
+	<CGAL/GMP_arithmetic_kernel.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp\gmpfi_type.h
+	<CGAL/basic.h>
+	<CGAL/gmp.h>
+	<mpfr.h>
+	<CGAL/GMP/Gmpfr_type.h>
+	<mpfi.h>
+	<boost/operators.hpp>
+	<CGAL/Uncertain.h>
+	<boost/thread/tss.hpp>
+	<limits>
+	<algorithm>
+	<CGAL/GMP/Gmpfi_type_static.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\gmp\gmpfi_type_static.h
+
+1352812438 c:\program files\cgal-4.2\include\cgal\mpfi_coercion_traits.h
+	<CGAL/config.h>
+	<CGAL/number_type_basic.h>
+	<CGAL/GMP/Gmpfr_type.h>
+	<CGAL/GMP/Gmpfi_type.h>
+	<CGAL/Coercion_traits.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\bigfloat_interval_traits.h
+	<CGAL/basic.h>
+	<boost/version.hpp>
+	<boost/serialization/static_warning.hpp>
+	<boost/static_warning.hpp>
+	<CGAL/assertions.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\leda_integer.h
+	<CGAL/number_type_basic.h>
+	<utility>
+	<CGAL/leda_coercion_traits.h>
+	<CGAL/Interval_nt.h>
+	<CGAL/LEDA_basic.h>
+	<LEDA/integer.h>
+	<LEDA/bigfloat.h>
+	<LEDA/numbers/integer.h>
+	<LEDA/numbers/bigfloat.h>
+	<CGAL/Residue.h>
+	<CGAL/Modular_traits.h>
+	<CGAL/leda_integer.h>
+	<CGAL/leda_rational.h>
+	<CGAL/leda_bigfloat.h>
+	<CGAL/leda_real.h>
+	<CGAL/LEDA_arithmetic_kernel.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\leda_coercion_traits.h
+	<CGAL/number_type_basic.h>
+	<CGAL/LEDA_basic.h>
+	<LEDA/integer.h>
+	<LEDA/bigfloat.h>
+	<LEDA/rational.h>
+	<LEDA/real.h>
+	<LEDA/numbers/integer.h>
+	<LEDA/numbers/bigfloat.h>
+	<LEDA/numbers/rational.h>
+	<LEDA/numbers/real.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\leda_basic.h
+	<CGAL/config.h>
+	<LEDA/basic.h>
+	<LEDA/system/basic.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\leda_rational.h
+	<CGAL/number_type_basic.h>
+	<CGAL/leda_coercion_traits.h>
+	<CGAL/Interval_nt.h>
+	<CGAL/Needs_parens_as_product.h>
+	<utility>
+	<CGAL/LEDA_basic.h>
+	<LEDA/rational.h>
+	<LEDA/interval.h>
+	<LEDA/numbers/rational.h>
+	<LEDA/numbers/interval.h>
+	<CGAL/leda_integer.h>
+	<CGAL/leda_integer.h>
+	<CGAL/leda_rational.h>
+	<CGAL/leda_bigfloat.h>
+	<CGAL/leda_real.h>
+	<CGAL/LEDA_arithmetic_kernel.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\leda_bigfloat.h
+	<CGAL/basic.h>
+	<utility>
+	<CGAL/leda_coercion_traits.h>
+	<CGAL/Interval_nt.h>
+	<CGAL/LEDA_basic.h>
+	<LEDA/bigfloat.h>
+	<LEDA/numbers/bigfloat.h>
+	<CGAL/leda_integer.h>
+	<CGAL/leda_rational.h>
+	<CGAL/leda_bigfloat.h>
+	<CGAL/leda_real.h>
+	<CGAL/LEDA_arithmetic_kernel.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\leda_real.h
+	<CGAL/number_type_basic.h>
+	<CGAL/leda_coercion_traits.h>
+	<CGAL/utils.h>
+	<CGAL/Interval_nt.h>
+	<utility>
+	<CGAL/LEDA_basic.h>
+	<LEDA/real.h>
+	<LEDA/interval.h>
+	<LEDA/numbers/real.h>
+	<CGAL/leda_integer.h>
+	<CGAL/leda_rational.h>
+	<CGAL/leda_bigfloat.h>
+	<CGAL/leda_real.h>
+	<CGAL/LEDA_arithmetic_kernel.h>
+
+1352812432 c:\program files\cgal-4.2\include\cgal\leda_arithmetic_kernel.h
+	<CGAL/basic.h>
+	<CGAL/Arithmetic_kernel/Arithmetic_kernel_base.h>
+	<CGAL/Get_arithmetic_kernel.h>
+	<CGAL/leda_integer.h>
+	<CGAL/leda_rational.h>
+	<CGAL/leda_bigfloat.h>
+	<CGAL/leda_real.h>
+	<CGAL/leda_bigfloat_interval.h>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\leda_bigfloat_interval.h
+	<CGAL/basic.h>
+	<CGAL/LEDA_basic.h>
+	<LEDA/bigfloat.h>
+	<LEDA/numbers/bigfloat.h>
+	<boost/numeric/interval.hpp>
+	<CGAL/leda_integer.h>
+	<CGAL/leda_rational.h>
+	<CGAL/leda_real.h>
+	<CGAL/leda_bigfloat.h>
+	<CGAL/Interval_traits.h>
+	<CGAL/Bigfloat_interval_traits.h>
+	<CGAL/ipower.h>
+
+1365534022 c:\program files\cgal-4.2\include\cgal\internal\static_filters\static_filters.h
+	<CGAL/basic.h>
+	<CGAL/Kernel/function_objects.h>
+	<CGAL/Cartesian/function_objects.h>
+	<CGAL/internal/Static_filters/tools.h>
+	<CGAL/internal/Static_filters/Orientation_2.h>
+	<CGAL/internal/Static_filters/Orientation_3.h>
+	<CGAL/internal/Static_filters/Equal_3.h>
+	<CGAL/internal/Static_filters/Is_degenerate_3.h>
+	<CGAL/internal/Static_filters/Angle_3.h>
+	<CGAL/internal/Static_filters/Do_intersect_3.h>
+	<CGAL/internal/Static_filters/Compare_y_at_x_2.h>
+	<CGAL/internal/Static_filters/Side_of_oriented_circle_2.h>
+	<CGAL/internal/Static_filters/Side_of_oriented_sphere_3.h>
+	<CGAL/internal/Static_filters/Compare_squared_radius_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\tools.h
+	<CGAL/basic.h>
+	<CGAL/function_objects.h>
+	<boost/mpl/has_xxx.hpp>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\orientation_2.h
+	<CGAL/Profile_counter.h>
+	<CGAL/determinant.h>
+	<CGAL/internal/Static_filters/Static_filter_error.h>
+	<cmath>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\static_filter_error.h
+	<CGAL/basic.h>
+	<CGAL/FPU.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\orientation_3.h
+	<CGAL/Profile_counter.h>
+	<CGAL/internal/Static_filters/Static_filter_error.h>
+	<CGAL/internal/Static_filters/tools.h>
+	<cmath>
+	<iostream>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\equal_3.h
+	<CGAL/Bbox_3.h>
+	<CGAL/Profile_counter.h>
+	<CGAL/internal/Static_filters/tools.h>
+	<cmath>
+	<iostream>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\is_degenerate_3.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\angle_3.h
+	<CGAL/Bbox_3.h>
+	<CGAL/Profile_counter.h>
+	<CGAL/internal/Static_filters/Static_filter_error.h>
+	<CGAL/internal/Static_filters/tools.h>
+	<cmath>
+	<iostream>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\do_intersect_3.h
+	<CGAL/Bbox_3.h>
+	<CGAL/Profile_counter.h>
+	<CGAL/internal/Static_filters/Static_filter_error.h>
+	<CGAL/internal/Static_filters/tools.h>
+	<CGAL/internal/Intersections_3/Bbox_3_Segment_3_do_intersect.h>
+	<iostream>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\compare_y_at_x_2.h
+	<CGAL/Profile_counter.h>
+	<CGAL/internal/Static_filters/Static_filter_error.h>
+	<CGAL/algorithm.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\side_of_oriented_circle_2.h
+	<CGAL/Profile_counter.h>
+	<CGAL/internal/Static_filters/Static_filter_error.h>
+	<cmath>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\side_of_oriented_sphere_3.h
+	<CGAL/Profile_counter.h>
+	<CGAL/internal/Static_filters/Static_filter_error.h>
+	<CGAL/internal/Static_filters/tools.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\internal\static_filters\compare_squared_radius_3.h
+	<CGAL/Profile_counter.h>
+	<CGAL/internal/Static_filters/Static_filter_error.h>
+	<CGAL/internal/Static_filters/tools.h>
+	<cmath>
+
+1277126308 c:\program files\cgal-4.2\auxiliary\gmp\include\mpfr.h
+	<gmp.h>
+
+1276620832 c:\program files\cgal-4.2\auxiliary\gmp\include\gmp.h
+	<iosfwd>
+	<cstdio>
+	<cstddef>
+	<stddef.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\polyhedron_3.h
+	<CGAL/basic.h>
+	<algorithm>
+	<cstddef>
+	<CGAL/HalfedgeDS_iterator.h>
+	<CGAL/Iterator_project.h>
+	<CGAL/function_objects.h>
+	<CGAL/N_step_adaptor_derived.h>
+	<CGAL/Polyhedron_items_3.h>
+	<CGAL/HalfedgeDS_default.h>
+	<CGAL/HalfedgeDS_const_decorator.h>
+	<CGAL/HalfedgeDS_decorator.h>
+	<CGAL/Modifier_base.h>
+	<CGAL/IO/Verbose_ostream.h>
+	<CGAL/Polyhedron_traits_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_iterator.h
+	<CGAL/circulator.h>
+
+1361649616 c:\program files\cgal-4.2\include\cgal\circulator.h
+	<CGAL/basic.h>
+	<CGAL/circulator_bases.h>
+	<CGAL/assertions.h>
+	<CGAL/use.h>
+	<cstddef>
+	<functional>
+	<iterator>
+	<boost/type_traits/is_convertible.hpp>
+
+1353787252 c:\program files\cgal-4.2\include\cgal\circulator_bases.h
+	<cstddef>
+	<iterator>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\iterator_project.h
+	<iterator>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\n_step_adaptor_derived.h
+	<CGAL/iterator.h>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\iterator.h
+	<CGAL/circulator.h>
+	<CGAL/assertions.h>
+	<CGAL/use.h>
+	<vector>
+	<map>
+	<CGAL/tuple.h>
+	<boost/config.hpp>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\tuple.h
+	<CGAL/config.h>
+	<tuple>
+	<boost/tuple/tuple.hpp>
+	<boost/tuple/tuple_comparison.hpp>
+	<utility>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\polyhedron_items_3.h
+	<CGAL/HalfedgeDS_vertex_base.h>
+	<CGAL/HalfedgeDS_halfedge_base.h>
+	<CGAL/HalfedgeDS_face_base.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_vertex_base.h
+	<CGAL/basic.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_halfedge_base.h
+	<CGAL/basic.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_face_base.h
+	<CGAL/basic.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_default.h
+	<CGAL/HalfedgeDS_items_2.h>
+	<CGAL/HalfedgeDS_list.h>
+	<CGAL/memory.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_items_2.h
+	<CGAL/HalfedgeDS_vertex_base.h>
+	<CGAL/HalfedgeDS_halfedge_base.h>
+	<CGAL/HalfedgeDS_face_base.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_list.h
+	<CGAL/In_place_list.h>
+	<CGAL/HalfedgeDS_items_decorator.h>
+	<CGAL/memory.h>
+	<CGAL/Unique_hash_map.h>
+	<cstddef>
+
+1353787252 c:\program files\cgal-4.2\include\cgal\in_place_list.h
+	<CGAL/basic.h>
+	<cstddef>
+	<iterator>
+	<functional>
+	<algorithm>
+	<CGAL/memory.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_items_decorator.h
+	<CGAL/basic.h>
+	<cstddef>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\unique_hash_map.h
+	<CGAL/basic.h>
+	<CGAL/Handle_hash_function.h>
+	<CGAL/Tools/chained_map.h>
+	<cstddef>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\handle_hash_function.h
+	<CGAL/basic.h>
+	<cstddef>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\tools\chained_map.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\halfedgeds_const_decorator.h
+	<CGAL/HalfedgeDS_items_decorator.h>
+	<vector>
+	<CGAL/IO/Verbose_ostream.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\verbose_ostream.h
+	<iostream>
+
+1359230416 c:\program files\cgal-4.2\include\cgal\halfedgeds_decorator.h
+	<CGAL/HalfedgeDS_items_decorator.h>
+	<CGAL/HalfedgeDS_const_decorator.h>
+	<CGAL/HalfedgeDS_iterator.h>
+	<CGAL/IO/Verbose_ostream.h>
+	<vector>
+	<map>
+	<list>
+
+1352812438 c:\program files\cgal-4.2\include\cgal\modifier_base.h
+
+1352812440 c:\program files\cgal-4.2\include\cgal\polyhedron_traits_3.h
+	<CGAL/basic.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\polyhedron_incremental_builder_3.h
+	<CGAL/basic.h>
+	<CGAL/Random_access_adaptor.h>
+	<CGAL/HalfedgeDS_decorator.h>
+	<CGAL/Unique_hash_map.h>
+	<CGAL/IO/Verbose_ostream.h>
+	<vector>
+	<cstddef>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\random_access_adaptor.h
+	<CGAL/iterator.h>
+
+1379975290 c:\users\dicky\adaptivedstar\helpers.h
+	"CGAL/Polyhedron_incremental_builder_3.h"
+	"CGAL/Polyhedron_3.h"
+	"CGAL/Exact_predicates_inexact_constructions_kernel.h"
 
