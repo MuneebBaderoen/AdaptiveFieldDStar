@@ -5,18 +5,21 @@
 #include<vector>
 #include<string>
 #include<algorithm>
+#include "Helpers.h"
 
 #include "helperClasses.h"
 #include "plyReader\ply.h"
- 
+/*
 #include<CGAL/Simple_cartesian.h>
 #include<CGAL/Polyhedron_incremental_builder_3.h>
 #include<CGAL/Polyhedron_3.h>
 #include<CGAL/IO/Polyhedron_iostream.h>
- 
-typedef CGAL::Simple_cartesian<double>     Kernel;
-typedef CGAL::Polyhedron_3<Kernel>         Polyhedron;
-typedef Polyhedron::HalfedgeDS             HalfedgeDS;
+*/
+
+
+typedef ADStar::K     Kernel;
+typedef ADStar::PathPoly_3         Polyhedron;
+typedef Polyhedron::HalfedgeDS HalfedgeDS;
 
 template<class HDS>
 class PlyParser : public CGAL::Modifier_base<HDS>{
@@ -25,7 +28,7 @@ class PlyParser : public CGAL::Modifier_base<HDS>{
 
 	int numVerts, numFaces;
 public:
-	
+
     //PlyParser( std::vector<double> &v, std::vector<int> &t ) : vertices(v), triangles(t) {}
 
 	PlyParser(){}
@@ -33,10 +36,10 @@ public:
 		using namespace std;
 		cout<<fileName<<endl;
 		readFile(fileName);
-		
+
 	}
 
-	
+
 
 	void readFile(char * fileName){
 		PlyProperty vert_props[] = { /* list of property information for a vertex */
@@ -45,16 +48,16 @@ public:
 		  {"z", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,z), 0, 0, 0, 0},
 		};
 
-		PlyProperty face_props[] = { /* list of property information for a vertex */         
+		PlyProperty face_props[] = { /* list of property information for a vertex */
 		  {"vertex_indices", PLY_INT, PLY_INT, offsetof(Triangle,verts),
 			1, PLY_UCHAR, PLY_UCHAR, offsetof(Triangle,nverts)}
 		};
 
 
-		
+
 		using namespace std;
 
-		
+
 		PlyFile ply;
 		int numElemTypes;
 		int numElems;
@@ -95,7 +98,7 @@ public:
 			else if(equal_strings(curElem, "face")){
 
 				//prepare to read in face elements
-				ply_get_property (&ply, curElem, &face_props[0]); 
+				ply_get_property (&ply, curElem, &face_props[0]);
 				numFaces = numElems;
 
 				for(int j = 0; j < numElems; ++j){
@@ -110,7 +113,7 @@ public:
 						<<face.v1<<", \n"
 						<<face.v2<<", \n"
 						<<face.v3<<">>>"<<endl;
-						*/ 
+						*/
 				}
 
 			}
@@ -118,19 +121,19 @@ public:
 			delete [] curElem;
 
 		}
-		delete [] elemsList;  
+		delete [] elemsList;
 
 		//ply_close(&ply);
 	}
-	
+
 	void operator()(HDS& hds){
 		using namespace std;
 		std::cout<<"Entering void operator"<<std::endl;
-		cout<<"Numverts: "<<numVerts<<", Numfaces: "<<numFaces<<endl;		
+		cout<<"Numverts: "<<numVerts<<", Numfaces: "<<numFaces<<endl;
 
 		typedef typename HDS::Vertex   HDSVertex;
         typedef typename HDSVertex::Point Point;
- 
+
 		// create a cgal incremental builder
         CGAL::Polyhedron_incremental_builder_3<HDS> B( hds, true);
         B.begin_surface( numVerts, numFaces );
@@ -139,8 +142,8 @@ public:
 		for(vector<Vertex>::iterator it= vertices.begin(); it!=vertices.end();it++){
 			B.add_vertex( Point( (*it).x,(*it).y,(*it).z ) );
 		}
-   
-		// add the triangles		
+
+		// add the triangles
 		for( int i=0; i<(int)triangles.size(); i+=3 ){
 			B.begin_facet();
 			B.add_vertex_to_facet( triangles[i+0] );
@@ -156,4 +159,4 @@ public:
 
 };
 
-#endif 
+#endif

@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-class Vector3{	
+class Vector3{
 public:
 	float x, y, z;
 
@@ -13,36 +13,10 @@ public:
 		y=y1;
 		z=z1;
 	}
-	Vector3(Vector3& vec){
+	Vector3(const Vector3& vec){
 		x=vec.x;
 		y=vec.y;
 		z=vec.z;
-	}
-	
-	Vector3 rotate(float angle, Vector3& vec){
-		using namespace std;
-		float c = cos(angle);
-		float s = sin(angle);
-		float t = 1.0 - c;
-
-		cout<<c<<" "<<s<<" "<<t<<endl;
-
-		float m[3][3] = {
-			{ (t*vec.x*vec.x + c),			(t*vec.y*vec.x - s*vec.z),	(t*vec.z*vec.x + s*vec.y) },
-			{ (t*vec.x*vec.y + s*vec.z),	(t*vec.y*vec.y + c),		(t*vec.z*vec.y - s*vec.x) },
-			{ (t*vec.x*vec.z - s*vec.y),	(t*vec.y*vec.z + s*vec.x),	(t*vec.z*vec.z + c)			}
-		};
-
-
-		Vector3 out;
-
-		for(int i = 0; i<3;++i)
-			for(int j = 0; j<3;++j)		
-				out[i]+=m[i][j]*vec[j];
-		
-		
-		return out;
-
 	}
 
 	float& operator[](int index){
@@ -59,38 +33,38 @@ public:
 	void operator+=(Vector3& vec){
 		x+=vec.x;
 		y+=vec.y;
-		z+=vec.z;		
+		z+=vec.z;
 	}
 	void operator-=(Vector3& vec){
 		x-=vec.x;
 		y-=vec.y;
-		z-=vec.z;		
+		z-=vec.z;
 	}
 	void operator*=(float num){
 		x*=num;
 		y*=num;
-		z*=num;		
+		z*=num;
 	}
 	void operator/=(float num){
 		x/=num;
 		y/=num;
-		z/=num;		
+		z/=num;
 	}
 
 	Vector3 operator+(Vector3& vec){
-		return Vector3(x+vec.x, y+vec.y, z+vec.z);		
+		return Vector3(x+vec.x, y+vec.y, z+vec.z);
 	}
 	Vector3 operator-(Vector3& vec){
-		return Vector3(x-vec.x, y-vec.y, z-vec.z);		
+		return Vector3(x-vec.x, y-vec.y, z-vec.z);
 	}
 	Vector3 operator*(float num){
-		return Vector3(x*num, y*num, z*num);		
+		return Vector3(x*num, y*num, z*num);
 	}
 	Vector3 operator/(float num){
-		return Vector3(x/num, y/num, z/num);		
+		return Vector3(x/num, y/num, z/num);
 	}
 
-	Vector3 minVec(Vector3& vec){	
+	Vector3 minVec(Vector3& vec){
 		using namespace std;
 		return Vector3(min<float>(x,vec.x),min<float>(y,vec.y),min<float>(z,vec.z));
 	}
@@ -100,8 +74,8 @@ public:
 	}
 
 	float length(){
-		return sqrtf(x * x + y * y + z * z);
-	}	
+		return x * x + y * y + z * z;
+	}
 	float length2(){
 		return x * x + y * y + z * z;
 	}
@@ -118,12 +92,12 @@ public:
 		return x * vec.x + y * vec.y + z * vec.z;
 	}
 	Vector3 cross(const Vector3& vec){
-		
+
 		return Vector3(	(y*vec.z)-(vec.y*z),
 						-(x*vec.z)+(vec.x*z),
 						(x*vec.y)-(y*vec.x)
 					);
-			
+
 	}
 
 	friend std::ostream& operator<<(std::ostream &strm, const Vector3 &a) {
@@ -169,9 +143,9 @@ class Vertex: public Vector3{
 	}
 
 
-	
 
-	
+
+
 };
 
 
@@ -182,7 +156,7 @@ public:
 	unsigned char nverts;    /* number of vertex indices in list */
 	int *verts;              /* vertex index list */
 
-	Triangle(){}	
+	Triangle(){}
 	Triangle(const Triangle& tri){
 		v1=tri.v1;
 		v2=tri.v2;
@@ -192,7 +166,7 @@ public:
 		v1=Vertex(vt1);
 		v2=Vertex(vt2);
 		v3=Vertex(vt3);
-	}	
+	}
 	Triangle(Vector3& vt1, Vector3& vt2, Vector3& vt3){
 		v1=Vertex(vt1);
 		v2=Vertex(vt2);
@@ -208,7 +182,7 @@ public:
 		//cout<<temp2.x<<" "<<temp2.y<<" "<<temp2.z<<endl;
 	}
 	void calculateLongestEdge(){
-		float temp = (v1-v2).length();		
+		float temp = (v1-v2).length();
 		if(temp>v1.longestEdge)
 			v1.longestEdge=(float)temp;
 		if(temp>v2.longestEdge)
@@ -224,13 +198,13 @@ public:
 		if(temp>v1.longestEdge)
 			v1.longestEdge=(float)temp;
 		if(temp>v3.longestEdge)
-			v3.longestEdge=(float)temp;		
+			v3.longestEdge=(float)temp;
 	}
 
 
 
 };
- 
+
 
 
 #endif

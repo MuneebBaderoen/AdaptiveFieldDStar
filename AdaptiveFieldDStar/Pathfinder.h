@@ -9,7 +9,6 @@
 #include "boost/heap/d_ary_heap.hpp"
 #include "UpdateHelpers.h"
 #include "NodeManager.h"
-#include "WeightedGraph.h"
 #include <iostream>
 #include <iomanip>
 
@@ -120,61 +119,22 @@ class Pathfinder{
 //Handle changes polled by the NodeUpdator
 //---------------------------------------------------------------------------------
 
-    void handleChanges(const std::vector<EdgeChange> & c){
-
-        using namespace boost;
+    void handleChanges(const std::vector<node_handle> & c){
 
         if(!c.empty()){
 
-            //std::cout << "Change detected" << std::endl;
+            //for all new facets
+            for(typename std::vector<node_handle>::const_iterator it = c.begin(); it != c.end(); ++it){
 
-            manager.km += manager.heuristic(last,start);
-            last = start;
-            //for all changed (directed) edges
-            for(std::vector<EdgeChange>::const_iterator it = c.begin(); it != c.end(); ++it){
+                /*for(std::vector<node_handle>::iterator pit = preds.begin(); pit != preds.end(); ++pit)
+                if(*pit != end){
 
-                //std::cout << "Processing start = " << it->start << ", end = " << it->end << std::endl;
-                //std::cout << "Edge exists " << edge(it->start, it->end, graph).second << std::endl;
-
-                float old_weight = manager.getCost(it->start, it->end);
-
-                //std::cout << "Old weight: " << get(edge_weight, graph, e) << std::endl;
-
-                //update edge cost
-                manager.setCost(it->start, it->end, it->weight);
-
-                //std::cout << "Change edge weight from " << old_weight << " to " << get(edge_weight, graph, e) << std::endl;
-
-                //std::cout << "start.rhs " << std::setprecision(10) << graph[it->start].key.second << std::endl;
-                //std::cout << "end.g + old " << graph[it->end].key.first + old_weight << std::endl;
-
-                //std::cout << "end.rhs " << graph[it->end].key.second << std::endl;
-                //std::cout << "start.g + old " << graph[it->start].key.first + old_weight << std::endl;
-
-                if(it->start != end){
-
-                    if(old_weight > it->weight){//std::cout << "Weight lowered." << std::endl;
-                        //graph[it->start].key.second = std::min(graph[it->start].key.second, it->weight + graph[it->end].key.first);
-                        manager.setRHS(it->start, std::min(manager.getRHS(it->start), it->weight + manager.getG(it->end)));}
-                    else if(manager.getRHS(it->start) == (old_weight + manager.getG(it->end))){//std::cout << "Accurate lookahead" << std::endl;
-                        //graph[it->start].key.second = minSucCost(it->start);
-                        manager.setRHS(it->start, manager.getCost(it->start, manager.getMinSucc(it->start)) + manager.getG(manager.getMinSucc(it->start)));}
-
-                }
-                /*if(it->end != end){
-
-                    if(old_weight > it->weight){std::cout << "Weight lowered." << std::endl;
-                        graph[it->end].key.second = std::min(graph[it->end].key.second, it->weight + graph[it->start].key.first);}
-                    else if(std::fabs(graph[it->end].key.second - (old_weight + graph[it->start].key.first)) == 0){std::cout << "Accurate lookahead" << std::endl;
-                        graph[it->end].key.second = minSucCost(it->end);}
+                    manager.setRHS(*pit, std::min(manager.getRHS(*pit), manager.getCost()))
 
                 }*/
 
-                //std::cout << "Start key: " << graph[it->start].key << std::endl;
-
                 //update node
-                updateNode(it->start);
-                //updateNodeD(it->end);
+                //updateNode(*pit);
 
             }
 
@@ -189,8 +149,9 @@ class Pathfinder{
 //Get path and cost of path
 //---------------------------------------------------------------------------------
 
-    void printPath(){
+    std::vector<PathPoly_3::Facet_handle> getPath(){
 
+        std::vector<PathPoly_3::Facet_handle> facets;
         std::cout << "Starting Path:" << std::endl << "================================================" << std::endl;
 
         node_handle cur = start;
@@ -209,6 +170,7 @@ class Pathfinder{
                 PathPoly_3::Halfedge_around_vertex_circulator it = tempCur->vertex_begin();
                 costPair lowCost(INFINITY, intPair());
                 PathPoly_3::Facet_handle lowTri;
+                facets.push_back(lowTri);
 
                 do{
 
@@ -281,6 +243,7 @@ class Pathfinder{
                 PathPoly_3::Halfedge_around_vertex_circulator it = cur->vertex_begin();
                 costPair lowCost(INFINITY, intPair());
                 PathPoly_3::Facet_handle lowTri;
+                facets.push_back(lowTri);
 
                 //get triangle with lowest cost func
                 do{
@@ -317,6 +280,8 @@ class Pathfinder{
         std::cout << std::endl;
 
         std::cout << "Path cost: " << cost << std::endl;
+
+        return facets;
 
     }
 

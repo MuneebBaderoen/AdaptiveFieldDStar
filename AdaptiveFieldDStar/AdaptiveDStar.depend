@@ -1,17 +1,15 @@
 # depslib dependency file v1.0
-1379975814 source:c:\users\dicky\adaptivedstar\driver.cpp
+1380017497 source:c:\users\dicky\adaptivedstar\driver.cpp
 	<iostream>
 	"Pathfinder.h"
-	"GraphGen.h"
 	"NodeUpdator.h"
 	<fstream>
-	"boost/graph/dijkstra_shortest_paths.hpp"
+	"meshAdaptor.h"
 
-1379952698 c:\users\dicky\adaptivedstar\pathfinder.h
+1380017455 c:\users\dicky\adaptivedstar\pathfinder.h
 	"boost/heap/d_ary_heap.hpp"
 	"UpdateHelpers.h"
 	"NodeManager.h"
-	"WeightedGraph.h"
 	<iostream>
 	<iomanip>
 
@@ -29,7 +27,7 @@
 1377710461 c:\users\dicky\adaptivedstar\nodeupdator.h
 	"UpdateHelpers.h"
 
-1379976153 c:\users\dicky\adaptivedstar\nodemanager.h
+1380015577 c:\users\dicky\adaptivedstar\nodemanager.h
 	"WeightedGraph.h"
 	"Helpers.h"
 	<cmath>
@@ -2118,8 +2116,411 @@
 1352812440 c:\program files\cgal-4.2\include\cgal\random_access_adaptor.h
 	<CGAL/iterator.h>
 
-1379975290 c:\users\dicky\adaptivedstar\helpers.h
+1380015595 c:\users\dicky\adaptivedstar\helpers.h
 	"CGAL/Polyhedron_incremental_builder_3.h"
 	"CGAL/Polyhedron_3.h"
 	"CGAL/Exact_predicates_inexact_constructions_kernel.h"
+
+1380012172 source:c:\users\dicky\adaptivedstar\glrenderer.cpp
+	"GL/glew.h"
+	<GL/GL.h>
+	<GL/glut.h>
+	"meshAdaptor.h"
+	<math.h>
+	<cmath>
+
+1380014819 c:\users\dicky\adaptivedstar\meshadaptor.h
+	"plyParser.h"
+
+1380015516 c:\users\dicky\adaptivedstar\plyparser.h
+	<fstream>
+	<vector>
+	<string>
+	<algorithm>
+	"Helpers.h"
+	"helperClasses.h"
+	"plyReader\ply.h"
+	<CGAL/Simple_cartesian.h>
+	<CGAL/Polyhedron_incremental_builder_3.h>
+	<CGAL/Polyhedron_3.h>
+	<CGAL/IO/Polyhedron_iostream.h>
+
+1380014815 c:\users\dicky\adaptivedstar\helperclasses.h
+	<iostream>
+
+1380012172 c:\users\dicky\adaptivedstar\plyreader\ply.h
+	<stdlib.h>
+	<stdio.h>
+	<stddef.h>
+	<string.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\polyhedron_iostream.h
+	<CGAL/Polyhedron_3.h>
+	<CGAL/IO/print_OFF.h>
+	<CGAL/IO/scan_OFF.h>
+	<iostream>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\print_off.h
+	<CGAL/basic.h>
+	<CGAL/IO/File_writer_OFF.h>
+	<CGAL/IO/generic_print_polyhedron.h>
+	<CGAL/Polyhedron_3.h>
+	<iostream>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\file_writer_off.h
+	<CGAL/IO/binary_file_io.h>
+	<CGAL/IO/File_header_OFF.h>
+	<iostream>
+	<cstddef>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\binary_file_io.h
+	<CGAL/basic.h>
+	<iostream>
+	<boost/cstdint.hpp>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\file_header_off.h
+	<CGAL/IO/File_header_extended_OFF.h>
+	<iostream>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\file_header_extended_off.h
+	<CGAL/basic.h>
+	<iostream>
+	<string>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\generic_print_polyhedron.h
+	<CGAL/basic.h>
+	<CGAL/Inverse_index.h>
+	<iostream>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\inverse_index.h
+	<CGAL/iterator.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\scan_off.h
+	<CGAL/IO/Polyhedron_scan_OFF.h>
+	<CGAL/Polyhedron_3.h>
+	<iostream>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\polyhedron_scan_off.h
+	<CGAL/basic.h>
+	<CGAL/IO/File_header_OFF.h>
+	<CGAL/IO/File_scanner_OFF.h>
+	<CGAL/Modifier_base.h>
+	<CGAL/Polyhedron_incremental_builder_3.h>
+	<CGAL/Polyhedron_3.h>
+	<iostream>
+	<cstddef>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\io\file_scanner_off.h
+	<CGAL/basic.h>
+	<cstddef>
+	<CGAL/IO/binary_file_io.h>
+	<CGAL/IO/File_header_OFF.h>
+	<iostream>
+	<boost/cstdint.hpp>
+	<CGAL/Point_3.h>
+	<CGAL/Vector_3.h>
+
+1380012172 source:c:\users\dicky\adaptivedstar\main.cpp
+	<CGAL/Exact_predicates_inexact_constructions_kernel.h>
+	<CGAL/Exact_predicates_exact_constructions_kernel.h>
+	<CGAL/Polyhedron_3.h>
+	<CGAL/IO/Polyhedron_iostream.h>
+	<CGAL/convex_hull_3.h>
+	<CGAL/Width_default_traits_3.h>
+	<CGAL/Width_3.h>
+	<CGAL/Timer.h>
+	<stdio.h>
+	<iostream>
+	<algorithm>
+	<vector>
+	<string>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\exact_predicates_exact_constructions_kernel.h
+	<CGAL/Simple_cartesian.h>
+	<CGAL/Filtered_kernel.h>
+	<CGAL/Lazy_exact_nt.h>
+	<CGAL/internal/Exact_type_selector.h>
+	<CGAL/Lazy_kernel.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\lazy_kernel.h
+	<CGAL/basic.h>
+	<CGAL/Filtered_kernel.h>
+	<CGAL/Cartesian_converter.h>
+	<CGAL/Simple_cartesian.h>
+	<CGAL/Interval_nt.h>
+	<CGAL/Kernel/Type_equality_wrapper.h>
+	<CGAL/Filtered_kernel/Cartesian_coordinate_iterator_2.h>
+	<CGAL/Filtered_kernel/Cartesian_coordinate_iterator_3.h>
+	<CGAL/Lazy.h>
+	<boost/mpl/if.hpp>
+	<boost/type_traits/remove_reference.hpp>
+	<boost/type_traits/remove_cv.hpp>
+	<CGAL/Kernel/interface_macros.h>
+
+1361649616 c:\program files\cgal-4.2\include\cgal\filtered_kernel\cartesian_coordinate_iterator_2.h
+	<cstddef>
+	<iterator>
+	<boost/variant.hpp>
+
+1361649616 c:\program files\cgal-4.2\include\cgal\filtered_kernel\cartesian_coordinate_iterator_3.h
+	<cstddef>
+	<iterator>
+	<boost/variant.hpp>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\convex_hull_3.h
+	<CGAL/basic.h>
+	<CGAL/algorithm.h>
+	<CGAL/convex_hull_2.h>
+	<CGAL/Polyhedron_incremental_builder_3.h>
+	<CGAL/Projection_traits_xy_3.h>
+	<CGAL/Projection_traits_xz_3.h>
+	<CGAL/Projection_traits_yz_3.h>
+	<CGAL/Convex_hull_traits_3.h>
+	<CGAL/Convex_hull_2/ch_assertions.h>
+	<CGAL/Triangulation_data_structure_2.h>
+	<CGAL/Triangulation_vertex_base_with_info_2.h>
+	<CGAL/Cartesian_converter.h>
+	<CGAL/Simple_cartesian.h>
+	<iostream>
+	<algorithm>
+	<utility>
+	<list>
+	<map>
+	<vector>
+	<boost/bind.hpp>
+	<boost/next_prior.hpp>
+	<boost/type_traits/is_floating_point.hpp>
+	<CGAL/internal/Exact_type_selector.h>
+	<CGAL/convexity_check_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\convex_hull_2.h
+	<CGAL/basic.h>
+	<CGAL/convex_hull_traits_2.h>
+	<CGAL/ch_akl_toussaint.h>
+	<CGAL/ch_bykat.h>
+	<iterator>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\convex_hull_traits_2.h
+	<CGAL/Point_2.h>
+	<CGAL/predicates_on_points_2.h>
+	<CGAL/distance_predicates_2.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\distance_predicates_2.h
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ch_akl_toussaint.h
+	<CGAL/basic.h>
+	<iterator>
+	<CGAL/Convex_hull_2/ch_akl_toussaint_impl.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\convex_hull_2\ch_akl_toussaint_impl.h
+	<CGAL/convexity_check_2.h>
+	<CGAL/Convex_hull_2/ch_assertions.h>
+	<CGAL/ch_selected_extreme_points_2.h>
+	<CGAL/ch_graham_andrew.h>
+	<CGAL/algorithm.h>
+	<CGAL/IO/Tee_for_output_iterator.h>
+	<boost/bind.hpp>
+	<CGAL/tuple.h>
+	<CGAL/utility.h>
+	<iterator>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\convexity_check_2.h
+	<CGAL/basic.h>
+	<iterator>
+	<CGAL/Convex_hull_2/convexity_check_2_impl.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\convex_hull_2\convexity_check_2_impl.h
+	<CGAL/algorithm.h>
+	<algorithm>
+	<boost/bind.hpp>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\convex_hull_2\ch_assertions.h
+	<CGAL/assertions.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ch_selected_extreme_points_2.h
+	<CGAL/basic.h>
+	<iterator>
+	<CGAL/Convex_hull_2/ch_selected_extreme_points_2_impl.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\convex_hull_2\ch_selected_extreme_points_2_impl.h
+	<CGAL/convexity_check_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ch_graham_andrew.h
+	<CGAL/basic.h>
+	<iterator>
+	<CGAL/Convex_hull_2/ch_graham_andrew_impl.h>
+
+1361649616 c:\program files\cgal-4.2\include\cgal\convex_hull_2\ch_graham_andrew_impl.h
+	<CGAL/convexity_check_2.h>
+	<CGAL/Convex_hull_2/ch_assertions.h>
+	<CGAL/algorithm.h>
+	<CGAL/IO/Tee_for_output_iterator.h>
+	<vector>
+	<algorithm>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\io\tee_for_output_iterator.h
+	<CGAL/basic.h>
+	<iterator>
+	<vector>
+	<CGAL/Handle.h>
+
+1356206418 c:\program files\cgal-4.2\include\cgal\utility.h
+	<CGAL/basic.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\ch_bykat.h
+	<CGAL/basic.h>
+	<iterator>
+	<CGAL/Convex_hull_2/ch_bykat_impl.h>
+
+1356206416 c:\program files\cgal-4.2\include\cgal\convex_hull_2\ch_bykat_impl.h
+	<CGAL/convexity_check_2.h>
+	<CGAL/Convex_hull_2/ch_assertions.h>
+	<CGAL/ch_selected_extreme_points_2.h>
+	<CGAL/ch_graham_andrew.h>
+	<CGAL/algorithm.h>
+	<list>
+	<algorithm>
+	<boost/bind.hpp>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\projection_traits_xy_3.h
+	<CGAL/internal/Projection_traits_3.h>
+
+1354392020 c:\program files\cgal-4.2\include\cgal\internal\projection_traits_3.h
+	<CGAL/assertions.h>
+	<CGAL/Point_3.h>
+	<CGAL/Segment_3.h>
+	<CGAL/Triangle_3.h>
+	<CGAL/Kernel/global_functions_2.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\projection_traits_xz_3.h
+	<CGAL/internal/Projection_traits_3.h>
+
+1352812436 c:\program files\cgal-4.2\include\cgal\projection_traits_yz_3.h
+	<CGAL/internal/Projection_traits_3.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\convex_hull_traits_3.h
+	<CGAL/Polyhedron_3.h>
+	<CGAL/Convex_hull_face_base_2.h>
+	<CGAL/Projection_traits_xy_3.h>
+	<CGAL/Projection_traits_xz_3.h>
+	<CGAL/Projection_traits_yz_3.h>
+	<list>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\convex_hull_face_base_2.h
+	<CGAL/Triangulation_face_base_2.h>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\triangulation_face_base_2.h
+	<CGAL/basic.h>
+	<CGAL/triangulation_assertions.h>
+	<CGAL/Triangulation_ds_face_base_2.h>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\triangulation_assertions.h
+	<CGAL/assertions.h>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\triangulation_ds_face_base_2.h
+	<CGAL/basic.h>
+	<CGAL/triangulation_assertions.h>
+	<CGAL/Triangulation_utils_2.h>
+	<CGAL/Dummy_tds_2.h>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\triangulation_utils_2.h
+	<CGAL/triangulation_assertions.h>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\dummy_tds_2.h
+	<CGAL/basic.h>
+
+1364068822 c:\program files\cgal-4.2\include\cgal\triangulation_data_structure_2.h
+	<CGAL/basic.h>
+	<iostream>
+	<list>
+	<map>
+	<set>
+	<stack>
+	<vector>
+	<algorithm>
+	<boost/tuple/tuple.hpp>
+	<CGAL/Unique_hash_map.h>
+	<CGAL/triangulation_assertions.h>
+	<CGAL/Triangulation_utils_2.h>
+	<CGAL/Compact_container.h>
+	<CGAL/Triangulation_ds_face_base_2.h>
+	<CGAL/Triangulation_ds_vertex_base_2.h>
+	<CGAL/Triangulation_ds_iterators_2.h>
+	<CGAL/Triangulation_ds_circulators_2.h>
+	<CGAL/IO/File_header_OFF.h>
+	<CGAL/IO/File_scanner_OFF.h>
+
+1355601616 c:\program files\cgal-4.2\include\cgal\compact_container.h
+	<CGAL/basic.h>
+	<CGAL/Default.h>
+	<iterator>
+	<algorithm>
+	<vector>
+	<cstring>
+	<CGAL/memory.h>
+	<CGAL/iterator.h>
+	<boost/mpl/if.hpp>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\triangulation_ds_vertex_base_2.h
+	<CGAL/basic.h>
+	<CGAL/Dummy_tds_2.h>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\triangulation_ds_iterators_2.h
+	<iterator>
+	<CGAL/triangulation_assertions.h>
+
+1364068822 c:\program files\cgal-4.2\include\cgal\triangulation_ds_circulators_2.h
+	<utility>
+	<iterator>
+	<CGAL/circulator.h>
+	<CGAL/triangulation_assertions.h>
+	<CGAL/Triangulation_utils_2.h>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\triangulation_vertex_base_with_info_2.h
+	<CGAL/Triangulation_vertex_base_2.h>
+
+1352812442 c:\program files\cgal-4.2\include\cgal\triangulation_vertex_base_2.h
+	<CGAL/basic.h>
+	<CGAL/Triangulation_ds_vertex_base_2.h>
+
+1352812434 c:\program files\cgal-4.2\include\cgal\convexity_check_3.h
+	<CGAL/intersections.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\width_default_traits_3.h
+	<CGAL/Convex_hull_traits_3.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\width_3.h
+	<CGAL/basic.h>
+	<cstdlib>
+	<iostream>
+	<CGAL/convex_hull_3.h>
+	<CGAL/Polyhedron_3.h>
+	<CGAL/HalfedgeDS_list.h>
+	<CGAL/assertions.h>
+	<CGAL/Width_polyhedron_3.h>
+	<CGAL/width_assertions.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\width_polyhedron_3.h
+	<CGAL/basic.h>
+	<CGAL/HalfedgeDS_vertex_base.h>
+	<CGAL/HalfedgeDS_halfedge_base.h>
+	<CGAL/HalfedgeDS_face_base.h>
+	<map>
+	<CGAL/width_assertions.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\width_assertions.h
+	<stream.h>
+
+1352812440 c:\program files\cgal-4.2\include\cgal\timer.h
+	<CGAL/basic.h>
+
+1380015050 source:c:\users\dicky\adaptivedstar\meshadaptor.cpp
+	"meshAdaptor.h"
+
+1380012172 source:c:\users\dicky\adaptivedstar\plyreader\plyfile.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	"ply.h"
 

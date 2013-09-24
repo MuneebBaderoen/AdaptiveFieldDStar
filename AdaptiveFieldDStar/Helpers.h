@@ -79,7 +79,7 @@ struct DStar_items : public CGAL::Polyhedron_items_3{
 
 typedef CGAL::Polyhedron_3<K, DStar_items> PathPoly_3;
 
-bool isEqual(PathPoly_3::Vertex v1, PathPoly_3::Vertex v2){
+inline bool isEqual(PathPoly_3::Vertex v1, PathPoly_3::Vertex v2){
 
         return v1.point().x() == v2.point().x() && v1.point().y() == v2.point().y() && v1.point().z() == v2.point().z();
 
