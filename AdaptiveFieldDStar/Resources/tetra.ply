@@ -1,0 +1,18 @@
+ply
+format ascii 1.0
+comment created by platoply
+element vertex 4
+property int x
+property int y
+property int z
+element face 4
+property list uchar int vertex_indices
+end_header
+-10 -10 -10 
+10 10 -10 
+10 -10 10 
+-10 10 10 
+3 1 2 3 
+3 1 0 2 
+3 3 2 0 
+3 0 1 3 

@@ -8,13 +8,19 @@
 #include <CGAL/Width_default_traits_3.h>
 #include <CGAL/Width_3.h>
 #include <CGAL/Timer.h>
+#include <stdio.h>
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <string>
 
 
-int main(){
+int me(){
 
-
+	using namespace std;
+	string s;
+	
+	cout<<"hey"<<endl;
+	cin.get();
 	return 0;
 }
