@@ -1,13 +1,5 @@
 #include "meshAdaptor.h"
 
-void MeshAdaptor::init(char * filename){
-	using namespace std;
-	//PlyParser <HalfedgeDS> parser (filename);
-	//P.delegate(parser);
-
-	cout<<"Number of verts: "<<P.size_of_vertices()<<endl;
-}
-
 int MeshAdaptor::longestEdge(Facet_circulator h){
 	return 0;
 }
@@ -53,10 +45,8 @@ std::pair<bool, Polyhedron::Vertex_handle> MeshAdaptor::triangle_is_sliver(const
 		for(int i = 0; i<longestIndex; ++i)
 			h=hfc->next();
 
-
 		return std::pair<bool, Polyhedron::Vertex_handle>(true, bisect_sliver(longestIndex, mid, h));
 	}
-
 
 	return std::pair<bool, Polyhedron::Vertex_handle>(false, Polyhedron::Vertex_handle());
 }
@@ -83,7 +73,9 @@ Polyhedron::Vertex_handle MeshAdaptor::split_cell(Facet_circulator hfc){
 	points[1] = hfc->next()->vertex()->point();
 	points[2] = hfc->next()->next()->vertex()->point();
 
-	if(!triangle_is_sliver(points, hfc).first){
+    std::pair<bool, Polyhedron::Vertex_handle> isSliver = triangle_is_sliver(points, hfc);
+
+	if(!isSliver.first){
 
 		Point sum(points[0].x()+points[1].x()+points[2].x(),
 			points[0].y()+points[1].y()+points[2].y(),
@@ -96,6 +88,7 @@ Polyhedron::Vertex_handle MeshAdaptor::split_cell(Facet_circulator hfc){
 
 	}
 
+	return isSliver.second;
 
 }
 Facet_circulator MeshAdaptor::greatest_area_triangle(){

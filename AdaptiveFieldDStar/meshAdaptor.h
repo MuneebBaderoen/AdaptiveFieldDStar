@@ -16,7 +16,14 @@ public:
 	Polyhedron P;
 
 	MeshAdaptor(){};
-	void init(char * fileName);
+	void init(char * filename){
+	using namespace std;
+	PlyParser <HalfedgeDS> parser (filename);
+	P.delegate(parser);
+
+	cout<<"Number of verts: "<<P.size_of_vertices()<<endl;
+    }
+
     Polyhedron::Vertex_handle split_cell(Facet_circulator h);
 	void split_triangles();
 	int longestEdge(Facet_circulator h);

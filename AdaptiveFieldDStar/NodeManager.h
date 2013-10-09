@@ -319,7 +319,7 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
             }
         else{
             float minX = minimiseX(tri_weight, u1, u3, G2 - G1);
-            std::cout << "MinX for direct path = " << minX << std::endl;
+            //std::cout << "MinX for direct path = " << minX << std::endl;
             return tri_weight*sqrt((u1 + minX*u3).squared_length()) + minX*G2 + (1 - minX)*G1;
             }
 
@@ -466,9 +466,9 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
         std::cout << "Cost = min(" << dirCost << ", " << costFuncIndirect(TWeight, U1, U2, T1Weight, B1->key.first) << ")" << std::endl;
 
         if(cost == dirCost){
-            std::cout << "Min cost of " << s->point() << " uses direct cost." << std::endl;
+            //std::cout << "Min cost of " << s->point() << " uses direct cost." << std::endl;
             float minX = minimiseX(TWeight, U1, U3, B2->key.first - B1->key.first);
-            std::cout << "With X = " << minX << std::endl;
+            //std::cout << "With X = " << minX << std::endl;
             CGAL::Point_3<K> minPoint(minX*(B2->point().x()) + (1 - minX)*(B1->point().x()), minX*(B2->point().y()) + (1 - minX)*(B1->point().y())
                                         , minX*(B2->point().z()) + (1 - minX)*(B1->point().z()));
             PathPoly_3::Vertex intPoint(minPoint);
@@ -559,6 +559,9 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
 
         std::vector<node_handle> toProcess;
 
+        if(incl)        //process self if needed
+            toProcess.push_back(h);
+
         //for all predecesors
         PathPoly_3::Halfedge_around_vertex_circulator he = h->vertex_begin();
 
@@ -569,9 +572,6 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
 
         }
         while(he != h->vertex_begin());
-
-        if(incl)        //process self if needed
-            toProcess.push_back(h);
 
         return toProcess;
 
@@ -590,8 +590,8 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
         //if result is interpolated point
         if(!isEqual(*(circ->vertex()), pair.second.first) && !isEqual(*((++circ)->vertex()), pair.second.first)
                         && !isEqual(*((++circ)->vertex()), pair.second.first)){
-                    std::cout << "Direct cost: " << pair.first << std::endl;
-                    std::cout << "Move to " << pair.second.first.point() << std::endl;
+                    //std::cout << "Direct cost: " << pair.first << std::endl;
+                    //std::cout << "Move to " << pair.second.first.point() << std::endl;
 
                     //construct temp cells
                     PathPoly_3::Facet_handle T1 = pair.second.second->facet();
@@ -600,7 +600,7 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
                     Build_temp temp(pair.second.first, pair.second.second, T1, T2);
                     tempCells.delegate(temp);
 
-                    std::cout << "Int point in temp cells has key = " << tempCells.vertices_begin()->key << std::endl;
+                    //std::cout << "Int point in temp cells has key = " << tempCells.vertices_begin()->key << std::endl;
 
                     intHanPair nextPoint(tempCells.vertices_begin(), pair.second.second);
                     return nextPair(true, nextPoint);

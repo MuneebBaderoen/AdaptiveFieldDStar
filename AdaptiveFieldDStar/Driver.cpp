@@ -28,14 +28,14 @@ public:
         B.add_vertex( Point( -1, 0, 0));
         B.add_vertex( Point( 0, 1, 0));
         B.add_vertex( Point( -2, 1, 0));
-        B.add_vertex( Point( 2, 3, 0));
-        B.add_vertex( Point( 5, 1, 0));
+        //B.add_vertex( Point( 2, 3, 0));
+        //B.add_vertex( Point( 5, 1, 0));
         PathPoly_3::Facet_handle f = B.begin_facet();
         B.add_vertex_to_facet( 0);
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 3);
         B.end_facet();
-        f->weight = 1;
+        f->weight = 10;
         f = B.begin_facet();
         B.add_vertex_to_facet( 0);
         B.add_vertex_to_facet( 3);
@@ -48,7 +48,7 @@ public:
         B.add_vertex_to_facet( 4);
         B.end_facet();
         f->weight = 1;
-        f = B.begin_facet();
+        /*f = B.begin_facet();
         B.add_vertex_to_facet( 3);
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 5);
@@ -59,7 +59,7 @@ public:
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 6);
         B.end_facet();
-        f->weight = 1;
+        f->weight = 1;*/
         B.end_surface();
     }
 };
@@ -76,6 +76,7 @@ int main(){
     PathPoly_3::Vertex_handle end((--mesh.vertices_end()));
 
     adapt.P = mesh;
+    //adapt.init("/Resources/tetra.ply");
 
     cout << "From " << start->point() << " to " << end->point() << endl;
 
@@ -83,16 +84,51 @@ int main(){
     pfC.findPath(start, end);
 
     int y = 0;
-    /*while(y++ < 3){
+    /*while(y++ < 1){
 
-        vector<PathPoly_3::Vertex_handle> newVerts;
+        deque<PathPoly_3::Vertex_handle> newVerts;
+
         vector<PathPoly_3::Facet_handle> toProcess = pfC.getPath();
-        for(vector<PathPoly_3::Facet_handle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it)
-            newVerts.push_back(adapt.split_cell(it->facet_begin()));
+
+        for(int i = 0; i < toProcess.size(); ++i){
+
+            PathPoly_3::Halfedge_around_facet_circulator fit = toProcess[i]->facet_begin();
+
+            std::cout << "Triangle with points " << fit->vertex()->point()
+                        << ", " << (fit->next())->vertex()->point()
+                        << ", " << (fit->next()->next())->vertex()->point();
+            std::cout << std::endl;
+
+        }
+
+        for(vector<PathPoly_3::Facet_handle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it){
+
+            PathPoly_3::Vertex_handle vh = adapt.split_cell((*it)->facet_begin());
+            if(vh != PathPoly_3::Vertex_handle()){
+
+                std::cout << "Vertex at " << vh->point();
+                std::cout << std::endl;
+                newVerts.push_front(vh);
+
+                PathPoly_3::Halfedge_around_vertex_circulator allRound = vh->vertex_begin();
+
+                do{
+
+                    allRound->facet()->weight = (*it)->weight;
+
+                }
+                while(allRound != vh->vertex_begin());
+
+                }
+
+            }
+
         pfC.handleChanges(newVerts);
 
     }*/
 
     pfC.getPath();
+
+    std::cout << "Num. vertices: " << adapt.P.size_of_vertices() << std::endl;
 
 }

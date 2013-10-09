@@ -48,14 +48,6 @@ struct My_Vert : public CGAL::HalfedgeDS_vertex_base<Refs, CGAL::Tag_true, P>{
 
 };
 
-//Custom edge properties for D* Lite
-template<class Refs>
-struct My_HalfEdge : public CGAL::HalfedgeDS_halfedge_base<Refs>{
-
-    float weight;
-
-};
-
 //Custom face properties for Field D*
 template<class Refs>
 struct My_Face : public CGAL::HalfedgeDS_face_base<Refs>{
@@ -68,9 +60,6 @@ struct DStar_items : public CGAL::Polyhedron_items_3{
 
     template<class Refs, class Traits>
     struct Vertex_wrapper{typedef My_Vert<Refs, typename Traits::Point_3> Vertex;};
-
-    /*template<class Refs, class Traits>
-    struct Halfedge_wrapper{typedef My_HalfEdge<Refs> Halfedge;};*/
 
     template<class Refs, class Traits>
     struct Face_wrapper{typedef My_Face<Refs> Face;};

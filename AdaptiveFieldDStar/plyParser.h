@@ -9,6 +9,7 @@
 
 #include "helperClasses.h"
 #include "plyReader\ply.h"
+
 /*
 #include<CGAL/Simple_cartesian.h>
 #include<CGAL/Polyhedron_incremental_builder_3.h>
@@ -35,7 +36,7 @@ public:
 	PlyParser(char * fileName){
 		using namespace std;
 		cout<<fileName<<endl;
-		readFile(fileName);
+		//readFile(fileName);
 
 	}
 

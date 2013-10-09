@@ -119,22 +119,55 @@ class Pathfinder{
 //Handle changes polled by the NodeUpdator
 //---------------------------------------------------------------------------------
 
-    void handleChanges(const std::vector<node_handle> & c){
+    void handleChanges(const std::deque<node_handle> & c){
 
         if(!c.empty()){
 
-            //for all new facets
-            for(typename std::vector<node_handle>::const_iterator it = c.begin(); it != c.end(); ++it){
+            std::cout << "Changing keys" << std::endl << "==================================" << std::endl;
 
-                /*for(std::vector<node_handle>::iterator pit = preds.begin(); pit != preds.end(); ++pit)
+            //for all new facets
+            for(typename std::deque<node_handle>::const_iterator it = c.begin(); it != c.end(); ++it){
+
+                (*it)->key = node_key();
+                std::vector<node_handle> preds = manager.getPreds(*it, true);
+
+                for(typename std::vector<node_handle>::iterator pit = preds.begin(); pit != preds.end(); ++pit){
+
+                std::cout << "Trying to update " << (*pit)->point() << std::endl;
+                std::cout << "Has old key = " << (*pit)->key << std::endl;
+
                 if(*pit != end){
 
-                    manager.setRHS(*pit, std::min(manager.getRHS(*pit), manager.getCost()))
+                    float newRHS = INFINITY;
+                    //manager.setRHS(*pit, manager.getCost(*pit, (*pit)->vertex_begin()->facet()));
+                    PathPoly_3::Halfedge_around_vertex_circulator fit = (*pit)->vertex_begin();
+                    do{
 
-                }*/
+                        if(fit->facet() != PathPoly_3::Facet_handle()){
+
+                            std::cout << "Adjacent to triangle" << std::endl;
+                            newRHS = std::min(newRHS, manager.getCost(*pit, fit->facet()));
+
+                            }
+                        ++fit;
+
+                    }
+                    while(fit != (*pit)->vertex_begin());
+
+                    manager.setRHS(*pit, newRHS);
+
+                    std::cout << "RHS of " << (*pit)->point() << ": " << manager.getRHS(*pit) << std::endl;
+
+                }
 
                 //update node
-                //updateNode(*pit);
+                updateNode(*pit);
+
+                std::cout << "Key is now " << (*pit)->key << std::endl;
+
+                }
+
+                std::cout << "Heuristic for " << (*it)->point() << ": " << manager.heuristic(start, (*it)) << std::endl;
 
             }
 
@@ -170,7 +203,6 @@ class Pathfinder{
                 PathPoly_3::Halfedge_around_vertex_circulator it = tempCur->vertex_begin();
                 costPair lowCost(INFINITY, intPair());
                 PathPoly_3::Facet_handle lowTri;
-                facets.push_back(lowTri);
 
                 do{
 
@@ -183,6 +215,29 @@ class Pathfinder{
 
                 }
                 while(it != tempCur->vertex_begin());
+
+                PathPoly_3::Halfedge_handle he1 = intEdge->next();
+                PathPoly_3::Halfedge_handle he2 = intEdge->opposite()->next();
+
+                PathPoly_3::Halfedge_around_facet_circulator lowTriFit = lowTri->facet_begin();
+
+                do{
+
+                    if(isEqual(*(lowTriFit->vertex()), *(he1->vertex()))){
+
+                        facets.push_back(he1->facet());
+
+                    }
+                    else{
+
+                        facets.push_back(he2->facet());
+
+                    }
+
+                }
+                while(lowTriFit != lowTri->facet_begin());
+
+
 
                 std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point() << std::endl;
 
@@ -243,7 +298,6 @@ class Pathfinder{
                 PathPoly_3::Halfedge_around_vertex_circulator it = cur->vertex_begin();
                 costPair lowCost(INFINITY, intPair());
                 PathPoly_3::Facet_handle lowTri;
-                facets.push_back(lowTri);
 
                 //get triangle with lowest cost func
                 do{
@@ -257,6 +311,8 @@ class Pathfinder{
 
                 }
                 while(it != cur->vertex_begin());
+
+                facets.push_back(lowTri);
 
                 std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point() << std::endl;
 
@@ -299,16 +355,18 @@ class Pathfinder{
             if(on_queue.find(index) != on_queue.end()){         //if already on queue
             //update node priority
 
-            p_queue.update(on_queue[index], N(index, manager.computeKey(start, index)));
-            index->key = manager.computeKey(start, index);
+            node_key new_key = manager.computeKey(start, index);
+            p_queue.update(on_queue[index], N(index, new_key));
+            index->key = new_key;
             //std::cout << "Updating key for node " << index << " to " << graph[index].key << std::endl;
 
             }
             else{
             //insert node onto queue
-            on_queue[index] = p_queue.push(N(index, manager.computeKey(start, index)));
-            index->key = manager.computeKey(start, index);
-            std::cout << "Inserting node " << index->point() << " with key " << manager.computeKey(start, index) << std::endl;
+            node_key new_key = manager.computeKey(start, index);
+            on_queue[index] = p_queue.push(N(index, new_key));
+            index->key = new_key;
+            std::cout << "Inserting node " << index->point() << " with key " << new_key << std::endl;
             }
 
         }
@@ -328,36 +386,40 @@ class Pathfinder{
 
     void computePath(){
 
-    while(!p_queue.empty() && (node_key(p_queue.top().getG(), p_queue.top().getRHS()) < manager.computeKey(start, start) || manager.getRHS(start) > manager.getG(start))){
+    std::cout << "Computing path:" << std::endl << "========================================" << std::endl;
+    for(typename std::map<node_handle, q_handle_type>::iterator it = on_queue.begin(); it != on_queue.end(); ++it)
+        std::cout << "(" << it->first->point() << ") = " << manager.computeKey(start, it->first) << std::endl;
+
+    while(!p_queue.empty() && (manager.computeKey(start,p_queue.top().index) < manager.computeKey(start, start) || std::fabs(manager.getRHS(start) - manager.getG(start)) > 1e-5)){
 
         std::cout << "Processing Node " << p_queue.top().index->point() << std::endl;
         //compare old and new keys for changes
         node_handle top_index = p_queue.top().index;
         node_key key_old(p_queue.top().getG(), p_queue.top().getRHS());
-        node_key key_new = manager.computeKey(start, top_index);
 
-        std::cout << "Old key of " << top_index->point() << " : " << key_old << std::endl;
-        std::cout << "New key of " << top_index->point() << " : " << key_new << std::endl;
+        p_queue.pop();
+        on_queue.erase(top_index);
+
+        std::cout << "Key of " << top_index->point() << " : " << key_old << std::endl;
 
         //char a;
         //std::cin >> a;
 
         //if key has changed
-        if(key_old < key_new){
+        /*if(key_old < key_new){
 
             //update the current node on the queue
-            std::cout << "Updating node " << top_index->point() << " with key " << key_new << std::endl;
+            //std::cout << "Updating node " << top_index->point() << " with key " << key_new << std::endl;
+            top_index->key = key_new;
             p_queue.update(on_queue[top_index], N(top_index, key_new));
 
             }
         //if the graph's key has different values
-        else if(manager.getG(top_index) > manager.getRHS(top_index)){
+        else */if(manager.getG(top_index) > manager.getRHS(top_index)){
 
             std::cout << "Adjusting inconsistent key " << key_old << " of " << top_index->point() << std::endl;
             //update node and remove from queue
             manager.setG(top_index, manager.getRHS(top_index));
-            p_queue.pop();
-            on_queue.erase(top_index);
 
             //std::cin >> a;
 
@@ -376,13 +438,14 @@ class Pathfinder{
                 if(*it != end){
 
                     PathPoly_3::Halfedge_around_vertex_circulator vit = (*it)->vertex_begin();
-
+                    float newRHS = INFINITY;
                     do{
 
                         if(vit->facet() != PathPoly_3::Facet_handle()){
 
-                            std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
-                            manager.setRHS(*it, std::min(manager.getRHS(*it), manager.getCost(*it, vit->facet())));
+                            //std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
+                            newRHS = std::min(newRHS, manager.getCost(*it, vit->facet()));
+
 
                             }
 
@@ -391,7 +454,9 @@ class Pathfinder{
                     }
                     while(vit != (*it)->vertex_begin());
 
-                    std::cout << "RHS of " << (*it)->point() << " set to " << manager.getRHS(*it) << std::endl;
+                    manager.setRHS(*it, std::min(manager.getRHS(*it), newRHS));
+
+                    //std::cout << "RHS of " << (*it)->point() << " set to " << manager.getRHS(*it) << std::endl;
 
                 }
 
@@ -416,18 +481,22 @@ class Pathfinder{
             if(*it != end){
 
             PathPoly_3::Halfedge_around_vertex_circulator vit = (*it)->vertex_begin();
+            float newRHS = INFINITY;
 
             do{
 
                 if(vit->facet() != PathPoly_3::Facet_handle()){
 
-                    std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
-                    manager.setRHS(*it, std::min(manager.getRHS(*it), manager.getCost(*it, vit->facet())));
+                    //std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
+                    newRHS = std::min(newRHS, manager.getCost(*it, vit->facet()));
+
 
                 }
 
             }
             while(vit != (*it)->vertex_begin());
+
+            manager.setRHS(*it, std::min(manager.getRHS(*it), newRHS));
 
             }
 
@@ -437,7 +506,12 @@ class Pathfinder{
 
         }
 
+        std::cout << "Key of " << top_index->point() << " = " << top_index->key << std::endl;
+
     }
+
+    //std::cout << "StartG = " << manager.getG(start);
+    //std::cout << std::endl;
 
     }
 
