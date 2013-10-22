@@ -8,7 +8,7 @@
 #include "Helpers.h"
 
 #include "helperClasses.h"
-#include "plyReader\ply.h"
+#include "plyReader/ply.h"
 
 /*
 #include<CGAL/Simple_cartesian.h>

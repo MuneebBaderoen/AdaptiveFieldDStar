@@ -4,6 +4,11 @@ int MeshAdaptor::longestEdge(Facet_circulator h){
 	return 0;
 }
 
+void split_on_edge(Halfedge_handle h, Point midpt){
+
+
+}
+
 
 std::pair<bool, Polyhedron::Vertex_handle> MeshAdaptor::triangle_is_sliver(const Point * pts, Facet_circulator hfc){
 	using namespace std;
@@ -126,6 +131,9 @@ float MeshAdaptor::triangle_area(Facet_circulator hfc){
 
 	return area;
 }
+
+
+
 
 void MeshAdaptor::split_triangles(){
 		//for(Polyhedron::Facet_iterator it = P.facets_begin(); it!=P.facets_end(); ){

@@ -64,8 +64,7 @@ public:
     }
 };
 
-int main(){
-
+int main2(){
     PathPoly_3 mesh;
     Build_triangle<PathPoly_3::HDS> tri;
     mesh.delegate(tri);
@@ -84,7 +83,7 @@ int main(){
     pfC.findPath(start, end);
 
     int y = 0;
-    /*while(y++ < 1){
+    while(y++ < 1){
 
         deque<PathPoly_3::Vertex_handle> newVerts;
 
@@ -125,7 +124,7 @@ int main(){
 
         pfC.handleChanges(newVerts);
 
-    }*/
+    }
 
     pfC.getPath();
 
