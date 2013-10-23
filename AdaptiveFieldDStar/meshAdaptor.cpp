@@ -4,8 +4,15 @@ int MeshAdaptor::longestEdge(Facet_circulator h){
 	return 0;
 }
 
-void split_on_edge(Halfedge_handle h, Point midpt){
+Polyhedron::Vertex_handle MeshAdaptor::split_on_edge(Halfedge_handle h, Point midpt){
 
+    using namespace std;
+    Halfedge_handle opp = h->opposite()->next();
+
+    Polyhedron::Vertex_handle nvh = bisect_sliver(0, midpt, h);
+    P.split_facet(opp, opp->next()->next());
+    std::cout << "======Doing=================" << std::endl;
+    return nvh;
 
 }
 

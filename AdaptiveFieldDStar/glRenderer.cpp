@@ -1,12 +1,11 @@
 #define _USE_MATH_DEFINES
-#include <glew.h>
-#include <gl.h>
-#include <glut.h>
+#include <Gl/glew.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
 
 
 #include "meshAdaptor.h"
 #include "Pathfinder.h"
-#include "NodeUpdator.h"
 
 #include <math.h>
 #include <cmath>
@@ -33,7 +32,7 @@ Vector3 modelMin, modelMax;
 Vector3 modelPos = Vector3(0,0,0);
 
 //float cx = 0.0f, cy = 0.0f, cz = 0.0f,
-float crx = 120.0f, cry = 60.0f, zoom = 50;
+float crx = 120.0f, cry = 60.0f, zoom = 10;
 
 Vector3 camPos;
 Vector3 camUp = Vector3(0,1,0);
@@ -46,8 +45,8 @@ bool mouseClicked = false;
 bool interactiveMode = false;
 
 Halfedge_handle currentHalfEdge;
-int currentEdgeCounter = 0;
-
+int currentEdgeCounter = 5;
+bool performSplit = false;
 
 
 template <class HDS>
@@ -65,8 +64,8 @@ public:
         B.add_vertex( Point( -1, 0, 0));
         B.add_vertex( Point( 0, 1, 0));
         B.add_vertex( Point( -2, 1, 0));
-        //B.add_vertex( Point( 2, 3, 0));
-        //B.add_vertex( Point( 5, 1, 0));
+        B.add_vertex( Point( 2, 3, 0));
+        B.add_vertex( Point( 5, 1, 0));
         PathPoly_3::Facet_handle f = B.begin_facet();
         B.add_vertex_to_facet( 0);
         B.add_vertex_to_facet( 1);
@@ -85,7 +84,7 @@ public:
         B.add_vertex_to_facet( 4);
         B.end_facet();
         f->weight = 1;
-        /*f = B.begin_facet();
+        f = B.begin_facet();
         B.add_vertex_to_facet( 3);
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 5);
@@ -96,7 +95,7 @@ public:
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 6);
         B.end_facet();
-        f->weight = 1;*/
+        f->weight = 1;
         B.end_surface();
     }
 };
@@ -202,7 +201,10 @@ void mouseDrag(int x, int y){
 */
 
 Point getCurrentEdgeMidPt(){
+    cout<<"getting midpnt"<<endl;
     Point p1 = currentHalfEdge->vertex()->point();
+
+    cout<<"immediate fail"<<endl;
     Point p2 = currentHalfEdge->opposite()->vertex()->point();
 
     Point out(p1.x()/2+p2.x()/2,
@@ -219,7 +221,7 @@ void keyb(unsigned char key, int x, int y){
 		adapt.split_triangles();
 	}
 	if(key=='d'){
-		adapt.split_on_edge(currentHalfEdge, getCurrentEdgeMidPt());
+		performSplit=true;
 	}
 	if(key=='r'){
 		resetCam();
@@ -419,14 +421,22 @@ void display(){
 	}
 	*/
 
-	Polyhedron P = adapt.getSurface();
+	Polyhedron & P = adapt.getSurface();
 	int edgeCount = 0;
 	for(Polyhedron::Halfedge_iterator it = P.halfedges_begin(); it!=P.halfedges_end(); ++it){
         edgeCount++;
         if(edgeCount-1==currentEdgeCounter){
-            Point p1 = (*it)->vertex()->point();
-            Point p2 = (*it)->opposite()->vertex()->point();
+            Point p1 = it->vertex()->point();
+            Point p2 = it->opposite()->vertex()->point();
+            Point out (p1.x()/2+p2.x()/2,
+            p1.y()/2+p2.y()/2,
+            p1.z()/2+p2.z()/2);
             glColor3f(0.0f,1.0f,0.0f);
+            if(performSplit)
+                adapt.split_on_edge(it, out);
+
+            performSplit=false;
+
 
             int dist = 1;
 
@@ -536,11 +546,13 @@ void display(){
 int main(int argc, char** argv)
 {
     Build_triangle<PathPoly_3::HDS> tri;
+
+
     mesh.delegate(tri);
 
     PathPoly_3::Vertex_handle start(mesh.vertices_begin());
     PathPoly_3::Vertex_handle end((--mesh.vertices_end()));
-    adapt.P=mesh;
+    adapt.P = mesh;
 	//std::string filename = "Resources/bunny_recon/bun_zipper.ply";
 	//std::string filename = "Resources/tetra.ply";
 	//m.init((char *) filename.c_str());
@@ -553,58 +565,40 @@ int main(int argc, char** argv)
     Pathfinder<Node<PathPoly_3::Vertex_handle>, PathPoly_3> pfC(adapt.P);
     pfC.findPath(start, end);
 
-    /*
     int y = 0;
-       while(y++ < 1){
+       while(y++ < 4){
 
         deque<PathPoly_3::Vertex_handle> newVerts;
 
-        vector<PathPoly_3::Facet_handle> toProcess = pfC.getPath();
+        vector<UpdateBundle> toProcess = pfC.getPath();
 
         for(int i = 0; i < toProcess.size(); ++i){
 
-            PathPoly_3::Halfedge_around_facet_circulator fit = toProcess[i]->facet_begin();
-
-            std::cout << "Triangle with points " << fit->vertex()->point()
-                        << ", " << (fit->next())->vertex()->point()
-                        << ", " << (fit->next()->next())->vertex()->point();
+            std::cout << "Bundle: " << toProcess[i].handle->vertex()->point()
+                        << toProcess[i].point
+                        << ", " << toProcess[i].cost;
             std::cout << std::endl;
 
         }
 
-        for(vector<PathPoly_3::Facet_handle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it){
+        //process every second halfedge to divide triangle pairs
+        for(vector<UpdateBundle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it){
 
-            PathPoly_3::Vertex_handle vh = adapt.split_cell((*it)->facet_begin());
-            if(vh != PathPoly_3::Vertex_handle()){
-
-                std::cout << "Vertex at " << vh->point();
-                std::cout << std::endl;
-                newVerts.push_front(vh);
-
-                PathPoly_3::Halfedge_around_vertex_circulator allRound = vh->vertex_begin();
-
-                do{
-
-                    allRound->facet()->weight = (*it)->weight;
-
-                }
-                while(allRound != vh->vertex_begin());
-
-                }
+            PathPoly_3::Vertex_handle vh = adapt.split_on_edge((*it).handle,(*it).point);
+            vh->key = node_key((*it).cost, (*it).cost);
+            std::cout << "Added vertex at " << vh->point() << " with cost " << vh->key << std::endl;
+            char a;
+            cin >> a;
+            newVerts.push_front(vh);
 
             }
 
         pfC.handleChanges(newVerts);
 
     }
-    */
     pfC.getPath();
 
     std::cout << "Num. vertices: " << adapt.P.size_of_vertices() << std::endl;
-
-
-
-
 
 	glutInit(&argc,argv);
 	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA);

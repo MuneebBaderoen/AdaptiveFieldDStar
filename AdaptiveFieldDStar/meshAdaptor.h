@@ -31,9 +31,9 @@ public:
 	float triangle_area(Facet_circulator h);
 	std::pair<bool, Polyhedron::Vertex_handle> triangle_is_sliver(const Point * pts, Facet_circulator h);
 	Polyhedron::Vertex_handle bisect_sliver(int halfedgeIndex, Point midEdge, Halfedge_handle h);
-	void split_on_edge(Halfedge_handle h, Point midpt);
+	Polyhedron::Vertex_handle split_on_edge(Halfedge_handle h, Point midpt);
 
-	Polyhedron getSurface(){return P;}
+	Polyhedron & getSurface(){return P;}
 
 
 };

@@ -235,6 +235,7 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
                 minWeight = it->weight;
 
     }
+    PathPoly_3 & getEnvir(){return envir;}
     void setG(node_handle h, float value){h->key.first = value;}
     float getG(node_handle h){return h->key.first;}
     void setRHS(node_handle h, float value){h->key.second = value;}
@@ -534,7 +535,7 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
 
     float heuristic(node_handle s_index, node_handle e_index) const{
 
-        return minWeight*sqrt(pow(e_index->point().x() - s_index->point().x(), 2) + pow(e_index->point().y() - s_index->point().y(), 2)
+        return minWeight * sqrt(pow(e_index->point().x() - s_index->point().x(), 2) + pow(e_index->point().y() - s_index->point().y(), 2)
                      + pow(e_index->point().z() - s_index->point().z(), 2));
 
     }
@@ -545,7 +546,10 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
 
     node_key computeKey(node_handle start, node_handle index) const{
 
-    return node_key(std::min(index->key.first, index->key.second) + heuristic(start, index) + km
+    std::cout << index->key.first << " " << index->key.second << std::endl;
+    std::cout << heuristic(start, index) << std::endl;
+
+    return node_key(std::min(index->key.first, index->key.second) + heuristic(start, index)
                     , std::min(index->key.first, index->key.second));
 
     }

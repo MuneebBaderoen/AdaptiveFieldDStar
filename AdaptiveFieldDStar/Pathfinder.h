@@ -7,7 +7,6 @@
 #define PATHFINDER_H_INCLUDED
 
 #include "boost/heap/d_ary_heap.hpp"
-#include "UpdateHelpers.h"
 #include "NodeManager.h"
 #include <iostream>
 #include <iomanip>
@@ -128,7 +127,6 @@ class Pathfinder{
             //for all new facets
             for(typename std::deque<node_handle>::const_iterator it = c.begin(); it != c.end(); ++it){
 
-                (*it)->key = node_key();
                 std::vector<node_handle> preds = manager.getPreds(*it, true);
 
                 for(typename std::vector<node_handle>::iterator pit = preds.begin(); pit != preds.end(); ++pit){
@@ -155,13 +153,11 @@ class Pathfinder{
                     while(fit != (*pit)->vertex_begin());
 
                     manager.setRHS(*pit, newRHS);
+                    manager.setG(*pit, newRHS);
 
                     std::cout << "RHS of " << (*pit)->point() << ": " << manager.getRHS(*pit) << std::endl;
 
                 }
-
-                //update node
-                updateNode(*pit);
 
                 std::cout << "Key is now " << (*pit)->key << std::endl;
 
@@ -172,6 +168,7 @@ class Pathfinder{
             }
 
             //std::cout << "Computing path" << std::endl;
+            start->key.first = INFINITY;
             computePath();
 
         }
@@ -182,10 +179,11 @@ class Pathfinder{
 //Get path and cost of path
 //---------------------------------------------------------------------------------
 
-    std::vector<PathPoly_3::Facet_handle> getPath(){
+    std::vector<UpdateBundle> getPath(){
 
-        std::vector<PathPoly_3::Facet_handle> facets;
+        std::vector<UpdateBundle> facets;
         std::cout << "Starting Path:" << std::endl << "================================================" << std::endl;
+        //std::cout << "Nodes in mesh: " << manager.getEnvir().size_of_vertices() << std::endl;
 
         node_handle cur = start;
         node_handle tempCur;
@@ -194,6 +192,7 @@ class Pathfinder{
         path.push_back(cur->point());
         bool interpol = false;
         PathPoly_3::Halfedge_handle intEdge;
+        char a;
 
         while(cur != end){
 
@@ -201,6 +200,7 @@ class Pathfinder{
 
                 std::cout << "Processing interpolated point " << tempCur->point() << std::endl;
                 PathPoly_3::Halfedge_around_vertex_circulator it = tempCur->vertex_begin();
+                //std::cin >> a;
                 costPair lowCost(INFINITY, intPair());
                 PathPoly_3::Facet_handle lowTri;
 
@@ -208,6 +208,7 @@ class Pathfinder{
 
                     if(it->facet() != PathPoly_3::Facet_handle() && lowCost.first > manager.getCost(tempCur, it->facet())){
                         std::cout << "Processing triangle with weight " << it->facet()->weight << std::endl;
+                        //std::cin >> a;
                         lowCost = manager.getCostPair(tempCur, it->facet());
                         lowTri = it->facet();
                         }
@@ -225,21 +226,24 @@ class Pathfinder{
 
                     if(isEqual(*(lowTriFit->vertex()), *(he1->vertex()))){
 
-                        facets.push_back(he1->facet());
+                        UpdateBundle b;
+                        b.handle = he1;
+                        //cfacets.push_back(b);
 
                     }
                     else{
 
-                        facets.push_back(he2->facet());
+                        UpdateBundle b;
+                        b.handle = he2;
+                        //facets.push_back(b);
 
                     }
 
                 }
                 while(lowTriFit != lowTri->facet_begin());
 
-
-
                 std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point() << std::endl;
+                //std::cin >> a;
 
                 nextPair next = manager.getNextVert(lowTri, lowCost);
                 interpol = next.first;
@@ -289,11 +293,11 @@ class Pathfinder{
                     intEdge = next.second.second;
                     }
 
-
             }
             else{
 
                 std::cout << "Processing mesh point " << cur->point() << std::endl;
+                //std::cin >> a;
 
                 PathPoly_3::Halfedge_around_vertex_circulator it = cur->vertex_begin();
                 costPair lowCost(INFINITY, intPair());
@@ -302,8 +306,11 @@ class Pathfinder{
                 //get triangle with lowest cost func
                 do{
 
+                    //std::cout << "Processing triangle with weight " << it->facet()->weight << std::endl;
+                    //std::cout << "Cost is " << lowCost.first << std::endl;
+
                     if(it->facet() != PathPoly_3::Facet_handle() && lowCost.first > manager.getCost(cur, it->facet())){
-                        std::cout << "Processing triangle with weight " << it->facet()->weight << std::endl;
+                        //std::cin >> a;
                         lowCost = manager.getCostPair(cur, it->facet());
                         lowTri = it->facet();
                         }
@@ -312,16 +319,48 @@ class Pathfinder{
                 }
                 while(it != cur->vertex_begin());
 
-                facets.push_back(lowTri);
-
                 std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point() << std::endl;
+                //std::cin >> a;
 
                 nextPair next = manager.getNextVert(lowTri, lowCost);
                 interpol = next.first;
                 path.push_back(lowCost.second.first.point());
-                if(!interpol)
+
+                //determine need for temp cells if point interpolated
+                if(!interpol){
+
                     cur = next.second.first;
+                    }
                 else{
+
+                    //add point to be adapted
+                    UpdateBundle b;
+                    b.handle = next.second.second;
+                    b.point = next.second.first->point();
+
+                    float edge_length = sqrt(CGAL::Vector_3<K>(lowCost.second.second->vertex()->point()
+                                                      , lowCost.second.second->opposite()->vertex()->point()).squared_length());
+
+                    float range = lowCost.second.second->vertex()->key.first - lowCost.second.second->opposite()->vertex()->key.first;
+
+                    std::cout << "Interpolate between " << lowCost.second.second->vertex()->point() << "with key " << lowCost.second.second->vertex()->key.first
+                            << " and " << lowCost.second.second->opposite()->vertex()->point() << "with key " << lowCost.second.second->opposite()->vertex()->key.first << std::endl;
+
+                    b.cost = lowCost.second.second->vertex()->key.first * sqrt(CGAL::Vector_3<K>(next.second.first->point(), lowCost.second.second->opposite()->vertex()->point()).squared_length())
+                            + lowCost.second.second->opposite()->vertex()->key.first * sqrt(CGAL::Vector_3<K>(next.second.first->point(), lowCost.second.second->vertex()->point()).squared_length());
+
+                    b.cost /= edge_length;
+
+                    /*b.cost = lowCost.second.second->vertex()->key.first
+                                - sqrt(CGAL::Vector_3<K>(lowCost.second.second->vertex()->point(), next.second.first->point()).squared_length() / edge_length)
+                                * range;*/
+
+                    //b.cost = lowCost.first;
+
+                    facets.push_back(b);
+
+                    std::cout << "Adding bundle: " << b.point << ", " << b.cost << std::endl;
+
                     tempCur = next.second.first;
                     intEdge = next.second.second;
                     }

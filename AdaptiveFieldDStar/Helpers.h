@@ -174,6 +174,14 @@ public:
     }
 };
 
+struct UpdateBundle{
+
+    PathPoly_3::Halfedge_handle handle;
+    PathPoly_3::Point_3 point;
+    float cost;
+
+};
+
 }
 
 #endif // HELPERS_H_INCLUDED
