@@ -1,7 +1,17 @@
 #define _USE_MATH_DEFINES
+
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 #include <Gl/glew.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
+#else
+#include <glew.h>
+#include <gl.h>
+#include <glut.h>
+#endif
+
+
 
 
 #include "meshAdaptor.h"
