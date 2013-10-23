@@ -335,7 +335,7 @@ class Pathfinder{
 
                     //add point to be adapted
                     UpdateBundle b;
-                    b.handle = next.second.second;
+                    b.handle = lowCost.second.second;
                     b.point = next.second.first->point();
 
                     float edge_length = sqrt(CGAL::Vector_3<K>(lowCost.second.second->vertex()->point()

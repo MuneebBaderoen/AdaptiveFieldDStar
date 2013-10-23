@@ -64,8 +64,8 @@ public:
         B.add_vertex( Point( -1, 0, 0));
         B.add_vertex( Point( 0, 1, 0));
         B.add_vertex( Point( -2, 1, 0));
-        B.add_vertex( Point( 2, 3, 0));
-        B.add_vertex( Point( 5, 1, 0));
+        //B.add_vertex( Point( 2, 3, 0));
+        //B.add_vertex( Point( 5, 1, 0));
         PathPoly_3::Facet_handle f = B.begin_facet();
         B.add_vertex_to_facet( 0);
         B.add_vertex_to_facet( 1);
@@ -84,7 +84,7 @@ public:
         B.add_vertex_to_facet( 4);
         B.end_facet();
         f->weight = 1;
-        f = B.begin_facet();
+        /*f = B.begin_facet();
         B.add_vertex_to_facet( 3);
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 5);
@@ -95,7 +95,7 @@ public:
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 6);
         B.end_facet();
-        f->weight = 1;
+        f->weight = 1;*/
         B.end_surface();
     }
 };
@@ -570,12 +570,13 @@ int main(int argc, char** argv)
 
         deque<PathPoly_3::Vertex_handle> newVerts;
 
+        std::cout << "Iteration " << y << std::endl << "============================" << std::endl;
         vector<UpdateBundle> toProcess = pfC.getPath();
 
         for(int i = 0; i < toProcess.size(); ++i){
 
             std::cout << "Bundle: " << toProcess[i].handle->vertex()->point()
-                        << toProcess[i].point
+                        << ", " << toProcess[i].point
                         << ", " << toProcess[i].cost;
             std::cout << std::endl;
 
@@ -584,7 +585,7 @@ int main(int argc, char** argv)
         //process every second halfedge to divide triangle pairs
         for(vector<UpdateBundle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it){
 
-            PathPoly_3::Vertex_handle vh = adapt.split_on_edge((*it).handle,(*it).point);
+            PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*((*it).handle->vertex()), (*(*it).handle->opposite()->vertex()),(*it).point);
             vh->key = node_key((*it).cost, (*it).cost);
             std::cout << "Added vertex at " << vh->point() << " with cost " << vh->key << std::endl;
             char a;

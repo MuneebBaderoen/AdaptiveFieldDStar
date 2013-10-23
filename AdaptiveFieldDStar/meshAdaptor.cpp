@@ -10,8 +10,12 @@ Polyhedron::Vertex_handle MeshAdaptor::split_on_edge(Halfedge_handle h, Point mi
     Halfedge_handle opp = h->opposite()->next();
 
     Polyhedron::Vertex_handle nvh = bisect_sliver(0, midpt, h);
-    P.split_facet(opp, opp->next()->next());
-    std::cout << "======Doing=================" << std::endl;
+
+    float parWeight = h->facet()->weight;
+	Polyhedron::Halfedge_handle diag = P.split_facet(opp, opp->next()->next());
+	diag->facet()->weight = parWeight;
+	diag->opposite()->facet()->weight = parWeight;
+
     return nvh;
 
 }
@@ -69,11 +73,31 @@ Polyhedron::Vertex_handle MeshAdaptor::bisect_sliver(int halfedgeIndex, Point mi
 
 	P.split_edge(h);
 	h->prev()->vertex()->point() = midEdge;
-	P.split_facet(h->prev(), h->next());
+	float parWeight = h->facet()->weight;
+	Polyhedron::Halfedge_handle diag = P.split_facet(h->prev(), h->next());
+	diag->facet()->weight = parWeight;
+	diag->opposite()->facet()->weight = parWeight;
 
 	return h->prev()->vertex();
 }
 
+
+Polyhedron::Vertex_handle MeshAdaptor::find_halfedge_handle(PathPoly_3::Vertex p1, PathPoly_3::Vertex p2, Point midPnt){
+    using namespace ADStar;
+    for(Polyhedron::Halfedge_iterator it = P.halfedges_begin(); it!=P.halfedges_end(); ++it){
+        if(isEqual(*(it->vertex()), p1))
+            if(isEqual(*(it->opposite()->vertex()), p2)){
+                std::cout << "Found" << p1.point() << " , " << p2.point() << std::endl;
+                return split_on_edge(it, midPnt);}
+        if(isEqual(*(it->vertex()), p2))
+            if(isEqual(*(it->opposite()->vertex()), p1)){
+                std::cout << "Found" << p2.point() << " , " << p1.point() << std::endl;
+                return split_on_edge(it, midPnt);}
+    }
+
+    std::cout << "No edge found" << std::endl;
+    return Polyhedron::Vertex_handle();
+}
 
 
 Polyhedron::Vertex_handle MeshAdaptor::split_cell(Facet_circulator hfc){
