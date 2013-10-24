@@ -153,12 +153,13 @@ class Pathfinder{
                     while(fit != (*pit)->vertex_begin());
 
                     manager.setRHS(*pit, newRHS);
-                    manager.setG(*pit, newRHS);
+                    //manager.setG(*pit, newRHS);
 
                     std::cout << "RHS of " << (*pit)->point() << ": " << manager.getRHS(*pit) << std::endl;
 
                 }
 
+                updateNode(*pit);
                 std::cout << "Key is now " << (*pit)->key << std::endl;
 
                 }
@@ -313,13 +314,15 @@ class Pathfinder{
                         //std::cin >> a;
                         lowCost = manager.getCostPair(cur, it->facet());
                         lowTri = it->facet();
+                        std::cout << "lowPoint of tri: " << lowCost.second.first.point() << std::endl;
                         }
                     ++it;
 
                 }
                 while(it != cur->vertex_begin());
 
-                std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point() << std::endl;
+                std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point()
+                            << " with cost: " << lowCost.first << std::endl;
                 //std::cin >> a;
 
                 nextPair next = manager.getNextVert(lowTri, lowCost);
@@ -482,9 +485,16 @@ class Pathfinder{
 
                         if(vit->facet() != PathPoly_3::Facet_handle()){
 
-                            //std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
-                            newRHS = std::min(newRHS, manager.getCost(*it, vit->facet()));
+                            std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
+                            costPair cp = manager.getCostPair(*it, vit->facet());
+                            newRHS = std::min(newRHS, cp.first);
+                            if(newRHS < vit->facet()->pathCost){
+                            vit->facet()->pathCost = newRHS;
+                            vit->facet()->lowPoint = cp.second.first.point();
 
+                            std::cout << "Gave facet cost " << newRHS << " and point " << cp.second.first.point() << std::endl;
+
+                            }
 
                             }
 
@@ -528,7 +538,6 @@ class Pathfinder{
 
                     //std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
                     newRHS = std::min(newRHS, manager.getCost(*it, vit->facet()));
-
 
                 }
 

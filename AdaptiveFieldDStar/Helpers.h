@@ -52,7 +52,9 @@ struct My_Vert : public CGAL::HalfedgeDS_vertex_base<Refs, CGAL::Tag_true, P>{
 template<class Refs>
 struct My_Face : public CGAL::HalfedgeDS_face_base<Refs>{
 
-    float weight;
+    float weight = 0;
+    float pathCost = INFINITY;
+    CGAL::Point_3<K> lowPoint;
 
 };
 

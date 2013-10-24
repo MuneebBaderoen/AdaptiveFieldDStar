@@ -7,14 +7,35 @@ int MeshAdaptor::longestEdge(Facet_circulator h){
 Polyhedron::Vertex_handle MeshAdaptor::split_on_edge(Halfedge_handle h, Point midpt){
 
     using namespace std;
-    Halfedge_handle opp = h->opposite()->next();
 
+    Halfedge_handle opp = h->opposite()->next();
     Polyhedron::Vertex_handle nvh = bisect_sliver(0, midpt, h);
 
-    float parWeight = h->facet()->weight;
+    std::cout << "Splitting on: " << opp->vertex()->point() << ", " << opp->next()->next()->vertex()->point() << std::endl;
+    std::cout << "facet: " << opp->vertex()->point() << ", "
+                << opp->next()->vertex()->point() << ", "
+                << opp->next()->next()->vertex()->point() << ", "
+                << opp->next()->next()->next()->vertex()->point()
+                << " degree" << opp->facet()->facet_degree() << std::endl;
+
+    std::cout << "facet degree: " << opp->facet()->facet_degree() << std::endl;
+    std::cout << "Opp vert: " << opp->vertex()->point() << std::endl;
+    std::cout << "Next Opp vert: " << opp->next()->vertex()->point() << std::endl;
+    std::cout << "Next Next Opp vert: " << opp->next()->next()->vertex()->point() << std::endl;
+
 	Polyhedron::Halfedge_handle diag = P.split_facet(opp, opp->next()->next());
-	diag->facet()->weight = parWeight;
-	diag->opposite()->facet()->weight = parWeight;
+
+	std::cout << "facet: " << diag->vertex()->point() << ", "
+                << diag->next()->vertex()->point() << ", "
+                << diag->next()->next()->vertex()->point() << ", "
+                << diag->next()->next()->next()->vertex()->point()
+                << " degree" << diag->facet()->facet_degree() << std::endl;
+
+    std::cout << "facet: " << diag->opposite()->vertex()->point() << ", "
+                << diag->opposite()->next()->vertex()->point() << ", "
+                << diag->opposite()->next()->next()->vertex()->point() << ", "
+                << diag->opposite()->next()->next()->next()->vertex()->point()
+                << " degree" << diag->facet()->facet_degree() << std::endl;
 
     return nvh;
 
@@ -71,12 +92,28 @@ Polyhedron::Vertex_handle MeshAdaptor::bisect_sliver(int halfedgeIndex, Point mi
 	//Incoming handle is the vertex adjacent to vertices incident with the edge to be added
 	//thus next and previous verts are connected, splitting the facet
 
-	P.split_edge(h);
-	h->prev()->vertex()->point() = midEdge;
-	float parWeight = h->facet()->weight;
-	Polyhedron::Halfedge_handle diag = P.split_facet(h->prev(), h->next());
-	diag->facet()->weight = parWeight;
-	diag->opposite()->facet()->weight = parWeight;
+    std::cout << "Mesh is valid: " << (bool)P.is_valid() << std::endl;
+    std::cout << "Splitting edge: " << h->vertex()->point() << ", " << h->opposite()->vertex()->point() << std::endl;
+
+	Halfedge_handle newH = P.split_edge(h);
+	newH->vertex()->point() = midEdge;
+	std::cout << "diag dest: " << newH->vertex()->point() << ", " << h->next()->vertex()->point() << std::endl;
+	Polyhedron::Halfedge_handle diag = P.split_facet(newH, h->next());
+
+	std::cout << "New edge is along " << newH->vertex()->point() << " , " << newH->opposite()->vertex()->point() << std::endl;
+	std::cout << "Facet: " << newH->vertex()->point() << ", " << newH->next()->vertex()->point()
+                << ", " << newH->next()->next()->vertex()->point()
+                << " (degree)" << newH->facet()->facet_degree()
+                << " (weight)" << newH->facet()->weight << std::endl;
+
+	std::cout << "Old edge is along " << h->vertex()->point() << " , " << h->opposite()->vertex()->point() << std::endl;
+    std::cout << "Facet: " << h->vertex()->point() << ", " << h->next()->vertex()->point()
+                << ", " << h->next()->next()->vertex()->point()
+                << " (degree)" << h->facet()->facet_degree()
+                << " (weight)" << h->facet()->weight << std::endl;
+
+
+	std::cout << "Mesh is valid: " << (bool)P.is_valid() << std::endl;
 
 	return h->prev()->vertex();
 }

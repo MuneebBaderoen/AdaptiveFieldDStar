@@ -1,17 +1,7 @@
 #define _USE_MATH_DEFINES
-
-
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 #include <Gl/glew.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
-#else
-#include <glew.h>
-#include <gl.h>
-#include <glut.h>
-#endif
-
-
 
 
 #include "meshAdaptor.h"
@@ -81,7 +71,7 @@ public:
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 3);
         B.end_facet();
-        f->weight = 10;
+        f->weight = 1;
         f = B.begin_facet();
         B.add_vertex_to_facet( 0);
         B.add_vertex_to_facet( 3);
@@ -560,7 +550,7 @@ int main(int argc, char** argv)
 
     mesh.delegate(tri);
 
-    PathPoly_3::Vertex_handle start(mesh.vertices_begin());
+    PathPoly_3::Vertex_handle start((mesh.vertices_begin()));
     PathPoly_3::Vertex_handle end((--mesh.vertices_end()));
     adapt.P = mesh;
 	//std::string filename = "Resources/bunny_recon/bun_zipper.ply";
@@ -576,7 +566,7 @@ int main(int argc, char** argv)
     pfC.findPath(start, end);
 
     int y = 0;
-       while(y++ < 4){
+       while(y++ < 2){
 
         deque<PathPoly_3::Vertex_handle> newVerts;
 
@@ -595,7 +585,8 @@ int main(int argc, char** argv)
         //process every second halfedge to divide triangle pairs
         for(vector<UpdateBundle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it){
 
-            PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*((*it).handle->vertex()), (*(*it).handle->opposite()->vertex()),(*it).point);
+            PathPoly_3::Vertex_handle vh = adapt.split_on_edge((*it).handle, (*it).point);
+            //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*((*it).handle->vertex()), (*(*it).handle->opposite()->vertex()),(*it).point);
             vh->key = node_key((*it).cost, (*it).cost);
             std::cout << "Added vertex at " << vh->point() << " with cost " << vh->key << std::endl;
             char a;
@@ -604,12 +595,17 @@ int main(int argc, char** argv)
 
             }
 
+        //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*(adapt.P.vertices_begin()), *(++(adapt.P.vertices_begin())), CGAL::Point_3<K>(0,0.5,0));
+
         pfC.handleChanges(newVerts);
 
     }
     pfC.getPath();
 
+    //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*(adapt.P.vertices_begin()), *(++(adapt.P.vertices_begin())), CGAL::Point_3<K>(0,0.5,0));
+
     std::cout << "Num. vertices: " << adapt.P.size_of_vertices() << std::endl;
+    std::cout << "Num. Facets: " << adapt.P.size_of_facets() << std::endl;
 
 	glutInit(&argc,argv);
 	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA);

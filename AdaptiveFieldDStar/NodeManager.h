@@ -258,12 +258,12 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
         float b = v2.squared_length();
         float c = v1*v2;
 
-        if(mu == 0)
-            root = -c/b;
-        else if(pow(mu, 2) < b*pow(lambda, 2))
-            root = -c/b + (mu*sqrt((pow(mu, 2) - b*pow(lambda, 2)) * (pow(c, 2) - a*b)))/(b * (pow(mu, 2) - b*pow(lambda, 2)));
+        if(mu == 0){std::cout << "Mu = 0" << std::endl;
+            root = -c/b;}
+        else if(pow(mu, 2) < b*pow(lambda, 2)){std::cout << "Inequality satisfied" << std::endl;
+            root = -c/b + (mu*sqrt((pow(mu, 2) - b*pow(lambda, 2)) * (pow(c, 2) - a*b)))/(b * (pow(mu, 2) - b*pow(lambda, 2)));}
 
-        //std::cout << "Root: " << root << std::endl;
+        std::cout << "Root: " << root << std::endl;
 
         //no critical points found
         if(root == INFINITY){
@@ -302,12 +302,12 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
 
     float costFuncDirect(float tri_weight, Vec3 & u1, Vec3 & u3, float G1, float G2) const{
 
-        //std::cout << "Calculating direct cost" << std::endl;
-        //std::cout << "G1: " << G1 << ", G2: " << G2 << std::endl;
+        std::cout << "Calculating direct cost" << std::endl;
+        std::cout << "G1: " << G1 << ", G2: " << G2 << std::endl;
         //std::cout << "Weight = " << tri_weight << std::endl;
-        /*std::cout << "Lin comb U1, U3 = " << sqrt((u1 + minX*u3).squared_length()) << std::endl;
+        //std::cout << "Lin comb U1, U3 = " << sqrt((u1 + minX*u3).squared_length()) << std::endl;
         std::cout << "G1 = " << G1 << std::endl;
-        std::cout << "G2 = " << G2 << std::endl;*/
+        std::cout << "G2 = " << G2 << std::endl;
         if(G2 == INFINITY){
 
             //std::cout << "Caught inf G2" << std::endl;
@@ -320,7 +320,7 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
             }
         else{
             float minX = minimiseX(tri_weight, u1, u3, G2 - G1);
-            //std::cout << "MinX for direct path = " << minX << std::endl;
+            std::cout << "MinX for direct path = " << minX << std::endl;
             return tri_weight*sqrt((u1 + minX*u3).squared_length()) + minX*G2 + (1 - minX)*G1;
             }
 
