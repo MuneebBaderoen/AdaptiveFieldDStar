@@ -45,6 +45,7 @@ struct My_Vert : public CGAL::HalfedgeDS_vertex_base<Refs, CGAL::Tag_true, P>{
     My_Vert(){}
     My_Vert(const P & p): CGAL::HalfedgeDS_vertex_base<Refs, CGAL::Tag_true, P>(p){}
     node_key key;
+    bool newPoint = false;
 
 };
 

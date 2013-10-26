@@ -565,13 +565,22 @@ int main(int argc, char** argv)
     Pathfinder<Node<PathPoly_3::Vertex_handle>, PathPoly_3> pfC(adapt.P);
     pfC.findPath(start, end);
 
+    float oldCost = INFINITY;
+
     int y = 0;
-       while(y++ < 2){
+       do{
 
         deque<PathPoly_3::Vertex_handle> newVerts;
 
         std::cout << "Iteration " << y << std::endl << "============================" << std::endl;
         vector<UpdateBundle> toProcess = pfC.getPath();
+        char a;
+        std::cin >> a;
+
+        if(oldCost - pfC.getCost() < 1e-5)
+            break;
+
+        oldCost = pfC.getCost();
 
         for(int i = 0; i < toProcess.size(); ++i){
 
@@ -588,6 +597,7 @@ int main(int argc, char** argv)
             PathPoly_3::Vertex_handle vh = adapt.split_on_edge((*it).handle, (*it).point);
             //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*((*it).handle->vertex()), (*(*it).handle->opposite()->vertex()),(*it).point);
             vh->key = node_key((*it).cost, (*it).cost);
+            vh->newPoint = true;
             std::cout << "Added vertex at " << vh->point() << " with cost " << vh->key << std::endl;
             char a;
             cin >> a;
@@ -598,14 +608,18 @@ int main(int argc, char** argv)
         //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*(adapt.P.vertices_begin()), *(++(adapt.P.vertices_begin())), CGAL::Point_3<K>(0,0.5,0));
 
         pfC.handleChanges(newVerts);
+        ++y;
 
     }
-    pfC.getPath();
+    while(true);
+
+    pfC.getPath(false);
 
     //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*(adapt.P.vertices_begin()), *(++(adapt.P.vertices_begin())), CGAL::Point_3<K>(0,0.5,0));
 
     std::cout << "Num. vertices: " << adapt.P.size_of_vertices() << std::endl;
     std::cout << "Num. Facets: " << adapt.P.size_of_facets() << std::endl;
+    std::cout << "Num. Iterations: " << y << std::endl;
 
 	glutInit(&argc,argv);
 	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA);

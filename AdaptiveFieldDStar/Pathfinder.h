@@ -45,6 +45,8 @@ class Pathfinder{
 
     public:
 
+    float getCost(){return cost;}
+
 //---------------------------------------------------------------------------------
 //Main pathfinding method
 //---------------------------------------------------------------------------------
@@ -144,7 +146,12 @@ class Pathfinder{
                         if(fit->facet() != PathPoly_3::Facet_handle()){
 
                             std::cout << "Adjacent to triangle" << std::endl;
-                            newRHS = std::min(newRHS, manager.getCost(*pit, fit->facet()));
+                            costPair cp = manager.getCostPair(*pit, fit->facet());
+                            newRHS = std::min(newRHS, cp.first);
+                            if(newRHS < fit->facet()->pathCost){
+                            fit->facet()->pathCost = newRHS;
+                            fit->facet()->lowPoint = cp.second.first.point();
+                            }
 
                             }
                         ++fit;
@@ -180,7 +187,7 @@ class Pathfinder{
 //Get path and cost of path
 //---------------------------------------------------------------------------------
 
-    std::vector<UpdateBundle> getPath(){
+    std::vector<UpdateBundle> getPath(bool adjust = true){
 
         std::vector<UpdateBundle> facets;
         std::cout << "Starting Path:" << std::endl << "================================================" << std::endl;
@@ -188,7 +195,7 @@ class Pathfinder{
 
         node_handle cur = start;
         node_handle tempCur;
-        float cost = start->key.second;
+        cost = start->key.second;
         std::vector<CGAL::Point_3<K> > path;
         path.push_back(cur->point());
         bool interpol = false;
@@ -207,11 +214,17 @@ class Pathfinder{
 
                 do{
 
-                    if(it->facet() != PathPoly_3::Facet_handle() && lowCost.first > manager.getCost(tempCur, it->facet())){
+                    if(it->facet() != PathPoly_3::Facet_handle()){
                         std::cout << "Processing triangle with weight " << it->facet()->weight << std::endl;
                         //std::cin >> a;
-                        lowCost = manager.getCostPair(tempCur, it->facet());
+                        costPair newCost = manager.getCostPair(tempCur, it->facet(), true);
+                        if(newCost.first < lowCost.first){
+
+                        lowCost = newCost;
                         lowTri = it->facet();
+
+                        }
+
                         }
                     ++it;
 
@@ -310,10 +323,17 @@ class Pathfinder{
                     //std::cout << "Processing triangle with weight " << it->facet()->weight << std::endl;
                     //std::cout << "Cost is " << lowCost.first << std::endl;
 
-                    if(it->facet() != PathPoly_3::Facet_handle() && lowCost.first > manager.getCost(cur, it->facet())){
+                    if(it->facet() != PathPoly_3::Facet_handle()){
                         //std::cin >> a;
-                        lowCost = manager.getCostPair(cur, it->facet());
+                        costPair nextCost = manager.getCostPair(cur, it->facet(), adjust);
+                        if(nextCost.first < lowCost.first){
+
+                        lowCost = nextCost;
                         lowTri = it->facet();
+                        it->opposite()->vertex()->newPoint = false;
+
+                        }
+
                         std::cout << "lowPoint of tri: " << lowCost.second.first.point() << std::endl;
                         }
                     ++it;
@@ -339,18 +359,27 @@ class Pathfinder{
                     //add point to be adapted
                     UpdateBundle b;
                     b.handle = lowCost.second.second;
-                    b.point = next.second.first->point();
+                    b.point = lowCost.second.first.point();
+
+                    std::cout << "===============\nNext from handle: " << b.handle->opposite()->next()->vertex()->point() << "\n====================="
+                            << std::endl;
+
+                    cur = b.handle->opposite()->next()->vertex();
+                    interpol = false;
 
                     float edge_length = sqrt(CGAL::Vector_3<K>(lowCost.second.second->vertex()->point()
                                                       , lowCost.second.second->opposite()->vertex()->point()).squared_length());
 
                     float range = lowCost.second.second->vertex()->key.first - lowCost.second.second->opposite()->vertex()->key.first;
 
+                    if(lowCost.second.second->vertex()->newPoint)
+                        range -= (lowCost.second.second->vertex()->key.first/4);
+
                     std::cout << "Interpolate between " << lowCost.second.second->vertex()->point() << "with key " << lowCost.second.second->vertex()->key.first
                             << " and " << lowCost.second.second->opposite()->vertex()->point() << "with key " << lowCost.second.second->opposite()->vertex()->key.first << std::endl;
 
-                    b.cost = lowCost.second.second->vertex()->key.first * sqrt(CGAL::Vector_3<K>(next.second.first->point(), lowCost.second.second->opposite()->vertex()->point()).squared_length())
-                            + lowCost.second.second->opposite()->vertex()->key.first * sqrt(CGAL::Vector_3<K>(next.second.first->point(), lowCost.second.second->vertex()->point()).squared_length());
+                    b.cost = lowCost.second.second->vertex()->key.first * sqrt(CGAL::Vector_3<K>(lowTri->lowPoint, lowCost.second.second->opposite()->vertex()->point()).squared_length())
+                            + lowCost.second.second->opposite()->vertex()->key.first * sqrt(CGAL::Vector_3<K>(lowTri->lowPoint, lowCost.second.second->vertex()->point()).squared_length());
 
                     b.cost /= edge_length;
 
@@ -371,7 +400,7 @@ class Pathfinder{
             }
 
         }
-
+        path.push_back(cur->point());
         std::cout << "Shortest Path:" << std::endl;
         for(typename std::vector<CGAL::Point_3<K> >::iterator it = path.begin(); it != path.end(); ++it)
             std::cout << "(" << *it << ") ";
@@ -485,14 +514,14 @@ class Pathfinder{
 
                         if(vit->facet() != PathPoly_3::Facet_handle()){
 
-                            std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
+                            //std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
                             costPair cp = manager.getCostPair(*it, vit->facet());
                             newRHS = std::min(newRHS, cp.first);
                             if(newRHS < vit->facet()->pathCost){
                             vit->facet()->pathCost = newRHS;
                             vit->facet()->lowPoint = cp.second.first.point();
 
-                            std::cout << "Gave facet cost " << newRHS << " and point " << cp.second.first.point() << std::endl;
+                            //std::cout << "Gave facet cost " << newRHS << " and point " << cp.second.first.point() << std::endl;
 
                             }
 
@@ -536,8 +565,14 @@ class Pathfinder{
 
                 if(vit->facet() != PathPoly_3::Facet_handle()){
 
+                    costPair cp = manager.getCostPair(*it, vit->facet());
                     //std::cout << "Processing " << (*it)->point() << " on triangle with weight " << vit->facet()->weight << std::endl;
-                    newRHS = std::min(newRHS, manager.getCost(*it, vit->facet()));
+                    newRHS = std::min(newRHS, cp.first);
+                    if(newRHS < vit->facet()->pathCost){
+                    vit->facet()->pathCost = newRHS;
+                    vit->facet()->lowPoint = cp.second.first.point();
+
+                    }
 
                 }
 

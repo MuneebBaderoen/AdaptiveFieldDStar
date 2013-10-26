@@ -300,10 +300,12 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
 //Computes the cost of moving along the edge of a triangle
 //---------------------------------------------------------------------------------
 
-    float costFuncDirect(float tri_weight, Vec3 & u1, Vec3 & u3, float G1, float G2) const{
+    std::pair<float, float> costFuncDirect(float tri_weight, Vec3 & u1, Vec3 & u3, float G1, float G2) const{
 
         std::cout << "Calculating direct cost" << std::endl;
         std::cout << "G1: " << G1 << ", G2: " << G2 << std::endl;
+        std::cout << "U1: " << u1 << std::endl;
+        std::cout << "U3: " << u3 << std::endl;
         //std::cout << "Weight = " << tri_weight << std::endl;
         //std::cout << "Lin comb U1, U3 = " << sqrt((u1 + minX*u3).squared_length()) << std::endl;
         std::cout << "G1 = " << G1 << std::endl;
@@ -311,17 +313,17 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
         if(G2 == INFINITY){
 
             //std::cout << "Caught inf G2" << std::endl;
-            return tri_weight*sqrt(u1.squared_length()) + G1;
+            return std::pair<float, float>(0, tri_weight*sqrt(u1.squared_length()) + G1);
             }
         else if(G1 == INFINITY){
 
             //std::cout << "Caught inf G1" << std::endl;
-            return tri_weight*sqrt((u1 + u3).squared_length()) + G2;
+            return std::pair<float, float>(1, tri_weight*sqrt((u1 + u3).squared_length()) + G2);
             }
         else{
             float minX = minimiseX(tri_weight, u1, u3, G2 - G1);
             std::cout << "MinX for direct path = " << minX << std::endl;
-            return tri_weight*sqrt((u1 + minX*u3).squared_length()) + minX*G2 + (1 - minX)*G1;
+            return std::pair<float, float>(minX, tri_weight*sqrt((u1 + minX*u3).squared_length()) + minX*G2 + (1 - minX)*G1);
             }
 
     }
@@ -330,103 +332,9 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
 //Get the cost of traversal between two vertices
 //---------------------------------------------------------------------------------
 
-    float getCost(node_handle s, node_handle e) const{return getCostPair(s, e).first;}
-
-    std::pair<float,CGAL::Point_3<K> > getCostPair(node_handle s, node_handle e) const{
-
-        typedef PathPoly_3::Facet_handle F_handle;
-        typedef std::pair<float, CGAL::Point_3<K> > costPair;
-
-        if(s == e)
-            return costPair();
-        else
-            for(PathPoly_3::Vertex::Halfedge_around_vertex_circulator it = s->vertex_begin(); it != --(s->vertex_begin()); ++it){
-
-            //std::cout << "S = " << s->point() << "E = " << e->point()
-            //        << ", CUR = " << it->opposite()->vertex()->point() << std::endl;
-
-            if(it->opposite()->vertex() == e){
-
-            node_handle A = s;
-            node_handle B1 = e;
-
-            //std::cout << B1->point() << std::endl;
-
-            //for triangle on left side of AB1
-            F_handle T = it->facet();
-            node_handle B2 = it->next()->vertex();
-            Vec3 U1(A->point(), B1->point());
-            Vec3 U2(A->point(), B2->point());
-            Vec3 U3(B1->point(), B2->point());
-
-            F_handle T1 = it->prev()->opposite()->facet();
-
-            float weightT = INFINITY, weightT1 = INFINITY;
-
-            if(T != F_handle())
-                weightT = T->weight;
-            if(T1 != F_handle())
-                weightT1 = T1->weight;
-
-            //std::cout << "Cost of left tri: min(" << costFuncDirect(weightT, U1, U3, B1->key.first, B2->key.first)
-            //                << ", " << costFuncIndirect(weightT, U1, U2, weightT1, B1->key.first) << ")" << std::endl;
-
-            float minXL = minimiseX(weightT, U1, U3, B2->key.first - B1->key.first);
-            float leftDirect = costFuncDirect(weightT, U1, U3, B1->key.first, B2->key.first);
-            float costTLeft = std::min(leftDirect, costFuncIndirect(weightT, U1, U2, weightT1, B1->key.first));
-
-            //for triangle on right side of AB1
-            T = it->opposite()->facet();
-            node_handle B2R = it->opposite()->next()->vertex();
-            U2 = Vec3(A->point(), B2->point());
-            U3 = Vec3(B1->point(), B2->point());
-
-            T1 = it->opposite()->next()->opposite()->facet();
-
-            weightT = INFINITY, weightT1 = INFINITY;
-
-            if(T != F_handle())
-                weightT = T->weight;
-            if(T1 != F_handle())
-                weightT1 = T1->weight;
-
-            //std::cout << "Cost of right tri: min(" << costFuncDirect(weightT, U1, U3, B1->key.first, B2R->key.first)
-            //                << ", " << costFuncIndirect(weightT, U1, U2, weightT1, B1->key.first) << ")" << std::endl;
-
-            float minXR = minimiseX(weightT, U1, U3, B2R->key.first - B1->key.first);
-            float rightDirect = costFuncDirect(weightT, U1, U3, B1->key.first, B2R->key.first);
-            float costTRight = std::min(rightDirect, costFuncIndirect(weightT, U1, U2, weightT1, B1->key.first));
-
-            //std::cout << costTLeft << ", " << costTRight << std::endl;
-
-            //pass on interpolated point if direct cost used
-            if(costTLeft < costTRight && costTLeft == leftDirect){
-
-                std::cout << "Left direct path using X = " << minXL << std::endl;
-                CGAL::Point_3<K> minPoint(minXL*(B2->point().x()) + (1 - minXL)*(B1->point().x()), minXL*(B2->point().y()) + (1 - minXL)*(B1->point().y())
-                                            , minXL*(B2->point().z()) + (1 - minXL)*(B1->point().z()));
-                return costPair(costTLeft, minPoint);
-
-            }
-            else if(costTRight == rightDirect){
-
-                std::cout << "Right direct path from using X = " << minXR << std::endl;
-                CGAL::Point_3<K> minPoint(minXR*(B2R->point().x()) + (1 - minXR)*(B1->point().x()), minXR*(B2R->point().y()) + (1 - minXR)*(B1->point().y())
-                                            , minXR*(B2R->point().z()) + (1 - minXR)*(B1->point().z()));
-                return costPair(costTRight, minPoint);
-
-            }
-            else
-                return costPair(std::min(costTLeft, costTRight), CGAL::Point_3<K>(INFINITY, INFINITY, INFINITY));
-                }}
-
-        return costPair(INFINITY,CGAL::Point_3<K>(INFINITY, INFINITY, INFINITY));
-
-    }
-
     float getCost(node_handle s, PathPoly_3::Facet_handle f) const{return getCostPair(s, f).first;}
 
-    costPair getCostPair(node_handle s, PathPoly_3::Facet_handle f) const{
+    costPair getCostPair(node_handle s, PathPoly_3::Facet_handle f, bool pathExt = false) const{
 
         node_handle A = s;
         node_handle B1, B2;
@@ -461,17 +369,31 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
         Vec3 U2(A->point(), B2->point());
         Vec3 U3(B1->point(), B2->point());
 
-        float dirCost = costFuncDirect(TWeight, U1, U3, B1->key.first, B2->key.first);
-        float cost = std::min(dirCost, costFuncIndirect(TWeight, U1, U2, T1Weight, B1->key.first));
+        float B1K = B1->key.first;
+        //std::cout << B2->point() << " is a new point: " << B2->newPoint << std::endl;
+        //std::cout << "Extracting path: " << pathExt << std::endl;
 
-        std::cout << "Cost = min(" << dirCost << ", " << costFuncIndirect(TWeight, U1, U2, T1Weight, B1->key.first) << ")" << std::endl;
+        if(B2->newPoint && pathExt){
 
-        if(cost == dirCost){
+        B1K -= B2->key.first/4;
+        std::cout << "B1 augmented from " << B1->key.first << " to " << B1K << std::endl;
+        char a;
+        std::cin >> a;
+
+        }
+
+
+        std::pair<float, float> dirCost = costFuncDirect(TWeight, U1, U3, B1K, B2->key.first);
+        float cost = std::min(dirCost.second, costFuncIndirect(TWeight, U1, U2, T1Weight, B1->key.first));
+
+        std::cout << "Cost = min(" << dirCost.second << ", " << costFuncIndirect(TWeight, U1, U2, T1Weight, B1->key.first) << ")" << std::endl;
+
+        if(cost == dirCost.second){
             //std::cout << "Min cost of " << s->point() << " uses direct cost." << std::endl;
-            float minX = minimiseX(TWeight, U1, U3, B2->key.first - B1->key.first);
-            //std::cout << "With X = " << minX << std::endl;
-            CGAL::Point_3<K> minPoint(minX*(B2->point().x()) + (1 - minX)*(B1->point().x()), minX*(B2->point().y()) + (1 - minX)*(B1->point().y())
-                                        , minX*(B2->point().z()) + (1 - minX)*(B1->point().z()));
+            std::cout << "With X = " << dirCost.first << std::endl;
+            CGAL::Point_3<K> minPoint(dirCost.first*(B2->point().x()) + (1 - dirCost.first)*(B1->point().x())
+                                      , dirCost.first*(B2->point().y()) + (1 - dirCost.first)*(B1->point().y())
+                                    , dirCost.first*(B2->point().z()) + (1 - dirCost.first)*(B1->point().z()));
             PathPoly_3::Vertex intPoint(minPoint);
             return costPair(cost, intPair(intPoint, it));
 
@@ -495,40 +417,6 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
             }*/
 
     }
-
-//---------------------------------------------------------------------------------
-//Return the least costly successor of a vertex
-//---------------------------------------------------------------------------------
-
-    node_handle getMinSucc(node_handle index) const{
-
-        float min_cost = INFINITY;
-        node_handle min_succ;
-
-        //std::cout << "For vertex " << index->point() << std::endl;
-
-        //for every neighbouring vertex of index
-        for(PathPoly_3::Vertex::Halfedge_around_vertex_circulator it = index->vertex_begin(); it != --(index->vertex_begin()); ++it){
-
-            //calc the cost and adjust minimum if necessary
-            float cost = getCost(index, it->opposite()->vertex());
-            //std::cout << "Cost to " << it->opposite()->vertex()->point() << " = " << cost << std::endl;
-            if(min_cost > cost){
-
-                min_cost = cost;
-                min_succ = it->opposite()->vertex();
-
-            }
-
-        }
-
-        //char a;
-        //std::cin >> a;
-
-        return min_succ;
-
-    }
-
 //---------------------------------------------------------------------------------
 //Estimates the distance between two vertices (Euclidean heuristic)
 //---------------------------------------------------------------------------------
@@ -588,6 +476,8 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
     PathPoly_3 tempCells;
 
     nextPair getNextVert(PathPoly_3::Facet_handle T, costPair pair){
+
+        std::cout << "Finding vert for pair: " << pair.first << " " << pair.second.first.point() << std::endl;
 
         PathPoly_3::Halfedge_around_facet_circulator circ = T->facet_begin();
 
