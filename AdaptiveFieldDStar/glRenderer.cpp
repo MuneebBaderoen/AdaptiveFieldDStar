@@ -19,7 +19,7 @@ using namespace ADStar;
 
 MeshAdaptor adapt;
 PathPoly_3 mesh;
-
+std::vector<CGAL::Point_3<K> > path;
 
 int currentFace = 0;
 int windowX = 800, windowY = 600;
@@ -450,22 +450,35 @@ void display(){
 
 	}
 
-
+    //draw Mesh
+	glColor3f(1,0,0);
 
 	for(Polyhedron::Facet_iterator it = P.facets_begin(); it!=P.facets_end();++it)
 	{
 		count++;
-
-
 
 		Polyhedron::Halfedge_around_facet_circulator pCirc = it->facet_begin();
 		Polyhedron::Halfedge_handle h = pCirc;
 
 		Vector3 pt(0,0,0);
 
+        do{
 
+        CGAL::Point_3<K> p1, p2;
+        p1 = pCirc->vertex()->point();
+        p2 = pCirc->opposite()->vertex()->point();
 
-		for(int i = 0; i<(int)it->facet_degree(); i++){
+        glBegin(GL_LINES);
+        glVertex3f(p1.x(), p1.y(), p1.z());
+        glVertex3f(p2.x(), p2.y(), p2.z());
+        glEnd();
+
+        ++pCirc;
+
+        }
+        while(pCirc != it->facet_begin());
+
+		/*for(int i = 0; i<(int)it->facet_degree(); i++){
 			pt.x+=h->vertex()->point().x();
 			pt.y+=h->vertex()->point().y();
 			pt.z+=h->vertex()->point().z();
@@ -483,17 +496,9 @@ void display(){
 		else
 			glColor3f(1.0f,0.2f,0.2f);
 
-
 			const Point a = h->vertex()->point();
 			const Point b = h->opposite()->vertex()->point();
 
-			//std::cout<<a.x()<<", "<<a.y()<<", "<<a.z()<<std::endl;
-			/*
-			glBegin( GL_LINES);
-			glVertex3f(a.x(), a.y(), a.z());
-			glVertex3f(b.x(), b.y(), b.z());
-			glEnd();
-			*/
 			int dist = 5;
 
 			glBegin( GL_LINES);
@@ -515,17 +520,26 @@ void display(){
 			glVertex3f(pt.x, pt.y, pt.z);
 
 			glEnd();
-			*/
+
 
 
 			h=h->next();
-		}
+		}*/
 
 
 
 	}
 	//cout<<count<<endl;
 
+    //draw path
+    glColor3f(0,1,0);
+    glBegin(GL_LINE_STRIP);
+    for(std::vector<CGAL::Point_3<K> >::iterator it = path.begin(); it!= path.end(); ++it){
+
+        glVertex3f(it->x(), it->y(), it->z());
+
+    }
+    glEnd();
 
 	//cout<<m.getSurface().size_of_facets()<<endl;
 
@@ -574,8 +588,8 @@ int main(int argc, char** argv)
 
         std::cout << "Iteration " << y << std::endl << "============================" << std::endl;
         vector<UpdateBundle> toProcess = pfC.getPath();
-        char a;
-        std::cin >> a;
+        //char a;
+        //std::cin >> a;
 
         if(oldCost - pfC.getCost() < 1e-5)
             break;
@@ -599,8 +613,8 @@ int main(int argc, char** argv)
             vh->key = node_key((*it).cost, (*it).cost);
             vh->newPoint = true;
             std::cout << "Added vertex at " << vh->point() << " with cost " << vh->key << std::endl;
-            char a;
-            cin >> a;
+            //char a;
+            //cin >> a;
             newVerts.push_front(vh);
 
             }
@@ -614,6 +628,7 @@ int main(int argc, char** argv)
     while(true);
 
     pfC.getPath(false);
+    path = pfC.getPathPoints();
 
     //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*(adapt.P.vertices_begin()), *(++(adapt.P.vertices_begin())), CGAL::Point_3<K>(0,0.5,0));
 

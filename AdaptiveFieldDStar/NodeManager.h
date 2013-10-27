@@ -377,8 +377,8 @@ class NodeManager<Node<PathPoly_3::Vertex_handle>, PathPoly_3 >{
 
         B1K -= B2->key.first/4;
         std::cout << "B1 augmented from " << B1->key.first << " to " << B1K << std::endl;
-        char a;
-        std::cin >> a;
+        //char a;
+        //std::cin >> a;
 
         }
 

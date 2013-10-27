@@ -36,7 +36,7 @@ class Pathfinder{
 
         //Pathfinder members
         NodeManager<N, E> manager;
-        std::vector<node_handle> path;
+        std::vector<CGAL::Point_3<K> > path;
         //E & graph;
         node_handle last, start, end;
         float km, cost;
@@ -187,6 +187,8 @@ class Pathfinder{
 //Get path and cost of path
 //---------------------------------------------------------------------------------
 
+    std::vector<CGAL::Point_3<K> > & getPathPoints(){return path;}
+
     std::vector<UpdateBundle> getPath(bool adjust = true){
 
         std::vector<UpdateBundle> facets;
@@ -196,7 +198,7 @@ class Pathfinder{
         node_handle cur = start;
         node_handle tempCur;
         cost = start->key.second;
-        std::vector<CGAL::Point_3<K> > path;
+        path.clear();
         path.push_back(cur->point());
         bool interpol = false;
         PathPoly_3::Halfedge_handle intEdge;
@@ -400,7 +402,7 @@ class Pathfinder{
             }
 
         }
-        path.push_back(cur->point());
+        //path.push_back(cur->point());
         std::cout << "Shortest Path:" << std::endl;
         for(typename std::vector<CGAL::Point_3<K> >::iterator it = path.begin(); it != path.end(); ++it)
             std::cout << "(" << *it << ") ";
