@@ -22,6 +22,7 @@ public:
 	void init(char * filename){
 	using namespace std;
 	PlyParser <HalfedgeDS> parser (filename);
+	std::cout << "Delegating" << std::endl;
 	P.delegate(parser);
 
 	cout<<"Number of verts: "<<P.size_of_vertices()<<endl;

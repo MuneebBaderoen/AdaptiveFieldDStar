@@ -107,13 +107,15 @@ public:
 
 class Vertex: public Vector3{
 	public:
+	int index;
 	Vector3 normal;
 	float longestEdge;
 
 	Vertex(){
 	longestEdge=0;
 	}
-	Vertex(float v1, float v2, float v3){
+	Vertex(int i, float v1, float v2, float v3){
+	    index = i;
 		x=v1;
 		y=v2;
 		z=v3;

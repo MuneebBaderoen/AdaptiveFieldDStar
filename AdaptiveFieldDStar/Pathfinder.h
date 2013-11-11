@@ -46,6 +46,7 @@ class Pathfinder{
     public:
 
     float getCost(){return cost;}
+    int getFuncs(){return manager.numFuncs;}
 
 //---------------------------------------------------------------------------------
 //Main pathfinding method
@@ -65,6 +66,7 @@ class Pathfinder{
         p_queue.clear();
         manager.setRHS(end, 0);
         manager.setG(end, manager.heuristic(start, end));
+        //std::cout << "End G:" << manager.getG(end) << std::endl;
 
         on_queue[end] = p_queue.push(N(end, manager.heuristic(start, end), 0));
 
@@ -122,9 +124,11 @@ class Pathfinder{
 
     void handleChanges(const std::deque<node_handle> & c){
 
+        char a;
+
         if(!c.empty()){
 
-            std::cout << "Changing keys" << std::endl << "==================================" << std::endl;
+            //std::cout << "Changing keys" << std::endl << "==================================" << std::endl;
 
             //for all new facets
             for(typename std::deque<node_handle>::const_iterator it = c.begin(); it != c.end(); ++it){
@@ -133,8 +137,9 @@ class Pathfinder{
 
                 for(typename std::vector<node_handle>::iterator pit = preds.begin(); pit != preds.end(); ++pit){
 
-                std::cout << "Trying to update " << (*pit)->point() << std::endl;
-                std::cout << "Has old key = " << (*pit)->key << std::endl;
+                //std::cout << "Trying to update " << (*pit)->point() << std::endl;
+                //std::cout << "Has old key = " << (*pit)->key << std::endl;
+                //std::cin >> a;
 
                 if(*pit != end){
 
@@ -145,7 +150,7 @@ class Pathfinder{
 
                         if(fit->facet() != PathPoly_3::Facet_handle()){
 
-                            std::cout << "Adjacent to triangle" << std::endl;
+                            //std::cout << "Adjacent to triangle" << std::endl;
                             costPair cp = manager.getCostPair(*pit, fit->facet());
                             newRHS = std::min(newRHS, cp.first);
                             if(newRHS < fit->facet()->pathCost){
@@ -162,16 +167,20 @@ class Pathfinder{
                     manager.setRHS(*pit, newRHS);
                     //manager.setG(*pit, newRHS);
 
-                    std::cout << "RHS of " << (*pit)->point() << ": " << manager.getRHS(*pit) << std::endl;
+                    //std::cout << "RHS of " << (*pit)->point() << ": " << manager.getRHS(*pit) << std::endl;
 
                 }
 
+                //std::cout << "Key is now " << (*pit)->key << std::endl;
+                //std::cin >> a;
                 updateNode(*pit);
-                std::cout << "Key is now " << (*pit)->key << std::endl;
+                //std::cout << "Key is now " << (*pit)->key << std::endl;
+                //std::cin >> a;
+
 
                 }
 
-                std::cout << "Heuristic for " << (*it)->point() << ": " << manager.heuristic(start, (*it)) << std::endl;
+                //std::cout << "Heuristic for " << (*it)->point() << ": " << manager.heuristic(start, (*it)) << std::endl;
 
             }
 
@@ -192,7 +201,7 @@ class Pathfinder{
     std::vector<UpdateBundle> getPath(bool adjust = true){
 
         std::vector<UpdateBundle> facets;
-        std::cout << "Starting Path:" << std::endl << "================================================" << std::endl;
+        //std::cout << "Starting Path:" << std::endl << "================================================" << std::endl;
         //std::cout << "Nodes in mesh: " << manager.getEnvir().size_of_vertices() << std::endl;
 
         node_handle cur = start;
@@ -206,7 +215,7 @@ class Pathfinder{
 
         while(cur != end){
 
-            if(interpol){
+            /*if(interpol){
 
                 std::cout << "Processing interpolated point " << tempCur->point() << std::endl;
                 PathPoly_3::Halfedge_around_vertex_circulator it = tempCur->vertex_begin();
@@ -310,9 +319,9 @@ class Pathfinder{
                     }
 
             }
-            else{
+            else*/{
 
-                std::cout << "Processing mesh point " << cur->point() << std::endl;
+                //std::cout << "Processing mesh point " << cur->point() << std::endl;
                 //std::cin >> a;
 
                 PathPoly_3::Halfedge_around_vertex_circulator it = cur->vertex_begin();
@@ -336,15 +345,15 @@ class Pathfinder{
 
                         }
 
-                        std::cout << "lowPoint of tri: " << lowCost.second.first.point() << std::endl;
+                        //std::cout << "lowPoint of tri: " << lowCost.second.first.point() << std::endl;
                         }
                     ++it;
 
                 }
                 while(it != cur->vertex_begin());
 
-                std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point()
-                            << " with cost: " << lowCost.first << std::endl;
+                /*std::cout << std::setprecision(6) << "Next point: " << lowCost.second.first.point()
+                            << " with cost: " << lowCost.first << std::endl;*/
                 //std::cin >> a;
 
                 nextPair next = manager.getNextVert(lowTri, lowCost);
@@ -363,10 +372,13 @@ class Pathfinder{
                     b.handle = lowCost.second.second;
                     b.point = lowCost.second.first.point();
 
-                    std::cout << "===============\nNext from handle: " << b.handle->opposite()->next()->vertex()->point() << "\n====================="
-                            << std::endl;
+                    /*std::cout << "===============\nNext from handle: " << b.handle->opposite()->next()->vertex()->point() << "\n====================="
+                            << std::endl;*/
+
+                    //std::cin >> a;
 
                     cur = b.handle->opposite()->next()->vertex();
+
                     interpol = false;
 
                     float edge_length = sqrt(CGAL::Vector_3<K>(lowCost.second.second->vertex()->point()
@@ -375,15 +387,15 @@ class Pathfinder{
                     float range = lowCost.second.second->vertex()->key.first - lowCost.second.second->opposite()->vertex()->key.first;
 
                     if(lowCost.second.second->vertex()->newPoint)
-                        range -= (lowCost.second.second->vertex()->key.first/4);
+                        range -= lowCost.second.second->vertex()->key.first/(2*lowCost.second.second->vertex()->key.first);
 
-                    std::cout << "Interpolate between " << lowCost.second.second->vertex()->point() << "with key " << lowCost.second.second->vertex()->key.first
+                    /*std::cout << "Interpolate between " << lowCost.second.second->vertex()->point() << "with key " << lowCost.second.second->vertex()->key.first
                             << " and " << lowCost.second.second->opposite()->vertex()->point() << "with key " << lowCost.second.second->opposite()->vertex()->key.first << std::endl;
-
-                    b.cost = lowCost.second.second->vertex()->key.first * sqrt(CGAL::Vector_3<K>(lowTri->lowPoint, lowCost.second.second->opposite()->vertex()->point()).squared_length())
-                            + lowCost.second.second->opposite()->vertex()->key.first * sqrt(CGAL::Vector_3<K>(lowTri->lowPoint, lowCost.second.second->vertex()->point()).squared_length());
-
-                    b.cost /= edge_length;
+                    std::cout << "Range: " << range << std::endl;
+                    std::cout << "Length: " << edge_length << std::endl;
+                    std::cout << "Ratio: " << sqrt(CGAL::Vector_3<K>(b.point, lowCost.second.second->vertex()->point()).squared_length()) / edge_length << std::endl;
+                    */
+                    b.cost = lowCost.second.second->opposite()->vertex()->key.first + range * sqrt(CGAL::Vector_3<K>(b.point, lowCost.second.second->vertex()->point()).squared_length()) / edge_length;
 
                     /*b.cost = lowCost.second.second->vertex()->key.first
                                 - sqrt(CGAL::Vector_3<K>(lowCost.second.second->vertex()->point(), next.second.first->point()).squared_length() / edge_length)
@@ -392,8 +404,10 @@ class Pathfinder{
                     //b.cost = lowCost.first;
 
                     facets.push_back(b);
+                    path.push_back(b.handle->opposite()->next()->vertex()->point());
 
-                    std::cout << "Adding bundle: " << b.point << ", " << b.cost << std::endl;
+                    //std::cout << "Adding bundle: " << b.point << ", " << b.cost << std::endl;
+                    //std::cin >> a;
 
                     tempCur = next.second.first;
                     intEdge = next.second.second;
@@ -439,7 +453,7 @@ class Pathfinder{
             node_key new_key = manager.computeKey(start, index);
             on_queue[index] = p_queue.push(N(index, new_key));
             index->key = new_key;
-            std::cout << "Inserting node " << index->point() << " with key " << new_key << std::endl;
+            //std::cout << "Inserting node " << index->point() << " with key " << new_key << std::endl;
             }
 
         }
@@ -459,13 +473,15 @@ class Pathfinder{
 
     void computePath(){
 
-    std::cout << "Computing path:" << std::endl << "========================================" << std::endl;
-    for(typename std::map<node_handle, q_handle_type>::iterator it = on_queue.begin(); it != on_queue.end(); ++it)
-        std::cout << "(" << it->first->point() << ") = " << manager.computeKey(start, it->first) << std::endl;
+    //std::cout << "Computing path:" << std::endl << "========================================" << std::endl;
+    //for(typename std::map<node_handle, q_handle_type>::iterator it = on_queue.begin(); it != on_queue.end(); ++it)
+    //    std::cout << "(" << it->first->point() << ") = " << manager.computeKey(start, it->first) << std::endl;
 
     while(!p_queue.empty() && (manager.computeKey(start,p_queue.top().index) < manager.computeKey(start, start) || std::fabs(manager.getRHS(start) - manager.getG(start)) > 1e-5)){
 
-        std::cout << "Processing Node " << p_queue.top().index->point() << std::endl;
+        //std::cout << "Processing Node " << p_queue.top().index->point() << std::endl;
+        //char a;
+        //std::cin >> a;
         //compare old and new keys for changes
         node_handle top_index = p_queue.top().index;
         node_key key_old(p_queue.top().getG(), p_queue.top().getRHS());
@@ -473,7 +489,7 @@ class Pathfinder{
         p_queue.pop();
         on_queue.erase(top_index);
 
-        std::cout << "Key of " << top_index->point() << " : " << key_old << std::endl;
+        //std::cout << "Key of " << top_index->point() << " : " << key_old << std::endl;
 
         //char a;
         //std::cin >> a;
@@ -490,7 +506,7 @@ class Pathfinder{
         //if the graph's key has different values
         else */if(manager.getG(top_index) > manager.getRHS(top_index)){
 
-            std::cout << "Adjusting inconsistent key " << key_old << " of " << top_index->point() << std::endl;
+            //std::cout << "Adjusting inconsistent key " << key_old << " of " << top_index->point() << std::endl;
             //update node and remove from queue
             manager.setG(top_index, manager.getRHS(top_index));
 
@@ -591,7 +607,7 @@ class Pathfinder{
 
         }
 
-        std::cout << "Key of " << top_index->point() << " = " << top_index->key << std::endl;
+        //std::cout << "Key of " << top_index->point() << " = " << top_index->key << std::endl;
 
     }
 

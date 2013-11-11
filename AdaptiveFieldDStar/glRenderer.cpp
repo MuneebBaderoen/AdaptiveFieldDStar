@@ -8,6 +8,7 @@
 #include "Pathfinder.h"
 
 #include <math.h>
+#include <time.h>
 #include <cmath>
 #include <iostream>
 #include <fstream>
@@ -59,13 +60,17 @@ public:
         B.begin_surface( 7, 5);
         typedef typename PathPoly_3::HDS::Vertex   Vertex;
         typedef typename Vertex::Point Point;
-        B.add_vertex( Point( 0, 0, 0));
-        B.add_vertex( Point( 1, 0, 0));
-        B.add_vertex( Point( -1, 0, 0));
-        B.add_vertex( Point( 0, 1, 0));
-        B.add_vertex( Point( -2, 1, 0));
-        //B.add_vertex( Point( 2, 3, 0));
-        //B.add_vertex( Point( 5, 1, 0));
+        B.add_vertex( Point( 0, 0, 0));//0
+        B.add_vertex( Point( 1, 0, 0));//1
+        B.add_vertex( Point( -1, 0, 0));//2
+        B.add_vertex( Point( 0, 1, 0));//3
+        B.add_vertex( Point( -2, 1, 0));//4
+        B.add_vertex( Point( 2, 3, 0));//5
+        B.add_vertex( Point( 5, 1, 0));//6
+        B.add_vertex( Point( 4, 4, 0));//7
+        B.add_vertex( Point( -2, 5, 0));//8
+        B.add_vertex( Point( 0, 9, 0));//9
+
         PathPoly_3::Facet_handle f = B.begin_facet();
         B.add_vertex_to_facet( 0);
         B.add_vertex_to_facet( 1);
@@ -84,18 +89,54 @@ public:
         B.add_vertex_to_facet( 4);
         B.end_facet();
         f->weight = 1;
-        /*f = B.begin_facet();
+        f = B.begin_facet();
         B.add_vertex_to_facet( 3);
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 5);
         B.end_facet();
         f->weight = 1;
+
         f = B.begin_facet();
         B.add_vertex_to_facet( 5);
         B.add_vertex_to_facet( 1);
         B.add_vertex_to_facet( 6);
         B.end_facet();
-        f->weight = 1;*/
+        f->weight = 1;
+
+        f = B.begin_facet();
+        B.add_vertex_to_facet( 5);
+        B.add_vertex_to_facet( 6);
+        B.add_vertex_to_facet( 7);
+        B.end_facet();
+        f->weight = 1;
+
+        f = B.begin_facet();
+        B.add_vertex_to_facet( 3);
+        B.add_vertex_to_facet( 5);
+        B.add_vertex_to_facet( 8);
+        B.end_facet();
+        f->weight = 1;
+
+        f = B.begin_facet();
+        B.add_vertex_to_facet( 3);
+        B.add_vertex_to_facet( 8);
+        B.add_vertex_to_facet( 4);
+        B.end_facet();
+        f->weight = 1;
+
+        f = B.begin_facet();
+        B.add_vertex_to_facet( 8);
+        B.add_vertex_to_facet( 5);
+        B.add_vertex_to_facet( 9);
+        B.end_facet();
+        f->weight = 1;
+
+        f = B.begin_facet();
+        B.add_vertex_to_facet( 5);
+        B.add_vertex_to_facet( 7);
+        B.add_vertex_to_facet( 9);
+        B.end_facet();
+        f->weight = 1;
         B.end_surface();
     }
 };
@@ -478,56 +519,6 @@ void display(){
         }
         while(pCirc != it->facet_begin());
 
-		/*for(int i = 0; i<(int)it->facet_degree(); i++){
-			pt.x+=h->vertex()->point().x();
-			pt.y+=h->vertex()->point().y();
-			pt.z+=h->vertex()->point().z();
-			h=h->next();
-		}
-		pt.x/=(int)it->facet_degree();
-		pt.y/=(int)it->facet_degree();
-		pt.z/=(int)it->facet_degree();
-
-
-		h = pCirc;
-		for(int i = 0; i<(int)it->facet_degree(); i++){
-		if(count-1==currentFace)
-			glColor3f(1.0f,1.0f,1.0f);
-		else
-			glColor3f(1.0f,0.2f,0.2f);
-
-			const Point a = h->vertex()->point();
-			const Point b = h->opposite()->vertex()->point();
-
-			int dist = 5;
-
-			glBegin( GL_LINES);
-			glVertex3f(a.x()+(pt.x-a.x())/dist,
-				a.y()+(pt.y-a.y())/dist,
-				a.z()+(pt.z-a.z())/dist);
-			glVertex3f(b.x()+(pt.x-b.x())/dist,
-				b.y()+(pt.y-b.y())/dist,
-				b.z()+(pt.z-b.z())/dist);
-			glEnd();
-
-
-
-			//if((int)it->facet_degree()!=3)
-			/*
-			glColor3f(0.2f,1.0f,0.2f);
-			glBegin( GL_LINES);
-			glVertex3f(a.x(), a.y(), a.z());
-			glVertex3f(pt.x, pt.y, pt.z);
-
-			glEnd();
-
-
-
-			h=h->next();
-		}*/
-
-
-
 	}
 	//cout<<count<<endl;
 
@@ -562,14 +553,28 @@ int main(int argc, char** argv)
     Build_triangle<PathPoly_3::HDS> tri;
 
 
+    int sIndex = 0, eIndex = 9;
+
     mesh.delegate(tri);
 
-    PathPoly_3::Vertex_handle start((mesh.vertices_begin()));
-    PathPoly_3::Vertex_handle end((--mesh.vertices_end()));
+    PathPoly_3::Vertex_handle mit = mesh.vertices_begin();
+    PathPoly_3::Vertex_handle start, end;
+
+    for(int i = 0; i <= std::max(sIndex, eIndex) && mit != mesh.vertices_end(); ++i)
+    {
+
+        if(i == sIndex)
+            start = mit;
+        else if(i == eIndex)
+            end = mit;
+
+        ++mit;
+
+    }
+
     adapt.P = mesh;
-	//std::string filename = "Resources/bunny_recon/bun_zipper.ply";
-	//std::string filename = "Resources/tetra.ply";
-	//m.init((char *) filename.c_str());
+	std::string filename = "Resources/bun_zipper_res3.ply";
+	//adapt.init((char *) filename.c_str());
 
 	camPos=Vector3(0,0,0-zoom);
 
@@ -577,16 +582,18 @@ int main(int argc, char** argv)
     cout << "From " << start->point() << " to " << end->point() << endl;
 
     Pathfinder<Node<PathPoly_3::Vertex_handle>, PathPoly_3> pfC(adapt.P);
+    clock_t sTime = clock();
+
     pfC.findPath(start, end);
 
     float oldCost = INFINITY;
 
-    int y = 0;
+    int y = 0;/*
        do{
 
         deque<PathPoly_3::Vertex_handle> newVerts;
 
-        std::cout << "Iteration " << y << std::endl << "============================" << std::endl;
+        //std::cout << "Iteration " << y << std::endl << "============================" << std::endl;
         vector<UpdateBundle> toProcess = pfC.getPath();
         //char a;
         //std::cin >> a;
@@ -596,15 +603,6 @@ int main(int argc, char** argv)
 
         oldCost = pfC.getCost();
 
-        for(int i = 0; i < toProcess.size(); ++i){
-
-            std::cout << "Bundle: " << toProcess[i].handle->vertex()->point()
-                        << ", " << toProcess[i].point
-                        << ", " << toProcess[i].cost;
-            std::cout << std::endl;
-
-        }
-
         //process every second halfedge to divide triangle pairs
         for(vector<UpdateBundle>::iterator it = toProcess.begin(); it != toProcess.end(); ++it){
 
@@ -612,7 +610,7 @@ int main(int argc, char** argv)
             //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*((*it).handle->vertex()), (*(*it).handle->opposite()->vertex()),(*it).point);
             vh->key = node_key((*it).cost, (*it).cost);
             vh->newPoint = true;
-            std::cout << "Added vertex at " << vh->point() << " with cost " << vh->key << std::endl;
+            //std::cout << "Added vertex at " << vh->point() << " with cost " << vh->key << std::endl;
             //char a;
             //cin >> a;
             newVerts.push_front(vh);
@@ -625,16 +623,20 @@ int main(int argc, char** argv)
         ++y;
 
     }
-    while(true);
+    while(true);*/
 
+    //std::cout << "Getting path" << std::endl;
     pfC.getPath(false);
     path = pfC.getPathPoints();
 
     //PathPoly_3::Vertex_handle vh = adapt.find_halfedge_handle(*(adapt.P.vertices_begin()), *(++(adapt.P.vertices_begin())), CGAL::Point_3<K>(0,0.5,0));
-
+    sTime = clock() - sTime;
     std::cout << "Num. vertices: " << adapt.P.size_of_vertices() << std::endl;
     std::cout << "Num. Facets: " << adapt.P.size_of_facets() << std::endl;
     std::cout << "Num. Iterations: " << y << std::endl;
+    std::cout << "Size of mesh (bytes): " << adapt.P.bytes() << std::endl;
+    std::cout << "Time taken (seconds): " << (float)sTime/CLOCKS_PER_SEC << std::endl;
+    std::cout << "Number of cost functions: " << pfC.getFuncs() << std::endl;
 
 	glutInit(&argc,argv);
 	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA);
